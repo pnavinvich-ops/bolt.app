@@ -10,6 +10,18 @@
   "theme_color": "#0B0B0F",
   "icons": [
     {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
       "src": "https://bolt-app-psi.vercel.app/armlog.svg",
       "type": "image/svg+xml",
       "isSquare": false,
