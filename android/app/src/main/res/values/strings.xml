@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ArmLog</string>
+    <string name="title_activity_main">ArmLog</string>
+    <string name="package_name">com.armlog.app</string>
+    <string name="custom_url_scheme">com.armlog.app</string>
+</resources>
