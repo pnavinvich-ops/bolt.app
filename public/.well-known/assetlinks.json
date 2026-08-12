@@ -1,12 +1,12 @@
 [
-  {
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "app.vercel.bolt_app_psi.twa",
-      "sha256_cert_fingerprints": [
-        "0F:40:8E:26:19:A5:32:B5:60:22:38:4D:05:89:B0:61:90:43:95:D5:81:59:6A:F5:27:2C:2F:F3:08:E4:A5:F8"
-      ]
-    }
-  }
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.mycompany.armlog",
+      "sha256_cert_fingerprints": [
+       1D:42:CE:61:FB:E1:76:95:1C:C0:CE:72:20:20:00:F2:EF:BE:06:C1:C7:37:6E:12:12:0D:F0:F2:C2:E4:A1:40
+      ]
+    }
+  }
 ]
