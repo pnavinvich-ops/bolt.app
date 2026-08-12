@@ -1,12 +1,13 @@
 [
-  {
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "com.mycompany.armlog",
-      "sha256_cert_fingerprints": [
-       1D:42:CE:61:FB:E1:76:95:1C:C0:CE:72:20:20:00:F2:EF:BE:06:C1:C7:37:6E:12:12:0D:F0:F2:C2:E4:A1:40
-      ]
-    }
-  }
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.mycompany.armlog",
+      "sha256_cert_fingerprints": [
+        "1D:42:CE:61:FB:E1:76:95:1C:C0:CE:72:20:20:00:F2:EF:BE:06:C1:C7:37:6E:12:12:0D:F0:F2:C2:E4:A1:40",
+        "CB:F1:A5:13:66:22:19:E6:8E:F3:13:59:79:A9:FE:B5:50:B9:37:49:4E:F5:1F:CF:BC:45:A1:87:82:E3:AB:B5"
+      ]
+    }
+  }
 ]
