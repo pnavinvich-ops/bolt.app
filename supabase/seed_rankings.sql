@@ -22,4 +22,4 @@ insert into public.rankings (rank, athlete_name, country, country_name, weight_c
   (18, 'Alex Kurdega',       'PL', 'Poland',        'HW',  108.0, 'right', 1820, 'WAF', 'https://www.waf-armwrestling.com/rankings', now()),
   (19, 'Tomasz Lewandowski', 'PL', 'Poland',        'MW',   92.0, 'right', 1610, 'WAF', 'https://www.waf-armwrestling.com/rankings', now()),
   (20, 'Mindaugas Taraila',  'LT', 'Lithuania',     'HW',  104.0, 'right', 1750, 'WAF', 'https://www.waf-armwrestling.com/rankings', now())
-on conflict (athlete_name, weight_class, arm_hand, source, updated_at) do nothing;
+on conflict (athlete_name, weight_class, arm_hand, source) do nothing;

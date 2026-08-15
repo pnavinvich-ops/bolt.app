@@ -1,0 +1,22 @@
+name: Scrape rankings
+on:
+  schedule:
+    # Daily at 06:07 UTC
+    - cron: '7 6 * * *'
+  workflow_dispatch: # allow manual trigger from the Actions tab
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install scraper deps
+        run: npm install --no-save --legacy-peer-deps cheerio dotenv @supabase/supabase-js
+      - name: Run scraper
+        run: node scripts/scrape-rankings.mjs
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
