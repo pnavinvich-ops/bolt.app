@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Zap, RefreshCw, Award, Activity, Timer, AlertCircle, BookOpen, Trophy, Globe2, MessageCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useLifts } from '@/stores/lifts';
 import { useTendon } from '@/stores/tendon';
 import { useSettings } from '@/stores/settings';
@@ -11,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 type ReactionState = 'idle' | 'waiting' | 'ready' | 'result' | 'tooSoon';
 
-function ReactionTrainer() {
+function ReactionTrainer({ title }: { title: string }) {
   const [state, setState] = useState<ReactionState>('idle');
   const [resultMs, setResultMs] = useState(0);
   const [best, setBest] = useState<number | null>(null);
@@ -78,7 +79,7 @@ function ReactionTrainer() {
     <section className="card">
       <div className="mb-3 flex items-center gap-2">
         <Zap size={18} className="text-accent" />
-        <h3 className="text-h3">Hold Reaction Trainer</h3>
+        <h3 className="text-h3">{title}</h3>
       </div>
       <button
         type="button"
@@ -110,7 +111,7 @@ function ReactionTrainer() {
   );
 }
 
-function TendonHealthCard() {
+function TendonHealthCard({ title, checkIn }: { title: string; checkIn: string }) {
   const checks = useTendon((s) => s.checks);
   const index = currentTendonIndex(checks);
 
@@ -123,7 +124,7 @@ function TendonHealthCard() {
     <section className="card">
       <div className="mb-3 flex items-center gap-2">
         <Activity size={18} className="text-accent" />
-        <h3 className="text-h3">Tendon Health</h3>
+        <h3 className="text-h3">{title}</h3>
       </div>
       {index.daysLogged === 0 ? (
         <div className="flex flex-col items-center gap-3 py-4">
@@ -132,7 +133,7 @@ function TendonHealthCard() {
             No check-ins this week. Log daily to track your tendon health.
           </p>
           <Link to="/tendon" className="btn-ghost">
-            <Timer size={16} /> Check in today
+            <Timer size={16} /> {checkIn}
           </Link>
         </div>
       ) : (
@@ -159,7 +160,7 @@ function TendonHealthCard() {
   );
 }
 
-function BenchmarksCard() {
+function BenchmarksCard({ title }: { title: string }) {
   const lifts = useLifts((s) => s.lifts);
   const unit = useSettings((s) => s.settings.unit);
 
@@ -179,7 +180,7 @@ function BenchmarksCard() {
     <section className="card">
       <div className="mb-3 flex items-center gap-2">
         <Award size={18} className="text-accent" />
-        <h3 className="text-h3">Strength Benchmarks</h3>
+        <h3 className="text-h3">{title}</h3>
       </div>
       {overallBest === 0 ? (
         <p className="py-4 text-center text-caption text-text-faint">
@@ -225,13 +226,14 @@ function BenchmarksCard() {
 }
 
 export default function ToolsScreen() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen pb-32">
-      <ScreenHeader title="Tools" subtitle="Reaction, tendon, benchmarks" />
+      <ScreenHeader title={t('tools.title')} subtitle={t('tools.subtitle')} />
       <div className="mx-auto max-w-md space-y-4 px-4 py-4">
-        <ReactionTrainer />
-        <TendonHealthCard />
-        <BenchmarksCard />
+        <ReactionTrainer title={t('tools.reactionTitle')} />
+        <TendonHealthCard title={t('tools.tendonTitle')} checkIn={t('tools.tendonCheckIn')} />
+        <BenchmarksCard title={t('tools.benchTitle')} />
         <MoreTools />
       </div>
     </div>
@@ -239,20 +241,21 @@ export default function ToolsScreen() {
 }
 
 function MoreTools() {
+  const { t } = useTranslation();
   return (
     <section className="card space-y-2">
-      <p className="label">Learn & connect</p>
+      <p className="label">{t('tools.moreTitle')}</p>
       <Link to="/guide" className="btn-ghost w-full justify-start">
-        <BookOpen size={18} /> Vector guide
+        <BookOpen size={18} /> {t('tools.moreGuide')}
       </Link>
       <Link to="/athletes" className="btn-ghost w-full justify-start">
-        <Trophy size={18} /> Elite athletes
+        <Trophy size={18} /> {t('tools.moreAthletes')}
       </Link>
       <Link to="/rankings" className="btn-ghost w-full justify-start">
-        <Globe2 size={18} /> World rankings
+        <Globe2 size={18} /> {t('tools.moreRankings')}
       </Link>
       <Link to="/chat" className="btn-ghost w-full justify-start">
-        <MessageCircle size={18} /> Global chat
+        <MessageCircle size={18} /> {t('tools.moreChat')}
       </Link>
     </section>
   );

@@ -1,22 +1,24 @@
 import { Link } from 'react-router-dom';
 import { Dumbbell, History, Activity, Wrench, Settings as SettingsIcon } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const tabs = [
-  { to: '/log', label: 'Log', icon: Dumbbell },
-  { to: '/history', label: 'History', icon: History },
-  { to: '/diagnostics', label: 'Stats', icon: Activity },
-  { to: '/tools', label: 'Tools', icon: Wrench },
-  { to: '/settings', label: 'Settings', icon: SettingsIcon },
+  { to: '/log', icon: Dumbbell, key: 'tabs.log' },
+  { to: '/history', icon: History, key: 'tabs.history' },
+  { to: '/diagnostics', icon: Activity, key: 'tabs.diagnostics' },
+  { to: '/tools', icon: Wrench, key: 'tabs.tools' },
+  { to: '/settings', icon: SettingsIcon, key: 'nav.settings' },
 ];
 
 export default function TabBar() {
+  const { t } = useTranslation();
   const { pathname } = useLocation();
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-surface/95 backdrop-blur-md safe-b">
       <div className="mx-auto flex max-w-md items-stretch justify-between px-2">
-        {tabs.map(({ to, label, icon: Icon }) => {
+        {tabs.map(({ to, icon: Icon, key }) => {
           const active = pathname === to || pathname.startsWith(to + '/');
           return (
             <Link
@@ -36,7 +38,7 @@ export default function TabBar() {
                   active ? 'text-accent' : 'text-text-faint group-hover:text-text-dim'
                 }`}
               >
-                {label}
+                {t(key)}
               </span>
             </Link>
           );

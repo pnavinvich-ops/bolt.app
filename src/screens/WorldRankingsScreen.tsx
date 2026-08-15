@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Filter, Trophy, RefreshCw, AlertCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import ScreenHeader from '@/components/ScreenHeader';
 
@@ -17,6 +18,7 @@ const WEIGHTS = ['All', 'WW', 'LW', 'MW', 'HW', 'SHW'] as const;
 const ARMS = ['All', 'Right', 'Left'] as const;
 
 export default function WorldRankingsScreen() {
+  const { t } = useTranslation();
   const [rows, setRows] = useState<Ranking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -60,7 +62,7 @@ export default function WorldRankingsScreen() {
   return (
     <div className="min-h-screen pb-24">
       <ScreenHeader
-        title="World Rankings"
+        title={t('rankings.title')}
         subtitle={subtitle}
         backTo="/tools"
         right={
@@ -81,7 +83,7 @@ export default function WorldRankingsScreen() {
             <Filter size={12} /> Filter
           </p>
           <div>
-            <p className="mb-1.5 text-caption text-text-faint">Arm</p>
+            <p className="mb-1.5 text-caption text-text-faint">{t('rankings.filterArm')}</p>
             <div className="grid grid-cols-3 gap-1 rounded-md border border-border bg-surfaceAlt p-1">
               {ARMS.map((o) => (
                 <button
@@ -92,13 +94,13 @@ export default function WorldRankingsScreen() {
                     arm === o ? 'bg-accent text-bg font-semibold' : 'text-text-dim'
                   }`}
                 >
-                  {o}
+                  {o === 'All' ? t('rankings.all') : o === 'Right' ? t('rankings.right') : t('rankings.left')}
                 </button>
               ))}
             </div>
           </div>
           <div>
-            <p className="mb-1.5 text-caption text-text-faint">Weight class</p>
+            <p className="mb-1.5 text-caption text-text-faint">{t('rankings.filterWeight')}</p>
             <div className="grid grid-cols-6 gap-1 rounded-md border border-border bg-surfaceAlt p-1">
               {WEIGHTS.map((o) => (
                 <button
@@ -132,7 +134,7 @@ export default function WorldRankingsScreen() {
         )}
 
         {!loading && !error && filtered.length === 0 && (
-          <p className="py-8 text-center text-caption text-text-faint">No rankings yet.</p>
+          <p className="py-8 text-center text-caption text-text-faint">{t('rankings.noData')}</p>
         )}
 
         <ol className="space-y-2">

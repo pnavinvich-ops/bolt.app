@@ -2,6 +2,30 @@
   "$meta": { "language": "fr", "displayName": "French", "nativeName": "Français", "rtl": false, "flag": "🇫🇷" },
   "common": { "save": "Enregistrer", "cancel": "Annuler", "back": "Retour", "continue": "Continuer", "loading": "Chargement…", "retry": "Réessayer", "send": "Envoyer", "skip": "Passer", "reset": "Réinitialiser", "confirm": "Confirmer", "delete": "Supprimer", "edit": "Modifier" },
   "nav": { "log": "Journal", "history": "Historique", "diagnostics": "Diagnostic", "tools": "Outils", "tendon": "Tendons", "sparring": "Sparring", "settings": "Paramètres", "plan": "Plan", "chat": "Chat", "rankings": "Classement", "guide": "Guide" },
-  "settings": { "language": "Langue", "units": "Unités", "bodyWeight": "Poids corporel", "weightClass": "Catégorie de poids" },
-  "vectorGuide": { "what": "Ce que c'est", "why": "Pourquoi c'est important à la table", "how": "Comment l'entraîner en sécurité", "mistakes": "Erreurs courantes" }
+  "tabs": { "log": "Journal", "history": "Hist.", "diagnostics": "Diag", "tools": "Outils" },
+  "tools": {
+    "title": "Outils", "subtitle": "Réaction, tendons, références",
+    "reactionTitle": "Entraîneur de Réaction",
+    "tendonTitle": "Santé des tendons", "tendonCheckIn": "Vérifier aujourd'hui",
+    "benchTitle": "Records de force",
+    "moreTitle": "Apprendre & connecter",
+    "moreGuide": "Guide des vecteurs", "moreAthletes": "Athlètes d'élite",
+    "moreRankings": "Classement mondial", "moreChat": "Chat mondial"
+  },
+  "settings": {
+    "title": "Paramètres", "subtitle": "Profil & données",
+    "language": "Langue", "units": "Unités", "bodyWeight": "Poids corporel", "weightClass": "Catégorie de poids",
+    "profile": "Profil", "data": "Données", "trainingPlan": "Plan d'entraînement",
+    "export": "Exporter sauvegarde (JSON)", "import": "Importer sauvegarde",
+    "resetOnboarding": "Réinitialiser le questionnaire",
+    "resetSettings": "Réinitialiser les paramètres", "resetAll": "Effacer toutes les données",
+    "danger": "Zone dangereuse", "kilograms": "Kilogrammes", "pounds": "Livres"
+  },
+  "log": {
+    "title": "Enregistrer une série", "arm": "Bras", "vector": "Vecteur", "mode": "Mode",
+    "handle": "Poignée", "pulley": "Poulie", "sets": "Séries",
+    "saveBoth": "Enregistrer les deux bras", "saved": "Enregistré"
+  },
+  "vectorGuide": { "what": "Ce que c'est", "why": "Pourquoi c'est important à la table", "how": "Comment l'entraîner en sécurité", "mistakes": "Erreurs courantes" },
+  "rankings": { "title": "Classement Mondial", "filterArm": "Bras", "filterWeight": "Catégorie de poids", "all": "Tous", "right": "Droit", "left": "Gauche", "updated": "Mis à jour", "noData": "Aucun classement pour l'instant." }
 }

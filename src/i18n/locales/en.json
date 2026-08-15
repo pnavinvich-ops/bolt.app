@@ -2,6 +2,30 @@
   "$meta": { "language": "en", "displayName": "English", "nativeName": "English", "rtl": false, "flag": "🇬🇧" },
   "common": { "save": "Save", "cancel": "Cancel", "back": "Back", "continue": "Continue", "loading": "Loading…", "retry": "Retry", "send": "Send", "skip": "Skip", "reset": "Reset", "confirm": "Confirm", "delete": "Delete", "edit": "Edit" },
   "nav": { "log": "Log", "history": "History", "diagnostics": "Diagnostics", "tools": "Tools", "tendon": "Tendon", "sparring": "Sparring", "settings": "Settings", "plan": "Plan", "chat": "Chat", "rankings": "Rankings", "guide": "Guide" },
-  "settings": { "language": "Language", "units": "Units", "bodyWeight": "Body weight", "weightClass": "Weight class" },
-  "vectorGuide": { "what": "What it is", "why": "Why it matters on the table", "how": "How to train it safely", "mistakes": "Common mistakes to avoid" }
+  "tabs": { "log": "Log", "history": "History", "diagnostics": "Diag", "tools": "Tools" },
+  "tools": {
+    "title": "Tools", "subtitle": "Reaction, tendon, benchmarks",
+    "reactionTitle": "Hold Reaction Trainer",
+    "tendonTitle": "Tendon Health", "tendonCheckIn": "Check in today",
+    "benchTitle": "Strength Benchmarks",
+    "moreTitle": "Learn & connect",
+    "moreGuide": "Vector guide", "moreAthletes": "Elite athletes",
+    "moreRankings": "World rankings", "moreChat": "Global chat"
+  },
+  "settings": {
+    "title": "Settings", "subtitle": "Profile & data",
+    "language": "Language", "units": "Units", "bodyWeight": "Body weight", "weightClass": "Weight class",
+    "profile": "Profile", "data": "Data", "trainingPlan": "Training plan",
+    "export": "Export backup (JSON)", "import": "Import backup",
+    "resetOnboarding": "Reset onboarding quiz",
+    "resetSettings": "Reset settings only", "resetAll": "Reset all data",
+    "danger": "Danger zone", "kilograms": "Kilograms", "pounds": "Pounds"
+  },
+  "log": {
+    "title": "Log a set", "arm": "Arm", "vector": "Vector", "mode": "Mode",
+    "handle": "Handle", "pulley": "Pulley", "sets": "Sets",
+    "saveBoth": "Save both arms", "saved": "Saved"
+  },
+  "vectorGuide": { "what": "What it is", "why": "Why it matters on the table", "how": "How to train it safely", "mistakes": "Common mistakes to avoid" },
+  "rankings": { "title": "World Rankings", "filterArm": "Arm", "filterWeight": "Weight class", "all": "All", "right": "Right", "left": "Left", "updated": "Updated", "noData": "No rankings yet." }
 }
