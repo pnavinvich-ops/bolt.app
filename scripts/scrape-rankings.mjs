@@ -73,7 +73,7 @@ function parseEVW(html) {
   $('div.evw-ranking-block').each((_, block) => {
     const $block = $(block);
     const titleText = $block.find('.evw-champ-title').first().text().trim();
-    const armMatch = titleText.match(/^(Right|Left)\s+Arm\s+(.+?)(?:\s+\(|$)/i);
+    const armMatch = titleText.match(/^(Right|Left)\s+Arm\s+(.+?)\s*\(/i);
     if (!armMatch) return;
     const arm = armMatch[1].toLowerCase();
     const weightClass = codeForWeight(armMatch[2].trim());

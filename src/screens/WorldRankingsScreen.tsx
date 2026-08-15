@@ -14,16 +14,16 @@ interface Ranking {
   updated_at: string;
 }
 
-const WEIGHTS = ['All', 'WW', 'LW', 'MW', 'HW', 'SHW'] as const;
-const ARMS = ['All', 'Right', 'Left'] as const;
+const WEIGHTS = ['SHW', 'HW', 'LHW', 'MW', 'WW', 'LW', 'FE'] as const;
+const ARMS = ['Right', 'Left'] as const;
 
 export default function WorldRankingsScreen() {
   const { t } = useTranslation();
   const [rows, setRows] = useState<Ranking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [arm, setArm] = useState<(typeof ARMS)[number]>('All');
-  const [weight, setWeight] = useState<(typeof WEIGHTS)[number]>('All');
+  const [arm, setArm] = useState<(typeof ARMS)[number]>('Right');
+  const [weight, setWeight] = useState<(typeof WEIGHTS)[number]>('SHW');
 
   const load = async () => {
     if (!isSupabaseConfigured) {
@@ -51,8 +51,8 @@ export default function WorldRankingsScreen() {
     () =>
       rows.filter(
         (r) =>
-          (arm === 'All' || (arm === 'Right' ? r.arm_hand === 'right' : r.arm_hand === 'left')) &&
-          (weight === 'All' || r.weight_class === weight)
+          r.arm_hand === (arm === 'Right' ? 'right' : 'left') &&
+          r.weight_class === weight
       ),
     [rows, arm, weight]
   );
@@ -84,7 +84,7 @@ export default function WorldRankingsScreen() {
           </p>
           <div>
             <p className="mb-1.5 text-caption text-text-faint">{t('rankings.filterArm')}</p>
-            <div className="grid grid-cols-3 gap-1 rounded-md border border-border bg-surfaceAlt p-1">
+            <div className="grid grid-cols-2 gap-1 rounded-md border border-border bg-surfaceAlt p-1">
               {ARMS.map((o) => (
                 <button
                   key={o}
@@ -94,14 +94,14 @@ export default function WorldRankingsScreen() {
                     arm === o ? 'bg-accent text-bg font-semibold' : 'text-text-dim'
                   }`}
                 >
-                  {o === 'All' ? t('rankings.all') : o === 'Right' ? t('rankings.right') : t('rankings.left')}
+                  {o === 'Right' ? t('rankings.right') : t('rankings.left')}
                 </button>
               ))}
             </div>
           </div>
           <div>
             <p className="mb-1.5 text-caption text-text-faint">{t('rankings.filterWeight')}</p>
-            <div className="grid grid-cols-6 gap-1 rounded-md border border-border bg-surfaceAlt p-1">
+            <div className="grid grid-cols-4 gap-1 rounded-md border border-border bg-surfaceAlt p-1">
               {WEIGHTS.map((o) => (
                 <button
                   key={o}
