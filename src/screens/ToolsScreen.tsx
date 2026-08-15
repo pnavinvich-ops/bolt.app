@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Zap, RefreshCw, Award, Activity, Timer, AlertCircle } from 'lucide-react';
+import { Zap, RefreshCw, Award, Activity, Timer, AlertCircle, BookOpen, Trophy, Globe2, MessageCircle } from 'lucide-react';
 import { useLifts } from '@/stores/lifts';
 import { useTendon } from '@/stores/tendon';
 import { useSettings } from '@/stores/settings';
@@ -232,7 +232,28 @@ export default function ToolsScreen() {
         <ReactionTrainer />
         <TendonHealthCard />
         <BenchmarksCard />
+        <MoreTools />
       </div>
     </div>
+  );
+}
+
+function MoreTools() {
+  return (
+    <section className="card space-y-2">
+      <p className="label">Learn & connect</p>
+      <Link to="/guide" className="btn-ghost w-full justify-start">
+        <BookOpen size={18} /> Vector guide
+      </Link>
+      <Link to="/athletes" className="btn-ghost w-full justify-start">
+        <Trophy size={18} /> Elite athletes
+      </Link>
+      <Link to="/rankings" className="btn-ghost w-full justify-start">
+        <Globe2 size={18} /> World rankings
+      </Link>
+      <Link to="/chat" className="btn-ghost w-full justify-start">
+        <MessageCircle size={18} /> Global chat
+      </Link>
+    </section>
   );
 }

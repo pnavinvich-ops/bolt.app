@@ -1,0 +1,7 @@
+{
+  "$meta": { "language": "tr", "displayName": "Turkish", "nativeName": "Türkçe", "rtl": false, "flag": "🇹🇷" },
+  "common": { "save": "Kaydet", "cancel": "İptal", "back": "Geri", "continue": "Devam", "loading": "Yükleniyor…", "retry": "Yenile", "send": "Gönder", "skip": "Atla", "reset": "Sıfırla", "confirm": "Onayla", "delete": "Sil", "edit": "Düzenle" },
+  "nav": { "log": "Günlük", "history": "Geçmiş", "diagnostics": "Teşhis", "tools": "Araçlar", "tendon": "Tendon", "sparring": "Sparring", "settings": "Ayarlar", "plan": "Plan", "chat": "Sohbet", "rankings": "Sıralama", "guide": "Rehber" },
+  "settings": { "language": "Dil", "units": "Birimler", "bodyWeight": "Vücut ağırlığı", "weightClass": "Kilo sınıfı" },
+  "vectorGuide": { "what": "Nedir", "why": "Masada neden önemli", "how": "Güvenli nasıl antrenman yapılır", "mistakes": "Sık yapılan hatalar" }
+}

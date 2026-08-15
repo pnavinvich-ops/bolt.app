@@ -1,0 +1,7 @@
+{
+  "$meta": { "language": "ru", "displayName": "Russian", "nativeName": "Русский", "rtl": false, "flag": "🇷🇺" },
+  "common": { "save": "Сохранить", "cancel": "Отмена", "back": "Назад", "continue": "Продолжить", "loading": "Загрузка…", "retry": "Повторить", "send": "Отправить", "skip": "Пропустить", "reset": "Сбросить", "confirm": "Подтвердить", "delete": "Удалить", "edit": "Изменить" },
+  "nav": { "log": "Журнал", "history": "История", "diagnostics": "Диагностика", "tools": "Инструменты", "tendon": "Сухожилия", "sparring": "Спарринг", "settings": "Настройки", "plan": "План", "chat": "Чат", "rankings": "Рейтинг", "guide": "Гайд" },
+  "settings": { "language": "Язык", "units": "Единицы", "bodyWeight": "Вес тела", "weightClass": "Весовая категория" },
+  "vectorGuide": { "what": "Что это", "why": "Зачем это нужно на столе", "how": "Как тренировать безопасно", "mistakes": "Частые ошибки" }
+}

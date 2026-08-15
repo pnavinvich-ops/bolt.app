@@ -1,0 +1,7 @@
+{
+  "$meta": { "language": "en", "displayName": "English", "nativeName": "English", "rtl": false, "flag": "🇬🇧" },
+  "common": { "save": "Save", "cancel": "Cancel", "back": "Back", "continue": "Continue", "loading": "Loading…", "retry": "Retry", "send": "Send", "skip": "Skip", "reset": "Reset", "confirm": "Confirm", "delete": "Delete", "edit": "Edit" },
+  "nav": { "log": "Log", "history": "History", "diagnostics": "Diagnostics", "tools": "Tools", "tendon": "Tendon", "sparring": "Sparring", "settings": "Settings", "plan": "Plan", "chat": "Chat", "rankings": "Rankings", "guide": "Guide" },
+  "settings": { "language": "Language", "units": "Units", "bodyWeight": "Body weight", "weightClass": "Weight class" },
+  "vectorGuide": { "what": "What it is", "why": "Why it matters on the table", "how": "How to train it safely", "mistakes": "Common mistakes to avoid" }
+}

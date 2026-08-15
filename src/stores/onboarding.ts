@@ -45,11 +45,11 @@ export const useOnboarding = create<OnboardingState>((set) => ({
   },
   setProfile: (p) => {
     const plan = generatePlan(p);
-    set({ profile: p, plan });
+    set({ profile: p, plan, onboardingCompleted: true });
     writeJSON(KEY, {
       profile: p,
       planUnlocked: useOnboarding.getState().planUnlocked,
-      onboardingCompleted: useOnboarding.getState().onboardingCompleted,
+      onboardingCompleted: true,
     });
   },
   unlock: () => {

@@ -1,0 +1,7 @@
+{
+  "$meta": { "language": "ka", "displayName": "Georgian", "nativeName": "ქართული", "rtl": false, "flag": "🇬🇪" },
+  "common": { "save": "შენახვა", "cancel": "გაუქმება", "back": "უკან", "continue": "გაგრძელება", "loading": "იტვირთება…", "retry": "თავიდან", "send": "გაგზავნა", "skip": "გამოტოვება", "reset": "გადატვირთვა", "confirm": "დადასტურება", "delete": "წაშლა", "edit": "რედაქტირება" },
+  "nav": { "log": "ჟურნალი", "history": "ისტორია", "diagnostics": "დიაგნოსტიკა", "tools": "ხელსაწყოები", "tendon": "მყესი", "sparring": "სპარინგი", "settings": "პარამეტრები", "plan": "გეგმა", "chat": "ჩატი", "rankings": "რეიტინგი", "guide": "გაიდლაინი" },
+  "settings": { "language": "ენა", "units": "ერთეულები", "bodyWeight": "სხეულის წონა", "weightClass": "წონითი კატეგორია" },
+  "vectorGuide": { "what": "რა არის", "why": "რატომ არის მნიშვნელოვანი მაგიდაზე", "how": "როგორ ვავარჯიშოთ უსაფრთხოდ", "mistakes": "გავრცელებული შეცდომები" }
+}

@@ -52,7 +52,7 @@ export default function QuizScreen() {
   };
 
   const handleBack = () => {
-    if (step === 0) navigate('/');
+    if (step === 0) navigate('/onboarding');
     else setStep(step - 1);
   };
 

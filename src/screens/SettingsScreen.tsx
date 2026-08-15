@@ -8,6 +8,7 @@ import { useOnboarding } from '@/stores/onboarding';
 import { clearAllAppKeys, listAppKeys, readJSON } from '@/storage/storage';
 import ScreenHeader from '@/components/ScreenHeader';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import LanguagePicker from '@/components/LanguagePicker';
 import { todayKey } from '@/types/constants';
 
 export default function SettingsScreen() {
@@ -111,6 +112,11 @@ export default function SettingsScreen() {
               ))}
             </div>
           </div>
+        </section>
+
+        {/* Language */}
+        <section className="card space-y-3">
+          <LanguagePicker />
         </section>
 
         {/* Data */}

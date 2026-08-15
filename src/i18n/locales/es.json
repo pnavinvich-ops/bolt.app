@@ -1,0 +1,7 @@
+{
+  "$meta": { "language": "es", "displayName": "Spanish", "nativeName": "Español", "rtl": false, "flag": "🇪🇸" },
+  "common": { "save": "Guardar", "cancel": "Cancelar", "back": "Atrás", "continue": "Continuar", "loading": "Cargando…", "retry": "Reintentar", "send": "Enviar", "skip": "Saltar", "reset": "Restablecer", "confirm": "Confirmar", "delete": "Eliminar", "edit": "Editar" },
+  "nav": { "log": "Registro", "history": "Historial", "diagnostics": "Diagnóstico", "tools": "Herramientas", "tendon": "Tendón", "sparring": "Sparring", "settings": "Ajustes", "plan": "Plan", "chat": "Chat", "rankings": "Ranking", "guide": "Guía" },
+  "settings": { "language": "Idioma", "units": "Unidades", "bodyWeight": "Peso corporal", "weightClass": "Categoría de peso" },
+  "vectorGuide": { "what": "Qué es", "why": "Por qué importa en la mesa", "how": "Cómo entrenarlo con seguridad", "mistakes": "Errores comunes" }
+}

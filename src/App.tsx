@@ -13,6 +13,10 @@ import ToolsScreen from '@/screens/ToolsScreen';
 import SettingsScreen from '@/screens/SettingsScreen';
 import TendonScreen from '@/screens/TendonScreen';
 import SparringScreen from '@/screens/SparringScreen';
+import VectorGuideScreen from '@/screens/VectorGuideScreen';
+import EliteAthletesScreen from '@/screens/EliteAthletesScreen';
+import WorldRankingsScreen from '@/screens/WorldRankingsScreen';
+import GlobalChatScreen from '@/screens/GlobalChatScreen';
 import IntroScreen from '@/screens/onboarding/IntroScreen';
 import QuizScreen from '@/screens/onboarding/QuizScreen';
 import PaywallScreen from '@/screens/onboarding/PaywallScreen';
@@ -49,13 +53,19 @@ function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+function RootRedirect() {
+  const completed = useOnboarding((s) => s.onboardingCompleted);
+  return <Navigate to={completed ? '/log' : '/onboarding'} replace />;
+}
+
 export default function App() {
   return (
     <HashRouter>
       <Hydrator>
         <Layout>
           <Routes>
-            <Route path="/" element={<IntroScreen />} />
+            <Route path="/" element={<RootRedirect />} />
+            <Route path="/onboarding" element={<IntroScreen />} />
             <Route path="/log" element={<LogScreen />} />
             <Route path="/history" element={<HistoryScreen />} />
             <Route path="/diagnostics" element={<DiagnosticsScreen />} />
@@ -66,7 +76,11 @@ export default function App() {
             <Route path="/onboarding/quiz" element={<QuizScreen />} />
             <Route path="/onboarding/paywall" element={<PaywallScreen />} />
             <Route path="/onboarding/plan" element={<PlanScreen />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/guide" element={<VectorGuideScreen />} />
+            <Route path="/athletes" element={<EliteAthletesScreen />} />
+            <Route path="/rankings" element={<WorldRankingsScreen />} />
+            <Route path="/chat" element={<GlobalChatScreen />} />
+            <Route path="*" element={<Navigate to="/log" replace />} />
           </Routes>
         </Layout>
       </Hydrator>
