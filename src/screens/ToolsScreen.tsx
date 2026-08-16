@@ -254,7 +254,7 @@ function MoreTools() {
       <Link to="/rankings" className="btn-ghost w-full justify-start">
         <Globe2 size={18} /> {t('tools.moreRankings')}
       </Link>
-      <Link to="/chat" className="btn-ghost w-full justify-start">
+      <Link to="/chat" className="btn-ghost w-full justify-start hidden">
         <MessageCircle size={18} /> {t('tools.moreChat')}
       </Link>
     </section>
