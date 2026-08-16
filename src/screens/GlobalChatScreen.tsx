@@ -92,7 +92,9 @@ export default function GlobalChatScreen() {
     setAuthInfo(null);
     const { error } = await supabase.auth.signInWithOtp({
       email: authEmail.trim(),
-      options: { emailRedirectTo: window.location.origin },
+      options: {
+        emailRedirectTo: `${window.location.origin}/#/chat`,
+      },
     });
     if (error) setError(error.message);
     else setAuthInfo('Check your email for a sign-in link.');
