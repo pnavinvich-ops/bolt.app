@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Filter, Trophy, RefreshCw, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
@@ -27,7 +27,7 @@ export default function WorldRankingsScreen() {
   const [arm, setArm] = useState<(typeof ARMS)[number]>('Right');
   const [weight, setWeight] = useState<(typeof WEIGHTS)[number]>('SHW');
 
-  const load = async () => {
+  const load = useCallback(async () => {
     if (!isSupabaseConfigured) {
       setError(t('chat.notConfigured'));
       setLoading(false);
@@ -43,11 +43,11 @@ export default function WorldRankingsScreen() {
     if (error) setError(error.message);
     else setRows((data ?? []) as Ranking[]);
     setLoading(false);
-  };
+  }, [t]);
 
   useEffect(() => {
-    load();
-  }, []);
+    void load();
+  }, [load]);
 
   const filtered = useMemo(
     () =>

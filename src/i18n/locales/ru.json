@@ -115,7 +115,8 @@
     "resetSettingsMsg": "Ваш вес, весовая категория и единицы будут очищены. Подходы и спарринги сохранятся.",
     "resetAllTitle": "Удалить все данные?",
     "resetAllMsg": "Это безвозвратно удалит все подходы, спарринги, отметки сухожилий, настройки и профиль. Отменить нельзя.",
-    "deleteEverything": "Удалить всё"
+    "deleteEverything": "Удалить всё",
+    "exportCsv": "Экспорт CSV"
   },
   "log": {
     "title": "Записать подход",
@@ -271,7 +272,8 @@
     "unblockAll_one": "Показать снова {{count}} заблокированного",
     "unblockAll_few": "Показать снова {{count}} заблокированных",
     "unblockAll_many": "Показать снова {{count}} заблокированных",
-    "unblockAll_other": "Показать снова {{count}} заблокированных"
+    "unblockAll_other": "Показать снова {{count}} заблокированных",
+    "googleHint": "Если Google не работает: опубликуйте экран согласия OAuth и добавьте callback-URL Supabase в Google Cloud Console."
   },
   "ath": {
     "title": "Элитные спортсмены",

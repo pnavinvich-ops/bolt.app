@@ -115,7 +115,8 @@
     "resetSettingsMsg": "Your body weight, weight class, and unit preference will be cleared. Lifts and sparring logs are kept.",
     "resetAllTitle": "Reset all data?",
     "resetAllMsg": "This permanently deletes every lift, sparring session, tendon check, setting, and onboarding profile. This cannot be undone.",
-    "deleteEverything": "Delete everything"
+    "deleteEverything": "Delete everything",
+    "exportCsv": "Export CSV"
   },
   "log": {
     "title": "Log Lift",
@@ -269,7 +270,8 @@
     "blockConfirm": "Block",
     "blockedNotice": "{{name}} is now hidden. You can unhide all blocked users below the chat.",
     "unblockAll_one": "Show {{count}} blocked user again",
-    "unblockAll_other": "Show {{count}} blocked users again"
+    "unblockAll_other": "Show {{count}} blocked users again",
+    "googleHint": "If Google fails: publish your OAuth consent screen and add the Supabase callback URL in Google Cloud Console."
   },
   "ath": {
     "title": "Elite Athletes",

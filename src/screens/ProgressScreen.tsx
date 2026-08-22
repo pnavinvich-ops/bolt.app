@@ -8,6 +8,7 @@ import { useSparring } from '@/stores/sparring';
 import { useTendon } from '@/stores/tendon';
 import { useSettings } from '@/stores/settings';
 import { useOnboarding } from '@/stores/onboarding';
+import { useGym } from '@/stores/gym';
 import { allPRs, holdTimeline, ormTimeline, type TimelinePoint } from '@/services/progression';
 import { benchmarkTier } from '@/services/strength';
 import { runDiagnostics } from '@/services/diagnostics';
@@ -53,7 +54,8 @@ export default function ProgressScreen() {
   const checks = useTendon((s) => s.checks);
   const profile = useOnboarding((s) => s.profile);
 
-  const activity = useMemo(() => activityByDay(lifts, sparring), [lifts, sparring]);
+  const gymLogs = useGym((g) => g.logs);
+  const activity = useMemo(() => activityByDay(lifts, sparring, gymLogs), [lifts, sparring, gymLogs]);
   const weeks = useMemo(() => heatmap(activity), [activity]);
   const adh = useMemo(
     () => weeklyAdherence(activity, profile?.sessionsPerWeek ?? 3),

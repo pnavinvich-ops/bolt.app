@@ -88,6 +88,13 @@ export default function GlobalChatScreen() {
       setError(i18n.t('chat.notConfigured'));
       return;
     }
+    // Surface OAuth failures that come back as URL params
+    const params = new URLSearchParams(window.location.search);
+    const oauthErr = params.get('error_description') || params.get('error');
+    if (oauthErr) {
+      setError(decodeURIComponent(oauthErr));
+      window.history.replaceState({}, '', window.location.pathname);
+    }
     (async () => {
       const { data } = await supabase.auth.getUser();
       if (data.user) {
@@ -295,6 +302,7 @@ export default function GlobalChatScreen() {
               </svg>
               {t('chat.googleSignIn')}
             </button>
+            <p className="text-micro text-text-faint">{t('chat.googleHint')}</p>
             <button type="button" onClick={signInGuest} className="btn-primary w-full">
               <MessageCircle size={18} /> {t('chat.guestSignIn')}
             </button>
@@ -458,31 +466,32 @@ function Bubble({
   const clipUrl = isClip ? m.content.slice(CLIP_PREFIX.length).trim() : null;
   return (
     <li className={`rounded-md border p-2.5 ${isMine ? 'border-accent/30 bg-accent-lo' : 'border-border bg-surfaceAlt'}`}>
-      <div className="mb-0.5 flex items-baseline justify-between gap-2">
-        <span className="text-caption font-semibold text-text">{m.user_name}</span>
-        <span className="flex items-center gap-1.5">
-          {!isMine && m.user_id && (
-            <>
-              <button
-                type="button"
-                onClick={onReport}
-                aria-label="Report"
-                className="text-text-faint opacity-60 transition-opacity hover:text-warn hover:opacity-100"
-              >
-                <Flag size={12} />
-              </button>
-              <button
-                type="button"
-                onClick={onBlock}
-                aria-label="Block"
-                className="text-text-faint opacity-60 transition-opacity hover:text-bad hover:opacity-100"
-              >
-                <Ban size={12} />
-              </button>
-            </>
-          )}
-          <span className="text-micro text-text-faint">{time}</span>
+      <div className="mb-1 flex items-center gap-2">
+        <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-micro font-bold ${isMine ? 'bg-accent text-onAccent' : 'bg-surfaceHigh text-text-dim'}`}>
+          {m.user_name.charAt(0).toUpperCase()}
         </span>
+        <span className="min-w-0 flex-1 truncate text-caption font-semibold text-text">{m.user_name}</span>
+        {!isMine && m.user_id && (
+          <>
+            <button
+              type="button"
+              onClick={onReport}
+              aria-label="Report"
+              className="text-text-faint opacity-60 transition-opacity hover:text-warn hover:opacity-100"
+            >
+              <Flag size={12} />
+            </button>
+            <button
+              type="button"
+              onClick={onBlock}
+              aria-label="Block"
+              className="text-text-faint opacity-60 transition-opacity hover:text-bad hover:opacity-100"
+            >
+              <Ban size={12} />
+            </button>
+          </>
+        )}
+        <span className="text-micro text-text-faint">{time}</span>
       </div>
       {isClip && clipUrl ? (
         <video src={clipUrl} controls preload="metadata" className="mt-1 max-h-72 w-full rounded-md bg-black" />

@@ -1,4 +1,4 @@
-import type { Lift, SparringSession } from '@/types/domain';
+import type { GymLog, Lift, SparringSession } from '@/types/domain';
 import { todayKey } from '@/types/constants';
 import { allPRs } from '@/services/progression';
 import { benchmarkTier } from '@/services/strength';
@@ -9,7 +9,7 @@ function dateKeyAt(ts: number): string {
   return todayKey(ts);
 }
 
-export function activityByDay(lifts: Lift[], sparring: SparringSession[]): Map<string, number> {
+export function activityByDay(lifts: Lift[], sparring: SparringSession[], gymLogs: GymLog[] = []): Map<string, number> {
   const map = new Map<string, number>();
   const bump = (ts: number) => {
     const k = dateKeyAt(ts);
@@ -17,6 +17,7 @@ export function activityByDay(lifts: Lift[], sparring: SparringSession[]): Map<s
   };
   for (const l of lifts) bump(l.createdAt);
   for (const s of sparring) bump(s.createdAt);
+  for (const g of gymLogs) bump(g.createdAt);
   return map;
 }
 

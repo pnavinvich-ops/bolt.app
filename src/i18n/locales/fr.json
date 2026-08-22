@@ -115,7 +115,8 @@
     "resetSettingsMsg": "Votre poids, catégorie de poids et unité préférée seront effacés. Les séries et sparrings sont conservés.",
     "resetAllTitle": "Effacer toutes les données ?",
     "resetAllMsg": "Cela supprime définitivement chaque série, sparring, relevé de tendon, paramètre et profil. Action irréversible.",
-    "deleteEverything": "Tout effacer"
+    "deleteEverything": "Tout effacer",
+    "exportCsv": "Exporter CSV"
   },
   "log": {
     "title": "Enregistrer une série",
@@ -270,7 +271,8 @@
     "blockedNotice": "{{name}} est masqué. Vous pouvez tout réafficher sous le chat.",
     "unblockAll_one": "Réafficher {{count}} utilisateur bloqué",
     "unblockAll_many": "Réafficher {{count}} utilisateurs bloqués",
-    "unblockAll_other": "Réafficher {{count}} utilisateurs bloqués"
+    "unblockAll_other": "Réafficher {{count}} utilisateurs bloqués",
+    "googleHint": "Si Google échoue : publiez l'écran de consentement OAuth et ajoutez l'URL de callback Supabase dans Google Cloud Console."
   },
   "ath": {
     "title": "Athlètes d'élite",

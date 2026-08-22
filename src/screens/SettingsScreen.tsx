@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Capacitor } from '@capacitor/core';
 import { useSettings } from '@/stores/settings';
+import { useLifts } from '@/stores/lifts';
 import { useOnboarding } from '@/stores/onboarding';
 import { clearAllAppKeys, listAppKeys, readJSON } from '@/storage/storage';
 import { currentUser, pushBackup, pullBackup, getLastSync } from '@/services/cloud';
@@ -27,6 +28,7 @@ export default function SettingsScreen() {
   const [confirmResetSettings, setConfirmResetSettings] = useState(false);
   const [confirmResetAll, setConfirmResetAll] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const lifts = useLifts((s) => s.lifts);
 
   const handleExport = () => {
     const keys = listAppKeys();
@@ -37,6 +39,39 @@ export default function SettingsScreen() {
     const a = document.createElement('a');
     a.href = url;
     a.download = `armlog-backup-${todayKey()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleExportCsv = () => {
+    const esc = (v: string | number) => {
+      const s = String(v ?? '');
+      return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+    const rows: (string | number)[][] = [
+      ['date', 'arm', 'vector', 'handle', 'pulley', 'mode', 'weight_kg', 'reps', 'hold_sec'],
+    ];
+    for (const l of [...lifts].sort((a, b) => a.createdAt - b.createdAt)) {
+      for (const s of l.sets) {
+        rows.push([
+          new Date(l.createdAt).toISOString().slice(0, 10),
+          l.arm,
+          l.vector,
+          l.handle,
+          l.pulley,
+          l.mode,
+          s.weight,
+          s.reps ?? '',
+          s.durationSec ?? '',
+        ]);
+      }
+    }
+    const csv = rows.map((r) => r.map(esc).join(',')).join('\n');
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `armlog-lifts-${todayKey()}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -137,6 +172,9 @@ export default function SettingsScreen() {
           <h3 className="text-h3">{t('settings.data')}</h3>
           <button type="button" onClick={handleExport} className="btn-ghost w-full justify-start">
             <Download size={18} /> {t('settings.export')}
+          </button>
+          <button type="button" onClick={handleExportCsv} className="btn-ghost w-full justify-start">
+            <Download size={18} /> {t('settings.exportCsv')}
           </button>
           <button type="button" onClick={() => fileRef.current?.click()} className="btn-ghost w-full justify-start">
             <Upload size={18} /> {t('settings.import')}

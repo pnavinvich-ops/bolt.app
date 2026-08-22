@@ -115,7 +115,8 @@
     "resetSettingsMsg": "Vücut ağırlığın, kilo sınıfın ve birim tercihin silinecek. Setler ve sparring kayıtları korunur.",
     "resetAllTitle": "Tüm veriler silinsin mi?",
     "resetAllMsg": "Bu işlem tüm setleri, sparring kayıtlarını, tendon kontrollerini, ayarları ve profil kalıcı olarak siler. Geri alınamaz.",
-    "deleteEverything": "Her şeyi sil"
+    "deleteEverything": "Her şeyi sil",
+    "exportCsv": "CSV dışa aktar"
   },
   "log": {
     "title": "Set kaydet",
@@ -269,7 +270,8 @@
     "blockConfirm": "Engelle",
     "blockedNotice": "{{name}} gizlendi. Engellenenleri sohbetin altında geri gösterebilirsin.",
     "unblockAll_one": "{{count}} engellenen kullanıcıyı yeniden göster",
-    "unblockAll_other": "{{count}} engellenen kullanıcıyı yeniden göster"
+    "unblockAll_other": "{{count}} engellenen kullanıcıyı yeniden göster",
+    "googleHint": "Google çalışmazsa: OAuth onay ekranını yayınlayın ve Supabase callback URL’sini Google Cloud Console’a ekleyin."
   },
   "ath": {
     "title": "Elit Sporcular",

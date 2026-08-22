@@ -115,7 +115,8 @@
     "resetSettingsMsg": "Se borrarán tu peso, categoría y unidad preferida. Los levantamientos y sparrings se conservan.",
     "resetAllTitle": "¿Borrar todos los datos?",
     "resetAllMsg": "Esto elimina definitivamente cada levantamiento, sparring, control de tendón, ajuste y perfil. No se puede deshacer.",
-    "deleteEverything": "Borrar todo"
+    "deleteEverything": "Borrar todo",
+    "exportCsv": "Exportar CSV"
   },
   "log": {
     "title": "Registrar serie",
@@ -270,7 +271,8 @@
     "blockedNotice": "{{name}} está oculto. Puedes mostrarlos todos debajo del chat.",
     "unblockAll_one": "Volver a mostrar {{count}} usuario bloqueado",
     "unblockAll_many": "Volver a mostrar {{count}} usuarios bloqueados",
-    "unblockAll_other": "Volver a mostrar {{count}} usuarios bloqueados"
+    "unblockAll_other": "Volver a mostrar {{count}} usuarios bloqueados",
+    "googleHint": "Si Google falla: publica tu pantalla de consentimiento y añade la URL de callback de Supabase en Google Cloud Console."
   },
   "ath": {
     "title": "Atletas de élite",
