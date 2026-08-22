@@ -1,5 +1,11 @@
 {
-  "$meta": { "language": "fr", "displayName": "French", "nativeName": "Français", "rtl": false, "flag": "🇫🇷" },
+  "$meta": {
+    "language": "fr",
+    "displayName": "French",
+    "nativeName": "Français",
+    "rtl": false,
+    "flag": "🇫🇷"
+  },
   "common": {
     "save": "Enregistrer",
     "cancel": "Annuler",
@@ -18,8 +24,26 @@
     "trend": "Tendance",
     "days": "{{count}} jours"
   },
-  "nav": { "log": "Journal", "history": "Historique", "diagnostics": "Diagnostic", "tools": "Outils", "tendon": "Tendons", "sparring": "Sparring", "settings": "Paramètres", "plan": "Plan", "chat": "Chat", "rankings": "Classement", "guide": "Guide" },
-  "tabs": { "log": "Journal", "history": "Hist.", "progress": "Progrès", "diagnostics": "Diag", "tools": "Outils" },
+  "nav": {
+    "log": "Journal",
+    "history": "Historique",
+    "diagnostics": "Diagnostic",
+    "tools": "Outils",
+    "tendon": "Tendons",
+    "sparring": "Sparring",
+    "settings": "Paramètres",
+    "plan": "Plan",
+    "chat": "Chat",
+    "rankings": "Classement",
+    "guide": "Guide"
+  },
+  "tabs": {
+    "log": "Journal",
+    "history": "Hist.",
+    "progress": "Progrès",
+    "diagnostics": "Diag",
+    "tools": "Outils"
+  },
   "tools": {
     "title": "Outils",
     "subtitle": "Réaction, tendons, références",
@@ -56,7 +80,14 @@
     "nextTierAt": "niveau suivant à {{weight}} {{unit}}",
     "logDynamicFirst": "Enregistrez des séries dynamiques pour voir votre niveau de force."
   },
-  "bench": { "novice": "Novice", "beginner": "Débutant", "intermediate": "Intermédiaire", "advanced": "Avancé", "elite": "Élite", "pro": "Pro" },
+  "bench": {
+    "novice": "Novice",
+    "beginner": "Débutant",
+    "intermediate": "Intermédiaire",
+    "advanced": "Avancé",
+    "elite": "Élite",
+    "pro": "Pro"
+  },
   "settings": {
     "title": "Paramètres",
     "subtitle": "Profil & données",
@@ -133,7 +164,8 @@
     "logLiftCta": "Enregistrer une série",
     "noSpars": "Aucun sparring enregistré",
     "noSparsMsg": "Suivez vos matchs pour révéler les vecteurs faibles et améliorer votre stratégie.",
-    "logSparCta": "Enregistrer un sparring"
+    "logSparCta": "Enregistrer un sparring",
+    "tabGym": "Salle"
   },
   "diag": {
     "title": "Diagnostic",
@@ -320,7 +352,12 @@
     "tendonManaging": "douleur légère gérée",
     "tendonRecovering": "en cours de rééducation"
   },
-  "vectorGuide": { "what": "Ce que c'est", "why": "Pourquoi c'est important à la table", "how": "Comment l'entraîner en sécurité", "mistakes": "Erreurs courantes" },
+  "vectorGuide": {
+    "what": "Ce que c'est",
+    "why": "Pourquoi c'est important à la table",
+    "how": "Comment l'entraîner en sécurité",
+    "mistakes": "Erreurs courantes"
+  },
   "guide": {
     "rise": {
       "what": "Déviation radiale du poignet — plier la main vers le pouce pour que les phalanges restent le point le plus haut du contact.",
@@ -670,8 +707,22 @@
     "planAdjusted": "Le volume du plan est automatiquement réduit de {{pct}}% tant que c'est actif."
   },
   "enum": {
-    "vector": { "pronation": "Pronation", "cup": "Cup", "rise": "Rise", "side": "Latéral", "back": "Arrière", "supination": "Supination" },
-    "short": { "pronation": "PRON", "cup": "CUP", "rise": "RISE", "side": "LAT", "back": "ARR", "supination": "SUP" },
+    "vector": {
+      "pronation": "Pronation",
+      "cup": "Cup",
+      "rise": "Rise",
+      "side": "Latéral",
+      "back": "Arrière",
+      "supination": "Supination"
+    },
+    "short": {
+      "pronation": "PRON",
+      "cup": "CUP",
+      "rise": "RISE",
+      "side": "LAT",
+      "back": "ARR",
+      "supination": "SUP"
+    },
     "vectorHint": {
       "pronation": "L'avant-bras tourne vers l'intérieur — contrôle du poignet",
       "cup": "La main se referme — prise verrouillante",
@@ -680,28 +731,106 @@
       "back": "Tirer vers le corps — pression intérieure",
       "supination": "L'avant-bras tourne vers l'extérieur — force d'ouverture"
     },
-    "handle": { "cone": "Cône", "multispinner": "Multi-spinner", "thick_bar": "Barre épaisse", "strap": "Sangle", "other": "Autre" },
-    "pulley": { "low": "Poulie basse", "table": "Table", "high": "Poulie haute" },
-    "arm": { "left": "Gauche", "right": "Droite" },
-    "mode": { "dynamic": "Dynamique", "isometric": "Isométrique" },
-    "goal": { "power": "Puissance", "technique": "Technique", "endurance": "Endurance" },
+    "handle": {
+      "cone": "Cône",
+      "multispinner": "Multi-spinner",
+      "thick_bar": "Barre épaisse",
+      "strap": "Sangle",
+      "other": "Autre"
+    },
+    "pulley": {
+      "low": "Poulie basse",
+      "table": "Table",
+      "high": "Poulie haute"
+    },
+    "arm": {
+      "left": "Gauche",
+      "right": "Droite"
+    },
+    "mode": {
+      "dynamic": "Dynamique",
+      "isometric": "Isométrique"
+    },
+    "goal": {
+      "power": "Puissance",
+      "technique": "Technique",
+      "endurance": "Endurance"
+    },
     "goalDesc": {
       "power": "Force maximale et puissance explosive",
       "technique": "Habileté, contrôle et maîtrise des vecteurs",
       "endurance": "Production soutenue et résistance à la fatigue"
     },
-    "exp": { "beginner": "Débutant", "intermediate": "Intermédiaire", "advanced": "Avancé" },
+    "exp": {
+      "beginner": "Débutant",
+      "intermediate": "Intermédiaire",
+      "advanced": "Avancé"
+    },
     "expDesc": {
       "beginner": "Nouveau dans l'entraînement de bras de fer",
       "intermediate": "Entraînement régulier depuis plus de 6 mois",
       "advanced": "Des années d'entraînement structuré"
     },
-    "status": { "healthy": "Sains", "managing": "Douleur légère gérée", "recovering": "En rééducation après blessure" },
+    "status": {
+      "healthy": "Sains",
+      "managing": "Douleur légère gérée",
+      "recovering": "En rééducation après blessure"
+    },
     "statusDesc": {
       "healthy": "Aucune douleur ni gêne",
       "managing": "Quelque sensibilité, j'entraîne quand même",
       "recovering": "Rééducation active, retour progressif"
     },
-    "outcome": { "win": "Victoire", "loss": "Défaite", "draw": "Match nul" }
+    "outcome": {
+      "win": "Victoire",
+      "loss": "Défaite",
+      "draw": "Match nul"
+    }
+  },
+  "gym": {
+    "title": "Journal salle",
+    "subtitle": "Musculation générale",
+    "all": "Tous",
+    "muscle_chest": "Poitrine",
+    "muscle_back": "Dos",
+    "muscle_shoulders": "Épaules",
+    "muscle_arms": "Bras",
+    "muscle_legs": "Jambes",
+    "muscle_core": "Gainage",
+    "ex_bench_press": "Développé couché",
+    "ex_incline_bench": "Développé incliné",
+    "ex_chest_fly": "Écarté",
+    "ex_dips": "Dips",
+    "ex_deadlift": "Soulevé de terre",
+    "ex_bent_over_row": "Rowing buste penché",
+    "ex_lat_pulldown": "Tirage vertical",
+    "ex_seated_row": "Tirage assis",
+    "ex_pull_up": "Tractions",
+    "ex_overhead_press": "Développé militaire",
+    "ex_lateral_raise": "Élévations latérales",
+    "ex_face_pull": "Face pull",
+    "ex_barbell_curl": "Curl barre",
+    "ex_hammer_curl": "Curl marteau",
+    "ex_tricep_pushdown": "Extension poulie triceps",
+    "ex_skull_crusher": "Extension nuque",
+    "ex_squat": "Squat",
+    "ex_front_squat": "Squat avant",
+    "ex_leg_press": "Presse à cuisses",
+    "ex_romanian_deadlift": "Soulevé de terre roumain",
+    "empty": "Aucune séance salle",
+    "emptyMsg": "Note ici tes exercices hors bras de fer.",
+    "saveWorkout": "Enregistrer la séance",
+    "pickExercise": "Choisis un exercice pour commencer."
+  },
+  "acc": {
+    "title": "Compte",
+    "subtitle": "Votre identité ArmLog",
+    "notSignedIn": "Non connecté",
+    "signInBody": "Connecte-toi via le Chat global (Google ou e-mail) pour la sauvegarde cloud et une identité persistante.",
+    "provGoogle": "Google",
+    "provGuest": "Invité",
+    "provEmail": "E-mail",
+    "backupNote": "Sauvegarde cloud dans Paramètres > Données une fois connecté.",
+    "signOut": "Se déconnecter"
   }
 }

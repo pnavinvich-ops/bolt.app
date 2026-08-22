@@ -1,5 +1,11 @@
 {
-  "$meta": { "language": "tr", "displayName": "Turkish", "nativeName": "Türkçe", "rtl": false, "flag": "🇹🇷" },
+  "$meta": {
+    "language": "tr",
+    "displayName": "Turkish",
+    "nativeName": "Türkçe",
+    "rtl": false,
+    "flag": "🇹🇷"
+  },
   "common": {
     "save": "Kaydet",
     "cancel": "İptal",
@@ -18,8 +24,26 @@
     "trend": "Eğilim",
     "days": "{{count}} gün"
   },
-  "nav": { "log": "Günlük", "history": "Geçmiş", "diagnostics": "Teşhis", "tools": "Araçlar", "tendon": "Tendon", "sparring": "Sparring", "settings": "Ayarlar", "plan": "Plan", "chat": "Sohbet", "rankings": "Sıralama", "guide": "Rehber" },
-  "tabs": { "log": "Günl.", "history": "Geç.", "progress": "İlerleme", "diagnostics": "Teşh.", "tools": "Araç." },
+  "nav": {
+    "log": "Günlük",
+    "history": "Geçmiş",
+    "diagnostics": "Teşhis",
+    "tools": "Araçlar",
+    "tendon": "Tendon",
+    "sparring": "Sparring",
+    "settings": "Ayarlar",
+    "plan": "Plan",
+    "chat": "Sohbet",
+    "rankings": "Sıralama",
+    "guide": "Rehber"
+  },
+  "tabs": {
+    "log": "Günl.",
+    "history": "Geç.",
+    "progress": "İlerleme",
+    "diagnostics": "Teşh.",
+    "tools": "Araç."
+  },
   "tools": {
     "title": "Araçlar",
     "subtitle": "Reaksiyon, tendon, dereceler",
@@ -56,7 +80,14 @@
     "nextTierAt": "sonraki seviye {{weight}} {{unit}}te",
     "logDynamicFirst": "Güç seviyeni görmek için dinamik setler kaydet."
   },
-  "bench": { "novice": "Acemi", "beginner": "Çaylak", "intermediate": "Orta", "advanced": "İleri", "elite": "Elit", "pro": "Pro" },
+  "bench": {
+    "novice": "Acemi",
+    "beginner": "Çaylak",
+    "intermediate": "Orta",
+    "advanced": "İleri",
+    "elite": "Elit",
+    "pro": "Pro"
+  },
   "settings": {
     "title": "Ayarlar",
     "subtitle": "Profil ve veri",
@@ -133,7 +164,8 @@
     "logLiftCta": "Set kaydet",
     "noSpars": "Henüz sparring yok",
     "noSparsMsg": "Zayıf vektörleri ortaya çıkarmak ve taktiğini geliştirmek için maçlarını takip et.",
-    "logSparCta": "Sparring kaydet"
+    "logSparCta": "Sparring kaydet",
+    "tabGym": "Salon"
   },
   "diag": {
     "title": "Teşhis",
@@ -319,7 +351,12 @@
     "tendonManaging": "hafif ağrı yönetimi",
     "tendonRecovering": "sakatlık sonrası toparlanma"
   },
-  "vectorGuide": { "what": "Nedir", "why": "Masada neden önemli", "how": "Güvenli nasıl antrenman yapılır", "mistakes": "Sık yapılan hatalar" },
+  "vectorGuide": {
+    "what": "Nedir",
+    "why": "Masada neden önemli",
+    "how": "Güvenli nasıl antrenman yapılır",
+    "mistakes": "Sık yapılan hatalar"
+  },
   "guide": {
     "rise": {
       "what": "Bileğin radyal sapması — elin başparmağa doğru bükülmesi ve boğumların temas noktasının en yüksek noktası olarak kalması.",
@@ -667,8 +704,22 @@
     "planAdjusted": "Aktif olduğu sürece plan hacmi otomatik %{{pct}} azaltıldı."
   },
   "enum": {
-    "vector": { "pronation": "Pronasyon", "cup": "Fincan", "rise": "Rise", "side": "Yan", "back": "Arka", "supination": "Supinasyon" },
-    "short": { "pronation": "PRON", "cup": "FİNC", "rise": "RISE", "side": "YAN", "back": "ARKA", "supination": "SUP" },
+    "vector": {
+      "pronation": "Pronasyon",
+      "cup": "Fincan",
+      "rise": "Rise",
+      "side": "Yan",
+      "back": "Arka",
+      "supination": "Supinasyon"
+    },
+    "short": {
+      "pronation": "PRON",
+      "cup": "FİNC",
+      "rise": "RISE",
+      "side": "YAN",
+      "back": "ARKA",
+      "supination": "SUP"
+    },
     "vectorHint": {
       "pronation": "Ön kol içe döner — bilek kontrolü",
       "cup": "El kapanır — kilitleyen kavrama",
@@ -677,28 +728,106 @@
       "back": "Vücuda doğru çek — iç baskı",
       "supination": "Ön kol dışa döner — açma kuvveti"
     },
-    "handle": { "cone": "Koni", "multispinner": "Multispinner", "thick_bar": "Kalın bar", "strap": "Kayış", "other": "Diğer" },
-    "pulley": { "low": "Alt makara", "table": "Masa", "high": "Üst makara" },
-    "arm": { "left": "Sol", "right": "Sağ" },
-    "mode": { "dynamic": "Dinamik", "isometric": "İzometrik" },
-    "goal": { "power": "Güç", "technique": "Teknik", "endurance": "Dayanıklılık" },
+    "handle": {
+      "cone": "Koni",
+      "multispinner": "Multispinner",
+      "thick_bar": "Kalın bar",
+      "strap": "Kayış",
+      "other": "Diğer"
+    },
+    "pulley": {
+      "low": "Alt makara",
+      "table": "Masa",
+      "high": "Üst makara"
+    },
+    "arm": {
+      "left": "Sol",
+      "right": "Sağ"
+    },
+    "mode": {
+      "dynamic": "Dinamik",
+      "isometric": "İzometrik"
+    },
+    "goal": {
+      "power": "Güç",
+      "technique": "Teknik",
+      "endurance": "Dayanıklılık"
+    },
     "goalDesc": {
       "power": "Maksimum kuvvet ve patlayıcı güç",
       "technique": "Beceriler, kontrol ve vektör hakimiyeti",
       "endurance": "Süreklilik ve yorgunluğa dayanıklılık"
     },
-    "exp": { "beginner": "Acemi", "intermediate": "Orta", "advanced": "İleri" },
+    "exp": {
+      "beginner": "Acemi",
+      "intermediate": "Orta",
+      "advanced": "İleri"
+    },
     "expDesc": {
       "beginner": "Kol güreşi antrenmanına yeni başladı",
       "intermediate": "6+ aydır düzenli antrenman",
       "advanced": "Yıllarca yapılandırılmış antrenman"
     },
-    "status": { "healthy": "Sağlıklı", "managing": "Hafif ağrıyla idare ediyorum", "recovering": "Sakatlıktan toparlanıyorum" },
+    "status": {
+      "healthy": "Sağlıklı",
+      "managing": "Hafif ağrıyla idare ediyorum",
+      "recovering": "Sakatlıktan toparlanıyorum"
+    },
     "statusDesc": {
       "healthy": "Ağrı veya rahatsızlık yok",
       "managing": "Bazı hassasiyet var, antrenmana devam ediyorum",
       "recovering": "Aktif rehabilitasyon, yavaş dönüş"
     },
-    "outcome": { "win": "Galibiyet", "loss": "Yenilgi", "draw": "Beraberlik" }
+    "outcome": {
+      "win": "Galibiyet",
+      "loss": "Yenilgi",
+      "draw": "Beraberlik"
+    }
+  },
+  "gym": {
+    "title": "Salon günlüğü",
+    "subtitle": "Genel güç antrenmanı",
+    "all": "Tümü",
+    "muscle_chest": "Göğüs",
+    "muscle_back": "Sırt",
+    "muscle_shoulders": "Omuzlar",
+    "muscle_arms": "Kollar",
+    "muscle_legs": "Bacaklar",
+    "muscle_core": "Karın",
+    "ex_bench_press": "Göğüs presi",
+    "ex_incline_bench": "Eğimli pres",
+    "ex_chest_fly": "Göğüs açılışı",
+    "ex_dips": "Dips",
+    "ex_deadlift": "Ölü çekim",
+    "ex_bent_over_row": "Eğilmiş kürek",
+    "ex_lat_pulldown": "Lat çekişi",
+    "ex_seated_row": "Oturarak kürek",
+    "ex_pull_up": "Barfiks",
+    "ex_overhead_press": "Omuz presi",
+    "ex_lateral_raise": "Yana açılış",
+    "ex_face_pull": "Yüz çekişi",
+    "ex_barbell_curl": "Barbell curl",
+    "ex_hammer_curl": "Çekiç curl",
+    "ex_tricep_pushdown": "Triceps aşağı itiş",
+    "ex_skull_crusher": "Fransız presi",
+    "ex_squat": "Squat",
+    "ex_front_squat": "Ön squat",
+    "ex_leg_press": "Bacak presi",
+    "ex_romanian_deadlift": "Rumen ölü çekimi",
+    "empty": "Henüz salon antrenmanı yok",
+    "emptyMsg": "Kol güreşi dışı hareketlerini burada kaydet.",
+    "saveWorkout": "Antrenmanı kaydet",
+    "pickExercise": "Başlamak için bir hareket seç."
+  },
+  "acc": {
+    "title": "Hesap",
+    "subtitle": "ArmLog kimliğin",
+    "notSignedIn": "Giriş yapılmadı",
+    "signInBody": "Bulut yedeği ve kalıcı kimlik için Küresel Sohbet üzerinden giriş yap (Google veya e-posta).",
+    "provGoogle": "Google",
+    "provGuest": "Misafir",
+    "provEmail": "E-posta",
+    "backupNote": "Yedek, giriş yapıyken Ayarlar > Veri bölümünde.",
+    "signOut": "Çıkış yap"
   }
 }

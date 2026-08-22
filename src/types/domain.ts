@@ -84,6 +84,20 @@ export interface Tournament {
   createdAt: number;
 }
 
+export interface GymSet {
+  id: string;
+  weight: number;
+  reps: number;
+}
+
+export interface GymLog {
+  id: string;
+  createdAt: number;
+  exerciseKey: string;
+  sets: GymSet[];
+  notes?: string;
+}
+
 export interface Settings {
   displayName?: string;
   bodyWeight?: number;

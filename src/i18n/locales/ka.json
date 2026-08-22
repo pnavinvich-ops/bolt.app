@@ -1,5 +1,11 @@
 {
-  "$meta": { "language": "ka", "displayName": "Georgian", "nativeName": "ქართული", "rtl": false, "flag": "🇬🇪" },
+  "$meta": {
+    "language": "ka",
+    "displayName": "Georgian",
+    "nativeName": "ქართული",
+    "rtl": false,
+    "flag": "🇬🇪"
+  },
   "common": {
     "save": "შენახვა",
     "cancel": "გაუქმება",
@@ -18,8 +24,26 @@
     "trend": "ტენდენცია",
     "days": "{{count}} დღე"
   },
-  "nav": { "log": "ჟურნალი", "history": "ისტორია", "diagnostics": "დიაგნოსტიკა", "tools": "ხელსაწყოები", "tendon": "მყესი", "sparring": "სპარინგი", "settings": "პარამეტრები", "plan": "გეგმა", "chat": "ჩატი", "rankings": "რეიტინგი", "guide": "გაიდლაინი" },
-  "tabs": { "log": "ჟურ.", "history": "ისტ.", "progress": "პროგრესი", "diagnostics": "დიაგ.", "tools": "ხელ." },
+  "nav": {
+    "log": "ჟურნალი",
+    "history": "ისტორია",
+    "diagnostics": "დიაგნოსტიკა",
+    "tools": "ხელსაწყოები",
+    "tendon": "მყესი",
+    "sparring": "სპარინგი",
+    "settings": "პარამეტრები",
+    "plan": "გეგმა",
+    "chat": "ჩატი",
+    "rankings": "რეიტინგი",
+    "guide": "გაიდლაინი"
+  },
+  "tabs": {
+    "log": "ჟურ.",
+    "history": "ისტ.",
+    "progress": "პროგრესი",
+    "diagnostics": "დიაგ.",
+    "tools": "ხელ."
+  },
   "tools": {
     "title": "ხელსაწყოები",
     "subtitle": "რეაქცია, მყესი, ნორმები",
@@ -56,7 +80,14 @@
     "nextTierAt": "შემდეგი დონე {{weight}} {{unit}}-ზე",
     "logDynamicFirst": "ძალის დონის სანახავად ჩაწერე დინამიკური სეტები."
   },
-  "bench": { "novice": "ახალბედა", "beginner": "დამწყები", "intermediate": "შუა", "advanced": "მოწინავე", "elite": "ელიტური", "pro": "პროფესიონალი" },
+  "bench": {
+    "novice": "ახალბედა",
+    "beginner": "დამწყები",
+    "intermediate": "შუა",
+    "advanced": "მოწინავე",
+    "elite": "ელიტური",
+    "pro": "პროფესიონალი"
+  },
   "settings": {
     "title": "პარამეტრები",
     "subtitle": "პროფილი და მონაცემები",
@@ -133,7 +164,8 @@
     "logLiftCta": "სეტის ჩაწერა",
     "noSpars": "სპარინგები ჯერ არ არის",
     "noSparsMsg": "ადევნე თვალი მატჩებს, რომ გამოავლინო სუსტი ვექტორები და გააუმჯობესო სტრატეგია.",
-    "logSparCta": "სპარინგის ჩაწერა"
+    "logSparCta": "სპარინგის ჩაწერა",
+    "tabGym": "დარბაზი"
   },
   "diag": {
     "title": "დიაგნოსტიკა",
@@ -319,7 +351,12 @@
     "tendonManaging": "ზომიერი ტკივილი",
     "tendonRecovering": "ტრავმის შემდეგ აღდგენა"
   },
-  "vectorGuide": { "what": "რა არის", "why": "რატომ არის მნიშვნელოვანი მაგიდაზე", "how": "როგორ ვავარჯიშოთ უსაფრთხოდ", "mistakes": "გავრცელებული შეცდომები" },
+  "vectorGuide": {
+    "what": "რა არის",
+    "why": "რატომ არის მნიშვნელოვანი მაგიდაზე",
+    "how": "როგორ ვავარჯიშოთ უსაფრთხოდ",
+    "mistakes": "გავრცელებული შეცდომები"
+  },
   "guide": {
     "rise": {
       "what": "მაჯის რადიალური გადახრა — ხელის ცერისკენ მოხრა ისე, რომ მუხლები კონტაქტის უმაღლესი წერტილი დარჩეს.",
@@ -667,8 +704,22 @@
     "planAdjusted": "აქტიურობისას გეგმის მოცულობა ავტომატურად {{pct}}%-ით შემცირდა."
   },
   "enum": {
-    "vector": { "pronation": "პრონაცია", "cup": "ფინჯანი", "rise": "აწევა", "side": "გვერდითი", "back": "უკანა", "supination": "სუპინაცია" },
-    "short": { "pronation": "პრონ", "cup": "ფინ", "rise": "აწ", "side": "გვერ", "back": "უკ", "supination": "სუპ" },
+    "vector": {
+      "pronation": "პრონაცია",
+      "cup": "ფინჯანი",
+      "rise": "აწევა",
+      "side": "გვერდითი",
+      "back": "უკანა",
+      "supination": "სუპინაცია"
+    },
+    "short": {
+      "pronation": "პრონ",
+      "cup": "ფინ",
+      "rise": "აწ",
+      "side": "გვერ",
+      "back": "უკ",
+      "supination": "სუპ"
+    },
     "vectorHint": {
       "pronation": "წინამხარი შიგნით ბრუნავს — მაჯის კონტროლი",
       "cup": "ხელი იკეცება — ჩამკეტი ჭედი",
@@ -677,28 +728,106 @@
       "back": "სხეულისკენ წევა — შიდა წნეხი",
       "supination": "წინამხარი გარეთ ბრუნავს — გამღები ძალა"
     },
-    "handle": { "cone": "კონუსი", "multispinner": "მულტისპინერი", "thick_bar": "სქელი გრიფი", "strap": "სარტყელი", "other": "სხვა" },
-    "pulley": { "low": "ქვედა ბლოკი", "table": "მაგიდა", "high": "ზედა ბლოკი" },
-    "arm": { "left": "მარცხენა", "right": "მარჯვენა" },
-    "mode": { "dynamic": "დინამიკური", "isometric": "იზომეტრიული" },
-    "goal": { "power": "ძალა", "technique": "ტექნიკა", "endurance": "გამძლეობა" },
+    "handle": {
+      "cone": "კონუსი",
+      "multispinner": "მულტისპინერი",
+      "thick_bar": "სქელი გრიფი",
+      "strap": "სარტყელი",
+      "other": "სხვა"
+    },
+    "pulley": {
+      "low": "ქვედა ბლოკი",
+      "table": "მაგიდა",
+      "high": "ზედა ბლოკი"
+    },
+    "arm": {
+      "left": "მარცხენა",
+      "right": "მარჯვენა"
+    },
+    "mode": {
+      "dynamic": "დინამიკური",
+      "isometric": "იზომეტრიული"
+    },
+    "goal": {
+      "power": "ძალა",
+      "technique": "ტექნიკა",
+      "endurance": "გამძლეობა"
+    },
     "goalDesc": {
       "power": "მაქსიმალური ძალა და აფეთქებითი სიმძლავრე",
       "technique": "უნარი, კონტროლი და ვექტორების დაუფლება",
       "endurance": "ხანგრძლივი დატვირთვა და დაღლადობის წინააღმდეგობა"
     },
-    "exp": { "beginner": "დამწყები", "intermediate": "შუა", "advanced": "მოწინავე" },
+    "exp": {
+      "beginner": "დამწყები",
+      "intermediate": "შუა",
+      "advanced": "მოწინავე"
+    },
     "expDesc": {
       "beginner": "ახალი ხელბრძოლის ვარჯიშებში",
       "intermediate": "6+ თვეა რეგულარული ვარჯიში",
       "advanced": "წლების სტრუქტურირებული ვარჯიში"
     },
-    "status": { "healthy": "ჯანმრთელი", "managing": "ზომიერი ტკივილით ვარჯიშობ", "recovering": "ტრავმის შემდეგ ვღებულობ" },
+    "status": {
+      "healthy": "ჯანმრთელი",
+      "managing": "ზომიერი ტკივილით ვარჯიშობ",
+      "recovering": "ტრავმის შემდეგ ვღებულობ"
+    },
     "statusDesc": {
       "healthy": "ტკივილი და დისკომფორტი არ არის",
       "managing": "გარკვეული ტკივილია, ვაგრძელებ",
       "recovering": "აქტიური რეაბილიტაცია, ფრთხილი დაბრუნება"
     },
-    "outcome": { "win": "გამარჯვება", "loss": "წაგება", "draw": "ფრე" }
+    "outcome": {
+      "win": "გამარჯვება",
+      "loss": "წაგება",
+      "draw": "ფრე"
+    }
+  },
+  "gym": {
+    "title": "დარბაზის ჟურნალი",
+    "subtitle": "ზოგადი ძალის ვარჯიში",
+    "all": "ყველა",
+    "muscle_chest": "მკერდი",
+    "muscle_back": "ზურგი",
+    "muscle_shoulders": "მხრები",
+    "muscle_arms": "ხელები",
+    "muscle_legs": "ფეხები",
+    "muscle_core": "კორპუსი",
+    "ex_bench_press": "ბენჩ პრესი",
+    "ex_incline_bench": "დახრილი ბენჩი",
+    "ex_chest_fly": "მკერდის გაშლა",
+    "ex_dips": "დიპები",
+    "ex_deadlift": "დედლიფტი",
+    "ex_bent_over_row": "წევა დახრილობაში",
+    "ex_lat_pulldown": "ლატ პულდაუნი",
+    "ex_seated_row": "სკამზე წევა",
+    "ex_pull_up": "პულ-აპი",
+    "ex_overhead_press": "მხრების წნევა",
+    "ex_lateral_raise": "გვერდითი აწევა",
+    "ex_face_pull": "ფეის პული",
+    "ex_barbell_curl": "ბიცეფსის მოხრა შტანგით",
+    "ex_hammer_curl": "ჩაქუჩის მოხრა",
+    "ex_tricep_pushdown": "ტრიცეფსი ბლოკზე",
+    "ex_skull_crusher": "ფრანგული წნევა",
+    "ex_squat": "ჩაჯდომა",
+    "ex_front_squat": "წინა ჩაჯდომა",
+    "ex_leg_press": "ფეხების წნევა",
+    "ex_romanian_deadlift": "რუმინული დედლიფტი",
+    "empty": "დარბაზის ვარჯიშები ჯერ არ არის",
+    "emptyMsg": "ჩაწერე არა-ხელბრძოლის ვარჯიშები აქ.",
+    "saveWorkout": "ვარჯიშის შენახვა",
+    "pickExercise": "აირჩიე ვარჯიში დასაწყებად."
+  },
+  "acc": {
+    "title": "ანგარიში",
+    "subtitle": "შენი ArmLog ვინაობა",
+    "notSignedIn": "შესული არ ხარ",
+    "signInBody": "შედი გლობალური ჩატით (Google ან ელფოსტა) ღრუბლური ასლისა და მუდმივი ვინაობისთვის.",
+    "provGoogle": "Google",
+    "provGuest": "სტუმარი",
+    "provEmail": "ელფოსტა",
+    "backupNote": "ღრუბლური ასლი — პარამეტრებში > მონაცემები, შესვლისას.",
+    "signOut": "გასვლა"
   }
 }

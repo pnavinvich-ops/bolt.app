@@ -7,7 +7,17 @@ export type AthleteKey =
   | 'todd'
   | 'bagent'
   | 'prudnik'
-  | 'backman';
+  | 'backman'
+  | 'kvikvinia'
+  | 'trubin'
+  | 'taynov'
+  | 'beziazykov'
+  | 'chaffee'
+  | 'bresnan'
+  | 'handeland'
+  | 'jodiLarratt'
+  | 'mask'
+  | 'barboza';
 
 export interface AthleteExercise {
   name: string;
@@ -437,6 +447,446 @@ export const ATHLETES: AthleteProfile[] = [
           { name: 'Overhead press', sets: 4, reps: '6-8', load: 'heavy' },
           { name: 'Pull-ups or assisted variation', sets: 4, reps: 'AMRAP-1', load: 'bodyweight' },
           { name: 'Variable-command start drills', sets: 10, reps: '1 pull', load: 'live, light' },
+        ],
+      },
+    ],
+  },
+
+  {
+    key: 'kvikvinia',
+    name: 'Genadi Kvikvinia',
+    nickname: 'The Georgian Hammer',
+    country: 'GE — Georgia',
+    weightClass: 'SHW (130+ kg)',
+    dominantArm: 'right',
+    pullingStyle:
+      'A modern super heavyweight with freakish pressing power and a cup that swallows wrists whole. Genadi wins by making the match short and ugly: explosive start into inside position, then a press that finishes before opponents organize a defense.',
+    signatureLifts: [
+      'Explosive cup entries vs resistance',
+      'Heavy press holds at pin angle',
+      'Thick-bar wrist curls for armor',
+      'Sled work for starting power',
+      'Short-range bench press lockouts',
+    ],
+    cues: [
+      'First inch decides the fight.',
+      'Press early, press once, press hard.',
+      'Cup depth beats wrist speed.',
+      'Train the finish, not the journey.',
+    ],
+    weeklySplit: [
+      {
+        day: 'Day A — Start explosion',
+        focus: 'Entry speed & inside power',
+        exercises: [
+          { name: 'Explosive cup starts vs band', sets: 6, reps: '3 reps', load: 'light-fast' },
+          { name: 'Bench lockout presses', sets: 5, reps: '3-5', load: '85%+' },
+          { name: 'Thick-bar holds', sets: 4, reps: '15s', load: 'heavy' },
+        ],
+      },
+      {
+        day: 'Day B — Press & finish',
+        focus: 'Match-ending pressure',
+        exercises: [
+          { name: 'Pin-angle press holds', sets: 5, reps: '8-10s', load: 'submax' },
+          { name: 'Live pulls, first-to-2 format', sets: 6, reps: 'mini matches', load: 'live' },
+          { name: 'Sled pushes', sets: 4, reps: '20m', load: 'heavy' },
+        ],
+      },
+    ],
+  },
+
+  {
+    key: 'trubin',
+    name: 'Dmitry Trubin',
+    nickname: 'The Tower',
+    country: 'RU — Russia',
+    weightClass: 'HW (~110-125 kg)',
+    dominantArm: 'right',
+    pullingStyle:
+      'Another giant lever system in the Laletin mold \u2014 towering height, enormous hand, and a top-roller\u2019s patience. Dmitry wins the wrist quietly, climbs knuckle by knuckle, and lets his frame do the talking while opponents exhaust themselves against structure.',
+    signatureLifts: [
+      'Long-lever toproll strap work',
+      'Static riser holds, slow tempo',
+      'Single-arm lat pulldowns (grip-wide)',
+      'Wrist extension strengthening (often neglected)',
+      'Zone-2 cardio for long tournament days',
+    ],
+    cues: [
+      'Height is nothing without hand height.',
+      'Patience is a pressure too.',
+      'Strengthen what others ignore.',
+      'Recover like it is training.',
+    ],
+    weeklySplit: [
+      {
+        day: 'Day A — Lever mechanics',
+        focus: 'Toproll geometry under fatigue',
+        exercises: [
+          { name: 'Full-range toproll strap pulls', sets: 5, reps: '6/side', load: '70%' },
+          { name: 'Riser statics, tempo descent', sets: 4, reps: '25s', load: 'moderate' },
+          { name: 'Wrist extension curls', sets: 4, reps: '12', load: 'light-moderate' },
+        ],
+      },
+      {
+        day: 'Day B — Engine building',
+        focus: 'Endurance & recovery capacity',
+        exercises: [
+          { name: 'Wide-grip lat pulldowns', sets: 4, reps: '10', load: 'moderate-heavy' },
+          { name: 'Table rounds, 90s continuous', sets: 4, reps: '1 round', load: 'live' },
+          { name: 'Zone-2 cardio', sets: 1, reps: '30 min', load: 'easy' },
+        ],
+      },
+    ],
+  },
+
+  {
+    key: 'taynov',
+    name: 'Artem Taynov',
+    nickname: 'The Technician',
+    country: 'UA — Ukraine',
+    weightClass: 'LHW (~95 kg)',
+    dominantArm: 'right',
+    pullingStyle:
+      'World-class light heavyweight whose game is precision timing: a flash pronation that lands before grips settle, immediately chained into back-pressure. Artem proves that in the lighter classes, milliseconds and angles outscore kilograms.',
+    signatureLifts: [
+      'Reaction-based pronation drills',
+      'Back-pressure cable drags, explosive sets',
+      'Tempo supination chains',
+      'Positional sparring from neutral only',
+      'Grip-endurance high-rep blocks',
+    ],
+    cues: [
+      'Beat their brain, not their arm.',
+      'One clean transition is worth ten pushes.',
+      'Light classes are won on endurance.',
+      'Drill the entry until it is reflex.',
+    ],
+    weeklySplit: [
+      {
+        day: 'Day A — Speed skills',
+        focus: 'Pronation timing & chaining',
+        exercises: [
+          { name: 'Reaction pronation drills', sets: 6, reps: '5 fast', load: 'light' },
+          { name: 'Explosive back-pressure drags', sets: 5, reps: '6', load: 'moderate' },
+          { name: 'Neutral-start positional sparring', sets: 8, reps: '12s', load: 'live' },
+        ],
+      },
+      {
+        day: 'Day B — Endurance base',
+        focus: 'Grip & pull endurance',
+        exercises: [
+          { name: 'High-rep grip blocks', sets: 4, reps: '20+', load: 'light' },
+          { name: 'Supination chains, strict tempo', sets: 4, reps: '10/side', load: 'moderate' },
+          { name: 'Face pulls', sets: 4, reps: '20', load: 'light' },
+        ],
+      },
+    ],
+  },
+
+  {
+    key: 'beziazykov',
+    name: 'Alexander Beziazykov',
+    nickname: 'The Ukrainian Anvil',
+    country: 'UA — Ukraine',
+    weightClass: 'SHW (140+ kg)',
+    dominantArm: 'right',
+    pullingStyle:
+      'Colossal even among super heavyweights. Beziazykov pairs mountain-man raw strength with surprisingly refined inside technique; when he cups, the round ends as a formality. His gym numbers belong to strongman, his table patience belongs to a chess player.',
+    signatureLifts: [
+      'Max-effort thick-bar holds',
+      'Heavy partial deadlifts (grip limit)',
+      'Massive-volume hammer curl drops',
+      'Standing cable cup, peak holds',
+      'Strongman carries for structural grit',
+    ],
+    cues: [
+      'Raw strength forgives small mistakes.',
+      'Hold the cup; time does the rest.',
+      'Carries build champions, not mirrors.',
+      'Respect recovery as much as tonnage.',
+    ],
+    weeklySplit: [
+      {
+        day: 'Day A — Max strength',
+        focus: 'Structural overload',
+        exercises: [
+          { name: 'Partial deadlifts from blocks', sets: 5, reps: '3-5', load: '90%+' },
+          { name: 'Thick-bar max holds', sets: 4, reps: '10s', load: 'max effort' },
+          { name: 'Standing cable cup peaks', sets: 4, reps: '10s', load: 'near-max' },
+        ],
+      },
+      {
+        day: 'Day B — Volume armor',
+        focus: 'Hypertrophy & carry work',
+        exercises: [
+          { name: 'Hammer curl drop sets', sets: 4, reps: '12+8+6', load: 'descending' },
+          { name: 'Farmer/yoke carries', sets: 5, reps: '25m', load: 'very heavy' },
+          { name: 'Live inside-game pulls', sets: 6, reps: '1 pull', load: 'submax' },
+        ],
+      },
+    ],
+  },
+
+  {
+    key: 'chaffee',
+    name: 'Dave Chaffee',
+    nickname: 'The Tank',
+    country: 'US — USA',
+    weightClass: 'SHW/HW (~115-125 kg)',
+    dominantArm: 'right',
+    pullingStyle:
+      'American fan favorite famous for wars of pure attrition. Dave\u2019s style is deceptively simple \u2014 get inside, stay inside, keep the pressure coming in waves until the opponent\u2019s will breaks before his arm does. Legendary gas tank, legendary heart.',
+    signatureLifts: [
+      'High-volume inside hook pulls',
+      'Isometric wall sits with table grip',
+      'Conditioning circuits (battle ropes, sled)',
+      'Heavy supinate-and-hold complexes',
+      'Partner-resisted grind rounds',
+    ],
+    cues: [
+      'Make every second miserable for them.',
+      'Pressure in waves, never in spikes.',
+      'The tank beats the sprinter in round three.',
+      'Will is trainable \u2014 train it.',
+    ],
+    weeklySplit: [
+      {
+        day: 'Day A — Grind volume',
+        focus: 'Inside-position endurance',
+        exercises: [
+          { name: 'Inside hook pulls, long sets', sets: 5, reps: '45s', load: 'moderate' },
+          { name: 'Supinate-and-hold complexes', sets: 4, reps: '20s hold + 10 reps', load: 'moderate' },
+          { name: 'Battle rope intervals', sets: 6, reps: '30s on / 30s off', load: 'hard' },
+        ],
+      },
+      {
+        day: 'Day B — War games',
+        focus: 'Attrition sparring',
+        exercises: [
+          { name: 'Grind rounds vs fresh partners', sets: 6, reps: '60s each', load: 'live' },
+          { name: 'Wall-sit grip holds', sets: 4, reps: '45s', load: 'bodyweight' },
+          { name: 'Sled drag finisher', sets: 3, reps: '40m', load: 'heavy' },
+        ],
+      },
+    ],
+  },
+
+  {
+    key: 'bresnan',
+    name: 'Tim Bresnan',
+    nickname: 'The Bres',
+    country: 'US — USA',
+    weightClass: 'HW (~105-120 kg)',
+    dominantArm: 'right',
+    pullingStyle:
+      'Explosive American heavyweight with a wrestler\u2019s athleticism translated to the table. Tim mixes fast outside entries with sudden inside switches \u2014 opponents brace for one plan and receive the other mid-round.',
+    signatureLifts: [
+      'Contrast training: heavy pulls + explosive jumps',
+      'Switch drills (toproll to hook transitions)',
+      'Medicine-ball rotational throws',
+      'Fat-grip rows for handle versatility',
+      'Sprint work for fast-twitch maintenance',
+    ],
+    cues: [
+      'Have two plans; show them one.',
+      'Athletes beat lifters at the table.',
+      'Switch mid-match, not mid-thought.',
+      'Speed is perishable \u2014 maintain it.',
+    ],
+    weeklySplit: [
+      {
+        day: 'Day A — Contrast power',
+        focus: 'Strength-speed blend',
+        exercises: [
+          { name: 'Heavy strap pulls', sets: 4, reps: '4', load: '85%' },
+          { name: 'Broad jumps', sets: 4, reps: '5', load: 'bodyweight' },
+          { name: 'Switch transition drills', sets: 6, reps: '1 cycle', load: 'technical' },
+        ],
+      },
+      {
+        day: 'Day B — Athletic table',
+        focus: 'Versatility live',
+        exercises: [
+          { name: 'Rotational med-ball throws', sets: 4, reps: '8/side', load: 'moderate' },
+          { name: 'Fat-grip rows', sets: 4, reps: '8', load: 'moderate-heavy' },
+          { name: 'Open-format sparring (any style)', sets: 8, reps: '1 pull', load: 'live' },
+        ],
+      },
+    ],
+  },
+
+  {
+    key: 'handeland',
+    name: 'Josh Handeland',
+    nickname: 'The Viking',
+    country: 'US — USA',
+    weightClass: 'MW/LHW (~95-105 kg)',
+    dominantArm: 'right',
+    pullingStyle:
+      'Rising American star with an old-school work ethic and a new-school understanding of vectors. Josh\u2019s rise came from treating armwrestling as a skill sport: deliberate practice logs, video study, and surgical drilling of exactly the positions his upcoming opponents favor.',
+    signatureLifts: [
+      'Deliberate-practice positional drills (logged daily)',
+      'Vector-specific weak-point training',
+      'Strap-work ladders',
+      'Forearm extensor isolation (injury-proofing)',
+      'Mental rehearsal + film sessions',
+    ],
+    cues: [
+      'Practice with purpose or not at all.',
+      'Study the opponent; steal their best move.',
+      'Extensors save seasons.',
+      'Small improvements compound into titles.',
+    ],
+    weeklySplit: [
+      {
+        day: 'Day A — Targeted weak points',
+        focus: 'Individual vector gaps',
+        exercises: [
+          { name: 'Weakest-vector focused lifts', sets: 6, reps: '8', load: 'moderate-heavy' },
+          { name: 'Extensor isolation', sets: 4, reps: '15', load: 'light' },
+          { name: 'Film + visualization session', sets: 1, reps: '20 min', load: '\u2014' },
+        ],
+      },
+      {
+        day: 'Day B — Deliberate table work',
+        focus: 'Scenario drilling',
+        exercises: [
+          { name: 'Scripted scenario sparring', sets: 10, reps: '1 rep', load: 'live, submax' },
+          { name: 'Strap ladder pulls', sets: 4, reps: 'ascending', load: 'moderate' },
+          { name: 'Log review + next-week plan', sets: 1, reps: '15 min', load: '\u2014' },
+        ],
+      },
+    ],
+  },
+
+  {
+    key: 'jodiLarratt',
+    name: 'Jodi Larratt',
+    nickname: 'The First Lady of the Table',
+    country: 'CA — Canada',
+    weightClass: 'FE (women\u2019s divisions)',
+    dominantArm: 'right',
+    pullingStyle:
+      'Elite competitor in her own right and half of armwrestling\u2019s most famous household. Jodi brings championship pedigree, deep technical literacy across every vector, and the kind of table composure that only thousands of matches build.',
+    signatureLifts: [
+      'Full-vector technique circuits',
+      'Wrist and cup strength supersets',
+      'High-frequency moderate-load pulls',
+      'Referee-command reaction training',
+      'Core anti-rotation work (table posture)',
+    ],
+    cues: [
+      'Composure is a technique.',
+      'Know all six vectors, fear none.',
+      'Frequency builds feel.',
+      'Posture starts in the core.',
+    ],
+    weeklySplit: [
+      {
+        day: 'Day A — Vector circuits',
+        focus: 'All-angle fluency',
+        exercises: [
+          { name: 'Six-vector technique circuit', sets: 6, reps: '8/vector', load: 'light-moderate' },
+          { name: 'Cup + wrist superset', sets: 4, reps: '12+12', load: 'moderate' },
+          { name: 'Anti-rotation core work', sets: 4, reps: '12/side', load: 'controlled' },
+        ],
+      },
+      {
+        day: 'Day B — High-frequency pulls',
+        focus: 'Volume with clean form',
+        exercises: [
+          { name: 'Moderate-load table pulls', sets: 8, reps: '1 pull', load: 'submax' },
+          { name: 'Command-reaction starts', sets: 10, reps: '1 rep', load: 'live, light' },
+          { name: 'Forearm pump finisher', sets: 3, reps: '20+', load: 'light' },
+        ],
+      },
+    ],
+  },
+
+  {
+    key: 'mask',
+    name: 'Matt Mask',
+    nickname: 'The Canadian Giant',
+    country: 'CA — Canada',
+    weightClass: 'SHW (140+ kg)',
+    dominantArm: 'right',
+    pullingStyle:
+      'One of the tallest athletes ever to compete, Matt turns reach into a cage: opponents must travel forever to reach striking distance while he sets a perfect top-roller\u2019s trap. His game rewards the patient big man who refuses to panic.',
+    signatureLifts: [
+      'Trap-bar deadlifts (frame strength)',
+      'Reach-focused setup drills',
+      'Slow-eccentric pronation',
+      'Grip crush ladders',
+      'Posterior-chain hypertrophy blocks',
+    ],
+    cues: [
+      'Make them reach; make them pay.',
+      'Big frames need big bases.',
+      'Eccentrics build joint-proof tendons.',
+      'No panic in the first five seconds.',
+    ],
+    weeklySplit: [
+      {
+        day: 'Day A — Frame strength',
+        focus: 'Posterior chain & grip',
+        exercises: [
+          { name: 'Trap-bar deadlifts', sets: 5, reps: '5', load: 'heavy' },
+          { name: 'Crush ladders', sets: 5, reps: 'ascending', load: 'hard grippers' },
+          { name: 'Slow-eccentric pronation', sets: 4, reps: '8', load: 'moderate' },
+        ],
+      },
+      {
+        day: 'Day B — Reach traps',
+        focus: 'Setup mastery',
+        exercises: [
+          { name: 'Reach-denial setup drills', sets: 8, reps: '1 rep', load: 'live, submax' },
+          { name: 'Hypertrophy row block', sets: 4, reps: '10', load: 'moderate-heavy' },
+          { name: 'Mobility for shoulders/hips', sets: 1, reps: '15 min', load: '\u2014' },
+        ],
+      },
+    ],
+  },
+
+  {
+    key: 'barboza',
+    name: 'Marcio Barboza',
+    nickname: 'The Brazilian Legend',
+    country: 'BR — Brazil',
+    weightClass: 'MW/LHW (~90-100 kg)',
+    dominantArm: 'right',
+    pullingStyle:
+      'South America\u2019s most decorated puller and a hook artist of the highest order. Marcio\u2019s inside game combines ferocious bicep strength with a veteran\u2019s calm \u2014 decades of matches distilled into an entry that feels inevitable.',
+    signatureLifts: [
+      'Heavy supination holds at 45°',
+      'Hook-entry resistance drills',
+      'Thick-grip bicep mass work',
+      'Isometric side pressure blocks',
+      'Long-career mobility maintenance',
+    ],
+    cues: [
+      'Experience speaks softly and wins loudly.',
+      'Bicep strength is hook currency.',
+      'Protect the joints; lengthen the career.',
+      'Stay calm \u2014 the hook always comes.',
+    ],
+    weeklySplit: [
+      {
+        day: 'Day A — Hook currency',
+        focus: 'Supination & bicep strength',
+        exercises: [
+          { name: 'Supination holds at 45°', sets: 5, reps: '15s', load: 'heavy' },
+          { name: 'Thick-grip curls', sets: 4, reps: '8-10', load: 'heavy' },
+          { name: 'Hook-entry resistance drill', sets: 6, reps: '1 rep', load: 'partner' },
+        ],
+      },
+      {
+        day: 'Day B — Career care',
+        focus: 'Joint health & side pressure',
+        exercises: [
+          { name: 'Isometric side-pressure blocks', sets: 4, reps: '12s', load: 'submax' },
+          { name: 'Mobility & tendon care routine', sets: 1, reps: '20 min', load: '\u2014' },
+          { name: 'Light technical pulls', sets: 8, reps: '1 pull', load: 'very light, crisp' },
         ],
       },
     ],

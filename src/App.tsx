@@ -8,6 +8,7 @@ import { useOnboarding } from '@/stores/onboarding';
 import { useOpponents } from '@/stores/opponents';
 import { useTournaments } from '@/stores/tournaments';
 import { usePresets } from '@/stores/presets';
+import { useGym } from '@/stores/gym';
 import TabBar from '@/components/TabBar';
 
 // Route-level code splitting: each screen ships as its own chunk and loads
@@ -32,6 +33,8 @@ const ExercisesScreen = lazy(() => import('@/screens/ExercisesScreen'));
 const StatCardScreen = lazy(() => import('@/screens/StatCardScreen'));
 const WorkoutSessionScreen = lazy(() => import('@/screens/WorkoutSessionScreen'));
 const MatchScorekeeperScreen = lazy(() => import('@/screens/MatchScorekeeperScreen'));
+const GymLogScreen = lazy(() => import('@/screens/GymLogScreen'));
+const AccountScreen = lazy(() => import('@/screens/AccountScreen'));
 const IntroScreen = lazy(() => import('@/screens/onboarding/IntroScreen'));
 const QuizScreen = lazy(() => import('@/screens/onboarding/QuizScreen'));
 const PaywallScreen = lazy(() => import('@/screens/onboarding/PaywallScreen'));
@@ -56,6 +59,7 @@ function Hydrator({ children }: { children: React.ReactNode }) {
     useOpponents.getState().hydrate();
     useTournaments.getState().hydrate();
     usePresets.getState().hydrate();
+    useGym.getState().hydrate();
     setReady(true);
   }, []);
   if (!ready) {
@@ -116,6 +120,8 @@ export default function App() {
             <Route path="/card" element={<StatCardScreen />} />
             <Route path="/workout" element={<WorkoutSessionScreen />} />
             <Route path="/scorekeeper" element={<MatchScorekeeperScreen />} />
+            <Route path="/gymlog" element={<GymLogScreen />} />
+            <Route path="/account" element={<AccountScreen />} />
             <Route path="*" element={<Navigate to="/log" replace />} />
             </Routes>
           </Suspense>

@@ -1,5 +1,11 @@
 {
-  "$meta": { "language": "hi", "displayName": "Hindi", "nativeName": "हिन्दी", "rtl": false, "flag": "🇮🇳" },
+  "$meta": {
+    "language": "hi",
+    "displayName": "Hindi",
+    "nativeName": "हिन्दी",
+    "rtl": false,
+    "flag": "🇮🇳"
+  },
   "common": {
     "save": "सहेजें",
     "cancel": "रद्द करें",
@@ -18,8 +24,26 @@
     "trend": "रुझान",
     "days": "{{count}} दिन"
   },
-  "nav": { "log": "डायरी", "history": "इतिहास", "diagnostics": "निदान", "tools": "टूल्स", "tendon": "कंडरा", "sparring": "स्पैरिंग", "settings": "सेटिंग्स", "plan": "योजना", "chat": "चैट", "rankings": "रैंकिंग", "guide": "गाइड" },
-  "tabs": { "log": "डायरी", "history": "इतिहास", "progress": "प्रोग्रेस", "diagnostics": "निदान", "tools": "टूल्स" },
+  "nav": {
+    "log": "डायरी",
+    "history": "इतिहास",
+    "diagnostics": "निदान",
+    "tools": "टूल्स",
+    "tendon": "कंडरा",
+    "sparring": "स्पैरिंग",
+    "settings": "सेटिंग्स",
+    "plan": "योजना",
+    "chat": "चैट",
+    "rankings": "रैंकिंग",
+    "guide": "गाइड"
+  },
+  "tabs": {
+    "log": "डायरी",
+    "history": "इतिहास",
+    "progress": "प्रोग्रेस",
+    "diagnostics": "निदान",
+    "tools": "टूल्स"
+  },
   "tools": {
     "title": "टूल्स",
     "subtitle": "रिएक्शन, कंडरा, मानक",
@@ -56,7 +80,14 @@
     "nextTierAt": "अगला स्तर {{weight}} {{unit}} पर",
     "logDynamicFirst": "अपना ताकत स्तर देखने के लिए डायनामिक सेट दर्ज करें।"
   },
-  "bench": { "novice": "नौसिखिया", "beginner": "शुरुआती", "intermediate": "मध्यम", "advanced": "उन्नत", "elite": "एलीट", "pro": "प्रो" },
+  "bench": {
+    "novice": "नौसिखिया",
+    "beginner": "शुरुआती",
+    "intermediate": "मध्यम",
+    "advanced": "उन्नत",
+    "elite": "एलीट",
+    "pro": "प्रो"
+  },
   "settings": {
     "title": "सेटिंग्स",
     "subtitle": "प्रोफ़ाइल और डेटा",
@@ -133,7 +164,8 @@
     "logLiftCta": "लिफ्ट दर्ज करें",
     "noSpars": "अभी कोई स्पैरिंग नहीं",
     "noSparsMsg": "कमज़ोर वेक्टर उजागर करने और अपनी रणनीति सुधारने के लिए अपने मुकाबले ट्रैक करें।",
-    "logSparCta": "स्पैरिंग दर्ज करें"
+    "logSparCta": "स्पैरिंग दर्ज करें",
+    "tabGym": "जिम"
   },
   "diag": {
     "title": "निदान",
@@ -319,7 +351,12 @@
     "tendonManaging": "हल्का दर्द संभाला हुआ",
     "tendonRecovering": "चोट से उबर रहे हैं"
   },
-  "vectorGuide": { "what": "यह क्या है", "why": "टेबल पर क्यों ज़रूरी", "how": "सुरक्षित कैसे ट्रेन करें", "mistakes": "आम गलतियाँ" },
+  "vectorGuide": {
+    "what": "यह क्या है",
+    "why": "टेबल पर क्यों ज़रूरी",
+    "how": "सुरक्षित कैसे ट्रेन करें",
+    "mistakes": "आम गलतियाँ"
+  },
   "guide": {
     "rise": {
       "what": "कलाई का रेडियल झुकाव — हाथ को अंगूठे की ओर मोड़ना ताकि नॉकल्स संपर्क का सबसे ऊँचा बिंदु बने रहे।",
@@ -667,8 +704,22 @@
     "planAdjusted": "सक्रिय रहते योजना का वॉल्यूम अपने आप {{pct}}% घटाया गया।"
   },
   "enum": {
-    "vector": { "pronation": "प्रोनेशन", "cup": "कप", "rise": "राइज़", "side": "साइड", "back": "बैक", "supination": "सुपिनेशन" },
-    "short": { "pronation": "प्रोन", "cup": "कप", "rise": "राइज़", "side": "साइड", "back": "बैक", "supination": "सुप" },
+    "vector": {
+      "pronation": "प्रोनेशन",
+      "cup": "कप",
+      "rise": "राइज़",
+      "side": "साइड",
+      "back": "बैक",
+      "supination": "सुपिनेशन"
+    },
+    "short": {
+      "pronation": "प्रोन",
+      "cup": "कप",
+      "rise": "राइज़",
+      "side": "साइड",
+      "back": "बैक",
+      "supination": "सुप"
+    },
     "vectorHint": {
       "pronation": "अग्रबाहु अंदर घूमता है — कलाई नियंत्रण",
       "cup": "हाथ बंद होता है — लॉकिंग ग्रिप",
@@ -677,28 +728,106 @@
       "back": "शरीर की ओर खींच — इनसाइड प्रेशर",
       "supination": "अग्रबाहु बाहर घूमता है — खोलने वाली ताकत"
     },
-    "handle": { "cone": "कोन", "multispinner": "मल्टीस्पिनर", "thick_bar": "मोटी बार", "strap": "स्ट्रैप", "other": "अन्य" },
-    "pulley": { "low": "निचली पुली", "table": "टेबल", "high": "ऊपरी पुली" },
-    "arm": { "left": "बाईं", "right": "दाईं" },
-    "mode": { "dynamic": "डायनामिक", "isometric": "आइसोमेट्रिक" },
-    "goal": { "power": "पावर", "technique": "तकनीक", "endurance": "सहनशक्ति" },
+    "handle": {
+      "cone": "कोन",
+      "multispinner": "मल्टीस्पिनर",
+      "thick_bar": "मोटी बार",
+      "strap": "स्ट्रैप",
+      "other": "अन्य"
+    },
+    "pulley": {
+      "low": "निचली पुली",
+      "table": "टेबल",
+      "high": "ऊपरी पुली"
+    },
+    "arm": {
+      "left": "बाईं",
+      "right": "दाईं"
+    },
+    "mode": {
+      "dynamic": "डायनामिक",
+      "isometric": "आइसोमेट्रिक"
+    },
+    "goal": {
+      "power": "पावर",
+      "technique": "तकनीक",
+      "endurance": "सहनशक्ति"
+    },
     "goalDesc": {
       "power": "अधिकतम बल और विस्फोटक ताकत",
       "technique": "कौशल, नियंत्रण और वेक्टर महारत",
       "endurance": "लगातार प्रदर्शन और थकान प्रतिरोध"
     },
-    "exp": { "beginner": "शुरुआती", "intermediate": "मध्यम", "advanced": "उन्नत" },
+    "exp": {
+      "beginner": "शुरुआती",
+      "intermediate": "मध्यम",
+      "advanced": "उन्नत"
+    },
     "expDesc": {
       "beginner": "आर्म-रेसलिंग ट्रेनिंग में नए",
       "intermediate": "6+ महीनों से नियमित ट्रेनिंग",
       "advanced": "संरचित ट्रेनिंग के वर्षों"
     },
-    "status": { "healthy": "स्वस्थ", "managing": "हल्का दर्द संभाल रहा हूँ", "recovering": "चोट से उबर रहा हूँ" },
+    "status": {
+      "healthy": "स्वस्थ",
+      "managing": "हल्का दर्द संभाल रहा हूँ",
+      "recovering": "चोट से उबर रहा हूँ"
+    },
     "statusDesc": {
       "healthy": "कोई दर्द या परेशानी नहीं",
       "managing": "कुछ दर्द है, उसी के साथ ट्रेनिंग कर रहा हूँ",
       "recovering": "सक्रिय रिहैब, धीरे-धीरे वापसी"
     },
-    "outcome": { "win": "जीत", "loss": "हार", "draw": "बराबरी" }
+    "outcome": {
+      "win": "जीत",
+      "loss": "हार",
+      "draw": "बराबरी"
+    }
+  },
+  "gym": {
+    "title": "जिम लॉग",
+    "subtitle": "सामान्य स्ट्रेंथ ट्रेनिंग",
+    "all": "सभी",
+    "muscle_chest": "छाती",
+    "muscle_back": "पीठ",
+    "muscle_shoulders": "कंधे",
+    "muscle_arms": "बाहें",
+    "muscle_legs": "पैर",
+    "muscle_core": "कोर",
+    "ex_bench_press": "बेंच प्रेस",
+    "ex_incline_bench": "इनक्लाइन बेंच",
+    "ex_chest_fly": "चेस्ट फ्लाई",
+    "ex_dips": "डिप्स",
+    "ex_deadlift": "डेडलिफ्ट",
+    "ex_bent_over_row": "बेंट-ओवर रो",
+    "ex_lat_pulldown": "लैट पुलडाउन",
+    "ex_seated_row": "सीटेड रो",
+    "ex_pull_up": "पुल-अप",
+    "ex_overhead_press": "ओवरहेड प्रेस",
+    "ex_lateral_raise": "लैटरल रेज़",
+    "ex_face_pull": "फेस पुल",
+    "ex_barbell_curl": "बारबेल कर्ल",
+    "ex_hammer_curl": "हैमर कर्ल",
+    "ex_tricep_pushdown": "ट्राइसेप पुशडाउन",
+    "ex_skull_crusher": "स्कल क्रशर",
+    "ex_squat": "स्क्वाट",
+    "ex_front_squat": "फ्रंट स्क्वाट",
+    "ex_leg_press": "लेग प्रेस",
+    "ex_romanian_deadlift": "रोमानियन डेडलिफ्ट",
+    "empty": "अभी कोई जिम सेशन नहीं",
+    "emptyMsg": "नॉन-आर्मरेसलिंग व्यायाम यहाँ दर्ज करें।",
+    "saveWorkout": "वर्कआउट सहेजें",
+    "pickExercise": "शुरू करने के लिए व्यायाम चुनें।"
+  },
+  "acc": {
+    "title": "खाता",
+    "subtitle": "आपकी ArmLog पहचान",
+    "notSignedIn": "साइन इन नहीं",
+    "signInBody": "क्लाउड बैकअप और स्थायी पहचान के लिए ग्लोबल चैट से साइन इन करें (Google या ईमेल)।",
+    "provGoogle": "Google",
+    "provGuest": "अतिथि",
+    "provEmail": "ईमेल",
+    "backupNote": "साइन इन होने पर क्लाउड बैकअप सेटिंग्स > डेटा में है।",
+    "signOut": "साइन आउट"
   }
 }

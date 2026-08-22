@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Send, MessageCircle, LogIn, LogOut, AlertCircle, Flag, Ban, Video } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Send, MessageCircle, LogIn, AlertCircle, Flag, Ban, Video } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
@@ -28,6 +29,7 @@ const BLOCK_KEY = 'blockedUsers';
 
 export default function GlobalChatScreen() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [channelId, setChannelId] = useState<string>(
     () => readJSON<{ id: string }>(CHANNEL_KEY)?.id ?? 'global',
   );
@@ -185,11 +187,6 @@ export default function GlobalChatScreen() {
     setUser({ id: data.user.id, name: resolveDisplayName(data.user) });
   };
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
-  };
-
   const send = async (e: React.FormEvent) => {
     e.preventDefault();
     const content = text.trim();
@@ -322,11 +319,11 @@ export default function GlobalChatScreen() {
         right={
           <button
             type="button"
-            onClick={signOut}
-            className="flex h-9 w-9 items-center justify-center rounded-md text-text-dim hover:bg-surfaceAlt hover:text-text"
-            aria-label={t('chat.signOutAria')}
+            onClick={() => navigate('/account')}
+            aria-label={t('acc.title')}
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-accent-lo text-caption font-bold text-accent-hi transition-transform active:scale-90"
           >
-            <LogOut size={18} />
+            {user.name.charAt(0).toUpperCase()}
           </button>
         }
       />

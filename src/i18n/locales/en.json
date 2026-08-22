@@ -1,5 +1,11 @@
 {
-  "$meta": { "language": "en", "displayName": "English", "nativeName": "English", "rtl": false, "flag": "🇬🇧" },
+  "$meta": {
+    "language": "en",
+    "displayName": "English",
+    "nativeName": "English",
+    "rtl": false,
+    "flag": "🇬🇧"
+  },
   "common": {
     "save": "Save",
     "cancel": "Cancel",
@@ -18,8 +24,26 @@
     "trend": "Trend",
     "days": "{{count}} days"
   },
-  "nav": { "log": "Log", "history": "History", "diagnostics": "Diagnostics", "tools": "Tools", "tendon": "Tendon", "sparring": "Sparring", "settings": "Settings", "plan": "Plan", "chat": "Chat", "rankings": "Rankings", "guide": "Guide" },
-  "tabs": { "log": "Log", "history": "History", "progress": "Progress", "diagnostics": "Diag", "tools": "Tools" },
+  "nav": {
+    "log": "Log",
+    "history": "History",
+    "diagnostics": "Diagnostics",
+    "tools": "Tools",
+    "tendon": "Tendon",
+    "sparring": "Sparring",
+    "settings": "Settings",
+    "plan": "Plan",
+    "chat": "Chat",
+    "rankings": "Rankings",
+    "guide": "Guide"
+  },
+  "tabs": {
+    "log": "Log",
+    "history": "History",
+    "progress": "Progress",
+    "diagnostics": "Diag",
+    "tools": "Tools"
+  },
   "tools": {
     "title": "Tools",
     "subtitle": "Reaction, tendon, benchmarks",
@@ -56,7 +80,14 @@
     "nextTierAt": "next tier at {{weight}} {{unit}}",
     "logDynamicFirst": "Log dynamic lifts to see your strength tier."
   },
-  "bench": { "novice": "Novice", "beginner": "Beginner", "intermediate": "Intermediate", "advanced": "Advanced", "elite": "Elite", "pro": "Pro" },
+  "bench": {
+    "novice": "Novice",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "elite": "Elite",
+    "pro": "Pro"
+  },
   "settings": {
     "title": "Settings",
     "subtitle": "Profile & data",
@@ -133,7 +164,8 @@
     "logLiftCta": "Log a lift",
     "noSpars": "No sparring logged yet",
     "noSparsMsg": "Track your matches to surface weak vectors and improve your fight strategy.",
-    "logSparCta": "Log sparring"
+    "logSparCta": "Log sparring",
+    "tabGym": "Gym"
   },
   "diag": {
     "title": "Diagnostics",
@@ -319,7 +351,12 @@
     "tendonManaging": "managing mild pain",
     "tendonRecovering": "recovering from injury"
   },
-  "vectorGuide": { "what": "What it is", "why": "Why it matters on the table", "how": "How to train it safely", "mistakes": "Common mistakes to avoid" },
+  "vectorGuide": {
+    "what": "What it is",
+    "why": "Why it matters on the table",
+    "how": "How to train it safely",
+    "mistakes": "Common mistakes to avoid"
+  },
   "guide": {
     "rise": {
       "what": "Radial deviation of the wrist — bending the hand toward the thumb so the knuckles stay the highest point of the contact.",
@@ -667,8 +704,22 @@
     "planAdjusted": "Plan volume automatically reduced by {{pct}}% while this is active."
   },
   "enum": {
-    "vector": { "pronation": "Pronation", "cup": "Cup", "rise": "Rise", "side": "Side", "back": "Back", "supination": "Supination" },
-    "short": { "pronation": "PRON", "cup": "CUP", "rise": "RISE", "side": "SIDE", "back": "BACK", "supination": "SUP" },
+    "vector": {
+      "pronation": "Pronation",
+      "cup": "Cup",
+      "rise": "Rise",
+      "side": "Side",
+      "back": "Back",
+      "supination": "Supination"
+    },
+    "short": {
+      "pronation": "PRON",
+      "cup": "CUP",
+      "rise": "RISE",
+      "side": "SIDE",
+      "back": "BACK",
+      "supination": "SUP"
+    },
     "vectorHint": {
       "pronation": "Forearm rolls inward — wrist control",
       "cup": "Hand folds closed — locking grip",
@@ -677,28 +728,106 @@
       "back": "Pull toward your body — inside pressure",
       "supination": "Forearm rolls outward — opening force"
     },
-    "handle": { "cone": "Cone", "multispinner": "Multi-spinner", "thick_bar": "Thick bar", "strap": "Strap", "other": "Other" },
-    "pulley": { "low": "Low pulley", "table": "Table", "high": "High pulley" },
-    "arm": { "left": "Left", "right": "Right" },
-    "mode": { "dynamic": "Dynamic", "isometric": "Isometric" },
-    "goal": { "power": "Power", "technique": "Technique", "endurance": "Endurance" },
+    "handle": {
+      "cone": "Cone",
+      "multispinner": "Multi-spinner",
+      "thick_bar": "Thick bar",
+      "strap": "Strap",
+      "other": "Other"
+    },
+    "pulley": {
+      "low": "Low pulley",
+      "table": "Table",
+      "high": "High pulley"
+    },
+    "arm": {
+      "left": "Left",
+      "right": "Right"
+    },
+    "mode": {
+      "dynamic": "Dynamic",
+      "isometric": "Isometric"
+    },
+    "goal": {
+      "power": "Power",
+      "technique": "Technique",
+      "endurance": "Endurance"
+    },
     "goalDesc": {
       "power": "Maximal force and explosive strength",
       "technique": "Skill, control, and vector mastery",
       "endurance": "Sustained output and fatigue resistance"
     },
-    "exp": { "beginner": "Beginner", "intermediate": "Intermediate", "advanced": "Advanced" },
+    "exp": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
     "expDesc": {
       "beginner": "New to arm wrestling training",
       "intermediate": "Consistent training for 6+ months",
       "advanced": "Years of structured training"
     },
-    "status": { "healthy": "Healthy", "managing": "Managing mild pain", "recovering": "Recovering from injury" },
+    "status": {
+      "healthy": "Healthy",
+      "managing": "Managing mild pain",
+      "recovering": "Recovering from injury"
+    },
     "statusDesc": {
       "healthy": "No pain or discomfort",
       "managing": "Some soreness, training through it",
       "recovering": "Active rehab, easing back in"
     },
-    "outcome": { "win": "Win", "loss": "Loss", "draw": "Draw" }
+    "outcome": {
+      "win": "Win",
+      "loss": "Loss",
+      "draw": "Draw"
+    }
+  },
+  "gym": {
+    "title": "Gym log",
+    "subtitle": "General strength training",
+    "all": "All",
+    "muscle_chest": "Chest",
+    "muscle_back": "Back",
+    "muscle_shoulders": "Shoulders",
+    "muscle_arms": "Arms",
+    "muscle_legs": "Legs",
+    "muscle_core": "Core",
+    "ex_bench_press": "Bench press",
+    "ex_incline_bench": "Incline bench",
+    "ex_chest_fly": "Chest fly",
+    "ex_dips": "Dips",
+    "ex_deadlift": "Deadlift",
+    "ex_bent_over_row": "Bent-over row",
+    "ex_lat_pulldown": "Lat pulldown",
+    "ex_seated_row": "Seated row",
+    "ex_pull_up": "Pull-up",
+    "ex_overhead_press": "Overhead press",
+    "ex_lateral_raise": "Lateral raise",
+    "ex_face_pull": "Face pull",
+    "ex_barbell_curl": "Barbell curl",
+    "ex_hammer_curl": "Hammer curl",
+    "ex_tricep_pushdown": "Tricep pushdown",
+    "ex_skull_crusher": "Skull crusher",
+    "ex_squat": "Squat",
+    "ex_front_squat": "Front squat",
+    "ex_leg_press": "Leg press",
+    "ex_romanian_deadlift": "Romanian deadlift",
+    "empty": "No gym sessions yet",
+    "emptyMsg": "Log your non-armwrestling lifts here.",
+    "saveWorkout": "Save workout",
+    "pickExercise": "Pick an exercise to start logging."
+  },
+  "acc": {
+    "title": "Account",
+    "subtitle": "Your ArmLog identity",
+    "notSignedIn": "Not signed in",
+    "signInBody": "Sign in via Global chat with Google or email to unlock cloud backup and a persistent identity.",
+    "provGoogle": "Google",
+    "provGuest": "Guest",
+    "provEmail": "Email",
+    "backupNote": "Cloud backup lives in Settings > Data while signed in.",
+    "signOut": "Sign out"
   }
 }

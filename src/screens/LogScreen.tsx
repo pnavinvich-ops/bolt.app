@@ -100,6 +100,10 @@ export default function LogScreen() {
     setSets((prev) => prev.map((s) => (s.id === id ? { ...s, ...patch } : s)));
   };
 
+  const toggleUnit = () => {
+    useSettings.getState().update({ unit: unit === 'kg' ? 'lb' : 'kg' });
+  };
+
   const addSet = () => {
     const last = sets[sets.length - 1];
     setSets((prev) => [
@@ -315,7 +319,17 @@ export default function LogScreen() {
                 </span>
                 <div className="flex flex-1 items-center gap-2">
                   <div className="flex-1">
-                    <label className="mb-0.5 block text-micro text-text-faint">{t('log.weight', { unit })}</label>
+                    <label className="mb-0.5 flex items-center gap-1 text-micro text-text-faint">
+                      {t('log.weight', { unit })}
+                      <button
+                        type="button"
+                        onClick={toggleUnit}
+                        className="rounded-xs bg-surfaceHigh px-1 py-px font-bold uppercase text-text-dim transition-colors hover:text-accent"
+                        title={t('settings.units')}
+                      >
+                        {unit === 'kg' ? '→ lb' : '→ kg'}
+                      </button>
+                    </label>
                     <input
                       type="number"
                       inputMode="decimal"

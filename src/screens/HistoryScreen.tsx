@@ -2,9 +2,10 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Trash2, Dumbbell, Swords, Calendar } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import type { Lift, SparringSession } from '@/types/domain';
+import type { GymLog, Lift, SparringSession } from '@/types/domain';
 import { useLifts } from '@/stores/lifts';
 import { useSparring } from '@/stores/sparring';
+import { useGym } from '@/stores/gym';
 import { useSettings } from '@/stores/settings';
 import { todayKey, kgToUnit } from '@/types/constants';
 import i18n from '@/i18n';
@@ -13,7 +14,7 @@ import EmptyState from '@/components/EmptyState';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import SegmentedControl from '@/components/SegmentedControl';
 
-type Tab = 'lifts' | 'sparring';
+type Tab = 'lifts' | 'sparring' | 'gym';
 
 function formatDayLabel(ts: number, t: (k: string) => string): string {
   const d = new Date(ts);
@@ -37,6 +38,18 @@ function groupByDate<T extends { createdAt: number }>(items: T[], t: (k: string)
     label: formatDayLabel(items[0].createdAt, t),
     items: items.sort((a, b) => b.createdAt - a.createdAt),
   }));
+}
+
+function GroupBlock({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <div className="mb-2 flex items-center gap-2">
+        <Calendar size={13} className="text-text-faint" />
+        <p className="text-caption font-semibold uppercase tracking-wide text-text-faint">{label}</p>
+      </div>
+      <div className="space-y-2">{children}</div>
+    </div>
+  );
 }
 
 function LiftRow({ lift, unit }: { lift: Lift; unit: 'kg' | 'lb' }) {
@@ -70,8 +83,8 @@ function LiftRow({ lift, unit }: { lift: Lift; unit: 'kg' | 'lb' }) {
         <button
           type="button"
           onClick={() => setConfirm(true)}
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-text-faint transition-colors hover:bg-bad-tint hover:text-bad"
           aria-label={t('history.deleteLiftAria')}
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-text-faint transition-colors hover:bg-bad-tint hover:text-bad"
         >
           <Trash2 size={16} />
         </button>
@@ -120,8 +133,8 @@ function SparRow({ session }: { session: SparringSession }) {
         <button
           type="button"
           onClick={() => setConfirm(true)}
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-text-faint transition-colors hover:bg-bad-tint hover:text-bad"
           aria-label={t('history.deleteSparAria')}
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-text-faint transition-colors hover:bg-bad-tint hover:text-bad"
         >
           <Trash2 size={16} />
         </button>
@@ -139,15 +152,63 @@ function SparRow({ session }: { session: SparringSession }) {
   );
 }
 
+function GymRow({ log, unit }: { log: GymLog; unit: 'kg' | 'lb' }) {
+  const { t } = useTranslation();
+  const removeLog = useGym((s) => s.removeLog);
+  const [confirm, setConfirm] = useState(false);
+  const topWeight = Math.max(...log.sets.map((s) => s.weight));
+  const topReps = Math.max(...log.sets.map((s) => s.reps));
+
+  return (
+    <>
+      <div className="flex items-center gap-3 rounded-md border border-border bg-surface p-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-surfaceAlt">
+          <Dumbbell size={18} className="text-accent" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-body font-semibold">{t(`gym.ex_${log.exerciseKey}`)}</p>
+          <p className="mt-0.5 text-caption text-text-dim">
+            {t('history.setsTop', { count: log.sets.length, weight: kgToUnit(topWeight, unit), unit })}
+            {' × '}
+            {topReps} {t('log.reps').toLowerCase()}
+          </p>
+          {log.notes && <p className="mt-1 line-clamp-2 text-caption text-text-faint">{log.notes}</p>}
+        </div>
+        <button
+          type="button"
+          onClick={() => setConfirm(true)}
+          aria-label={t('common.delete')}
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-text-faint transition-colors hover:bg-bad-tint hover:text-bad"
+        >
+          <Trash2 size={16} />
+        </button>
+      </div>
+      <ConfirmDialog
+        open={confirm}
+        title={t('history.deleteLiftTitle')}
+        message={t('history.deleteLiftMsg')}
+        confirmLabel={t('common.delete')}
+        danger
+        onConfirm={() => { removeLog(log.id); setConfirm(false); }}
+        onCancel={() => setConfirm(false)}
+      />
+    </>
+  );
+}
+
 export default function HistoryScreen() {
   const { t } = useTranslation();
   const lifts = useLifts((s) => s.lifts);
   const sparring = useSparring((s) => s.sessions);
+  const gymLogs = useGym((s) => s.logs);
   const unit = useSettings((s) => s.settings.unit);
   const [tab, setTab] = useState<Tab>('lifts');
 
   const liftGroups = useMemo(() => groupByDate(lifts, t), [lifts, t]);
   const sparGroups = useMemo(() => groupByDate(sparring, t), [sparring, t]);
+  const gymGroups = useMemo(() => groupByDate(gymLogs, t), [gymLogs, t]);
+
+  const addRoute = tab === 'lifts' ? '/log' : tab === 'sparring' ? '/sparring' : '/gymlog';
 
   return (
     <div className="min-h-screen pb-32">
@@ -156,9 +217,9 @@ export default function HistoryScreen() {
         subtitle={t('history.subtitle')}
         right={
           <Link
-            to={tab === 'lifts' ? '/log' : '/sparring'}
-            className="flex h-9 w-9 items-center justify-center rounded-md bg-accent text-onAccent transition-transform active:scale-90"
+            to={addRoute}
             aria-label={t('history.addAria')}
+            className="flex h-9 w-9 items-center justify-center rounded-md bg-accent text-onAccent transition-transform active:scale-90"
           >
             <Plus size={20} />
           </Link>
@@ -171,14 +232,15 @@ export default function HistoryScreen() {
             options={[
               { value: 'lifts', label: t('history.tabLifts') },
               { value: 'sparring', label: t('history.tabSparring') },
+              { value: 'gym', label: t('history.tabGym') },
             ]}
             value={tab}
-            onChange={setTab}
+            onChange={(v) => setTab(v as Tab)}
           />
         </div>
 
-        {tab === 'lifts' ? (
-          liftGroups.length === 0 ? (
+        {tab === 'lifts' &&
+          (liftGroups.length === 0 ? (
             <EmptyState
               icon={Dumbbell}
               title={t('history.noLifts')}
@@ -192,52 +254,62 @@ export default function HistoryScreen() {
           ) : (
             <div className="space-y-5">
               {liftGroups.map((group) => (
-                <div key={group.label}>
-                  <div className="mb-2 flex items-center gap-2">
-                    <Calendar size={13} className="text-text-faint" />
-                    <p className="text-caption font-semibold uppercase tracking-wide text-text-faint">
-                      {group.label}
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    {group.items.map((lift) => (
-                      <LiftRow key={lift.id} lift={lift} unit={unit} />
-                    ))}
-                  </div>
-                </div>
+                <GroupBlock key={group.label} label={group.label}>
+                  {group.items.map((lift) => (
+                    <LiftRow key={lift.id} lift={lift} unit={unit} />
+                  ))}
+                </GroupBlock>
               ))}
             </div>
-          )
-        ) : sparGroups.length === 0 ? (
-          <EmptyState
-            icon={Swords}
-            title={t('history.noSpars')}
-            message={t('history.noSparsMsg')}
-            action={
-              <Link to="/sparring" className="btn-primary">
-                <Plus size={18} /> {t('history.logSparCta')}
-              </Link>
-            }
-          />
-        ) : (
-          <div className="space-y-5">
-            {sparGroups.map((group) => (
-              <div key={group.label}>
-                <div className="mb-2 flex items-center gap-2">
-                  <Calendar size={13} className="text-text-faint" />
-                  <p className="text-caption font-semibold uppercase tracking-wide text-text-faint">
-                    {group.label}
-                  </p>
-                </div>
-                <div className="space-y-2">
+          ))}
+
+        {tab === 'sparring' &&
+          (sparGroups.length === 0 ? (
+            <EmptyState
+              icon={Swords}
+              title={t('history.noSpars')}
+              message={t('history.noSparsMsg')}
+              action={
+                <Link to="/sparring" className="btn-primary">
+                  <Plus size={18} /> {t('history.logSparCta')}
+                </Link>
+              }
+            />
+          ) : (
+            <div className="space-y-5">
+              {sparGroups.map((group) => (
+                <GroupBlock key={group.label} label={group.label}>
                   {group.items.map((session) => (
                     <SparRow key={session.id} session={session} />
                   ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+                </GroupBlock>
+              ))}
+            </div>
+          ))}
+
+        {tab === 'gym' &&
+          (gymGroups.length === 0 ? (
+            <EmptyState
+              icon={Dumbbell}
+              title={t('gym.empty')}
+              message={t('gym.emptyMsg')}
+              action={
+                <Link to="/gymlog" className="btn-primary">
+                  <Plus size={18} /> {t('gym.title')}
+                </Link>
+              }
+            />
+          ) : (
+            <div className="space-y-5">
+              {gymGroups.map((group) => (
+                <GroupBlock key={group.label} label={group.label}>
+                  {group.items.map((log) => (
+                    <GymRow key={log.id} log={log} unit={unit} />
+                  ))}
+                </GroupBlock>
+              ))}
+            </div>
+          ))}
       </div>
     </div>
   );
