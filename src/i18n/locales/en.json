@@ -42,6 +42,8 @@
     "secTrack": "Track your training",
     "secLearn": "Learn",
     "secCommunity": "Community",
+    "moreWorkout": "Guided workout",
+    "moreScorekeeper": "Scorekeeper",
     "tapStart": "Tap to start",
     "waitGreen": "Wait for green…",
     "tapNow": "TAP NOW!",
@@ -101,6 +103,9 @@
     "addSet": "Add set",
     "removeSetAria": "Remove set",
     "setCount": "{{count}} sets",
+    "lastTime": "Last time: {{weight}}{{unit}} {{detail}}",
+    "fillLast": "Fill",
+    "secondsShort": "s",
     "saveLift": "Save {{arm}} lift",
     "saveHold": "Save {{arm}} hold",
     "saveBoth": "Save both arms",
@@ -556,6 +561,88 @@
       "step3": "Rotate positions: cup, side press, toproll finish.",
       "cue": "Table time beats gym time — drill positions, not loads."
     }
+  },
+  "presets": {
+    "title": "Presets",
+    "save": "Save preset",
+    "saved": "Saved",
+    "empty": "Save your favorite setups for one-tap access."
+  },
+  "heat": {
+    "title": "Consistency",
+    "streak_one": "{{count}}-day streak",
+    "streak_other": "{{count}}-day streak",
+    "goal": "This week: {{count}}/{{target}} sessions",
+    "adherence": "8-week average: {{pct}}% of target",
+    "legendLess": "Less",
+    "legendMore": "More"
+  },
+  "badges": {
+    "title": "Achievements",
+    "firstLift": "First lift",
+    "sets100": "100 sets logged",
+    "prAll6": "Full arsenal",
+    "streak7": "7-day streak",
+    "streak30": "30-day streak",
+    "balance75": "Balanced arms",
+    "tendon30": "Tendon keeper",
+    "spar10": "Table veteran",
+    "tierAdvanced": "Advanced tier"
+  },
+  "workout": {
+    "title": "Guided workout",
+    "pickDay": "Pick today's session",
+    "dayN": "Day {{n}}",
+    "start": "Start workout",
+    "exerciseN": "Exercise {{cur}} of {{total}}",
+    "setsDone": "sets done",
+    "repsOrSec": "Reps / sec",
+    "logSet": "Log set",
+    "restTitle": "Rest",
+    "skipRest": "Skip rest",
+    "nextExercise": "Next exercise",
+    "finish": "Finish & save",
+    "doneTitle": "Workout complete!",
+    "doneSummary": "{{count}} sets logged · ~{{volume}} {{unit}} moved"
+  },
+  "match": {
+    "title": "Scorekeeper",
+    "subtitle": "Live match scoreboard",
+    "format": "Format",
+    "bestOf": "Best of {{n}}",
+    "you": "You",
+    "them": "Them",
+    "fouls": "Fouls",
+    "winnerYou": "You take it {{a}}–{{b}}!",
+    "winnerThem": "{{name}} takes it {{a}}–{{b}}",
+    "saveCta": "Save as sparring session",
+    "newMatch": "New match",
+    "needName": "Type an opponent name to save."
+  },
+  "sync": {
+    "title": "Cloud backup",
+    "push": "Back up now",
+    "pull": "Restore backup",
+    "ok": "Done",
+    "empty": "No backup found yet.",
+    "fail": "Sync failed — try again.",
+    "lastSync": "Last synced: {{date}}",
+    "needAuth": "Sign in once to enable cloud backup:",
+    "note": "One snapshot per account. Restoring overwrites this device's data."
+  },
+  "rem": {
+    "title": "Reminders",
+    "tendon": "Daily tendon check-in",
+    "workout": "Workout days",
+    "nativeOnly": "Notifications work in the installed app (APK).",
+    "denied": "Permission denied — enable notifications in system settings.",
+    "scheduled": "Scheduled",
+    "bodyTendon": "Daily elbow & forearm check-in time.",
+    "bodyWorkout": "Arm day — time to pull."
+  },
+  "clip": {
+    "attach": "Attach clip",
+    "tooLarge": "Clip must be under 50 MB."
   },
   "rehab": {
     "status_none": "Tendons look good",

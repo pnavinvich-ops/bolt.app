@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Plus, Trash2, Check, Dumbbell, Timer } from 'lucide-react';
+import { Plus, Trash2, Check, Dumbbell, Timer, Bookmark, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { Arm, Vector, Handle, Pulley, Mode, SetEntry } from '@/types/domain';
 import {
@@ -10,9 +10,12 @@ import {
   PULLEYS,
   MODES,
   uid,
+  kgToUnit,
 } from '@/types/constants';
 import { useLifts } from '@/stores/lifts';
 import { useSettings } from '@/stores/settings';
+import { usePresets } from '@/stores/presets';
+import { oneRepMax } from '@/services/strength';
 import SegmentedControl from '@/components/SegmentedControl';
 import ScreenHeader from '@/components/ScreenHeader';
 
@@ -21,7 +24,12 @@ export default function LogScreen() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const addLift = useLifts((s) => s.addLift);
+  const lifts = useLifts((s) => s.lifts);
   const unit = useSettings((s) => s.settings.unit);
+  const presets = usePresets((s) => s.presets);
+  const addPreset = usePresets((s) => s.addPreset);
+  const removePreset = usePresets((s) => s.removePreset);
+  usePresets((s) => s.hydrate);
 
   const [arm, setArm] = useState<Arm>('right');
   const [vector, setVector] = useState<Vector>('pronation');
@@ -31,6 +39,7 @@ export default function LogScreen() {
   const [sets, setSets] = useState<SetEntry[]>([{ id: uid('set'), weight: 0, reps: 0 }]);
   const [notes, setNotes] = useState('');
   const [saved, setSaved] = useState(false);
+  const [presetSaved, setPresetSaved] = useState(false);
 
   useEffect(() => {
     const pArm = params.get('arm') as Arm | null;
@@ -42,6 +51,49 @@ export default function LogScreen() {
     if (pHandle && HANDLES.includes(pHandle)) setHandle(pHandle);
     if (pPulley && PULLEYS.includes(pPulley)) setPulley(pPulley);
   }, [params]);
+
+  // Smart prefill: most recent lift with the exact same setup.
+  const lastLift = useMemo(
+    () =>
+      lifts.find(
+        (l) =>
+          l.arm === arm &&
+          l.vector === vector &&
+          l.handle === handle &&
+          l.pulley === pulley &&
+          l.mode === mode,
+      ),
+    [lifts, arm, vector, handle, pulley, mode],
+  );
+
+  const applyLastLift = () => {
+    if (!lastLift) return;
+    const s0 = lastLift.sets[0];
+    if (!s0) return;
+    setSets((prev) =>
+      prev.map((s, i) =>
+        i === 0
+          ? {
+              ...s,
+              weight: s.weight || s0.weight,
+              reps: mode === 'dynamic' ? s.reps || s0.reps : undefined,
+              durationSec: mode === 'isometric' ? s.durationSec || s0.durationSec : undefined,
+            }
+          : s,
+      ),
+    );
+  };
+
+  // Live estimated 1RM from the strongest entered dynamic set.
+  const liveE1rm = useMemo(() => {
+    if (mode !== 'dynamic') return 0;
+    let best = 0;
+    for (const s of sets) {
+      const orm = oneRepMax(s.weight, s.reps ?? 0);
+      if (orm > best) best = orm;
+    }
+    return best;
+  }, [sets, mode]);
 
   const updateSet = (id: string, patch: Partial<SetEntry>) => {
     setSets((prev) => prev.map((s) => (s.id === id ? { ...s, ...patch } : s)));
@@ -94,11 +146,66 @@ export default function LogScreen() {
 
   const canSave = sets.some((s) => s.weight > 0 && ((mode === 'dynamic' && (s.reps ?? 0) > 0) || (mode === 'isometric' && (s.durationSec ?? 0) > 0)));
 
+  const applyPreset = (p: (typeof presets)[number]) => {
+    setArm(p.arm);
+    setVector(p.vector);
+    setHandle(p.handle);
+    setPulley(p.pulley);
+    setMode(p.mode);
+  };
+
+  const saveCurrentAsPreset = () => {
+    addPreset({ arm, vector, handle, pulley, mode });
+    setPresetSaved(true);
+    setTimeout(() => setPresetSaved(false), 1500);
+  };
+
   return (
     <div className="min-h-screen pb-32">
       <ScreenHeader title={t('log.title')} subtitle={t('log.subtitle')} backTo="/history" />
 
       <div className="mx-auto max-w-md space-y-5 px-4 py-4">
+        {/* Presets */}
+        <section>
+          <div className="mb-2 flex items-center justify-between">
+            <p className="label">{t('presets.title')}</p>
+            <button
+              type="button"
+              onClick={saveCurrentAsPreset}
+              className={`flex items-center gap-1 text-caption font-semibold transition-colors ${
+                presetSaved ? 'text-ok' : 'text-text-faint hover:text-accent'
+              }`}
+            >
+              {presetSaved ? <Check size={14} /> : <Bookmark size={14} />}
+              {presetSaved ? t('presets.saved') : t('presets.save')}
+            </button>
+          </div>
+          {presets.length === 0 ? (
+            <p className="text-caption text-text-faint">{t('presets.empty')}</p>
+          ) : (
+            <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4">
+              {presets.map((p) => (
+                <span
+                  key={p.id}
+                  className="flex shrink-0 items-center gap-1 rounded-md border border-border bg-surfaceAlt py-1.5 pl-3 pr-1.5"
+                >
+                  <button type="button" onClick={() => applyPreset(p)} className="text-caption font-semibold text-text-dim transition-colors hover:text-accent">
+                    {t(`enum.vector.${p.vector}`)} · {t(`enum.handle.${p.handle}`)}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => removePreset(p.id)}
+                    aria-label={t('common.delete')}
+                    className="text-text-faint transition-colors hover:text-bad"
+                  >
+                    <X size={12} />
+                  </button>
+                </span>
+              ))}
+            </div>
+          )}
+        </section>
+
         {/* Arm selector */}
         <section>
           <p className="label mb-2">{t('log.arm')}</p>
@@ -177,8 +284,37 @@ export default function LogScreen() {
         <section>
           <div className="mb-2 flex items-center justify-between">
             <p className="label">{t('log.sets')}</p>
-            <span className="text-caption text-text-faint">{t('log.setCount', { count: sets.length })}</span>
+            <div className="flex items-center gap-3">
+              {liveE1rm > 0 && (
+                <span className="text-caption font-bold text-accent">
+                  e1RM ≈ {kgToUnit(liveE1rm, unit)} {unit}
+                </span>
+              )}
+              <span className="text-caption text-text-faint">{t('log.setCount', { count: sets.length })}</span>
+            </div>
           </div>
+
+          {lastLift && (
+            <div className="mb-2 flex items-center gap-2 rounded-md border border-border bg-surfaceAlt px-3 py-2">
+              <span className="flex-1 truncate text-caption text-text-faint">
+                {t('log.lastTime', {
+                  weight: `${kgToUnit(Math.max(...lastLift.sets.map((s) => s.weight)), unit)}`,
+                  unit,
+                  detail:
+                    mode === 'dynamic'
+                      ? `× ${Math.max(...lastLift.sets.map((s) => s.reps ?? 0))} ${t('log.reps').toLowerCase()}`
+                      : `× ${Math.max(...lastLift.sets.map((s) => s.durationSec ?? 0))} ${t('log.secondsShort')}`,
+                })}
+              </span>
+              <button
+                type="button"
+                onClick={applyLastLift}
+                className="shrink-0 text-caption font-bold text-accent transition-transform active:scale-95"
+              >
+                {t('log.fillLast')}
+              </button>
+            </div>
+          )}
           <div className="space-y-2">
             {sets.map((set, idx) => (
               <div

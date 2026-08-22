@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Zap, RefreshCw, Award, Activity, Timer, AlertCircle, BookOpen, Trophy, Globe2, MessageCircle, TrendingUp, Users, CalendarDays, Scale, Dumbbell, Share2, Settings as SettingsIcon } from 'lucide-react';
+import { Zap, RefreshCw, Award, Activity, Timer as TimerIcon, AlertCircle, BookOpen, Trophy, Globe2, MessageCircle, TrendingUp, Users, CalendarDays, Scale, Dumbbell, Share2, Settings as SettingsIcon, Swords } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useLifts } from '@/stores/lifts';
@@ -159,7 +159,7 @@ function TendonHealthCard({ title, checkIn }: { title: string; checkIn: string }
             {t('tools.noCheckins')}
           </p>
           <Link to="/tendon" className="btn-ghost">
-            <Timer size={16} /> {checkIn}
+            <TimerIcon size={16} /> {checkIn}
           </Link>
         </div>
       ) : (
@@ -322,6 +322,7 @@ function MoreTools() {
         <ToolTile to="/scout" icon={Users} label={t('tools.moreScout')} />
         <ToolTile to="/tournament" icon={CalendarDays} label={t('tools.moreTournament')} />
         <ToolTile to="/card" icon={Share2} label={t('tools.moreCard')} />
+        <ToolTile to="/workout" icon={TimerIcon} label={t('tools.moreWorkout')} />
       </TileSection>
 
       <TileSection titleKey="tools.secLearn">
@@ -335,6 +336,7 @@ function MoreTools() {
         <ToolTile to="/partners" icon={Globe2} label={t('tools.morePartners')} />
         <ToolTile to="/rankings" icon={Trophy} label={t('tools.moreRankings')} />
         <ToolTile to="/chat" icon={MessageCircle} label={t('tools.moreChat')} />
+        <ToolTile to="/scorekeeper" icon={Swords} label={t('tools.moreScorekeeper')} />
       </TileSection>
 
       <Link to="/settings" className="btn-ghost w-full justify-start">

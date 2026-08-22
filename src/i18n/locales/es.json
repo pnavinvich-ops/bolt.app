@@ -42,6 +42,8 @@
     "secTrack": "Seguimiento",
     "secLearn": "Aprender",
     "secCommunity": "Comunidad",
+    "moreWorkout": "Entreno guiado",
+    "moreScorekeeper": "Marcador",
     "tapStart": "Toca para empezar",
     "waitGreen": "Espera el verde…",
     "tapNow": "¡TOCA AHORA!",
@@ -101,6 +103,9 @@
     "addSet": "Añadir serie",
     "removeSetAria": "Quitar serie",
     "setCount": "{{count}} series",
+    "lastTime": "Última vez: {{weight}}{{unit}} {{detail}}",
+    "fillLast": "Rellenar",
+    "secondsShort": "s",
     "saveLift": "Guardar serie ({{arm}})",
     "saveHold": "Guardar retención ({{arm}})",
     "saveBoth": "Guardar ambos brazos",
@@ -558,6 +563,89 @@
       "step3": "Rota posiciones: copa, press lateral, remate de toproll.",
       "cue": "El tiempo de mesa vence al de gimnasio — practica posiciones, no cargas."
     }
+  },
+  "presets": {
+    "title": "Preajustes",
+    "save": "Guardar preajuste",
+    "saved": "Guardado",
+    "empty": "Guarda tus montajes favoritos para acceder con un toque."
+  },
+  "heat": {
+    "title": "Constancia",
+    "streak_one": "{{count}} día seguido",
+    "streak_many": "{{count}} días seguidos",
+    "streak_other": "{{count}} días seguidos",
+    "goal": "Esta semana: {{count}}/{{target}} sesiones",
+    "adherence": "Media de 8 semanas: {{pct}}% del objetivo",
+    "legendLess": "Menos",
+    "legendMore": "Más"
+  },
+  "badges": {
+    "title": "Logros",
+    "firstLift": "Primera serie",
+    "sets100": "100 series",
+    "prAll6": "Arsenal completo",
+    "streak7": "7 días seguidos",
+    "streak30": "30 días seguidos",
+    "balance75": "Brazos equilibrados",
+    "tendon30": "Cuida-tendones",
+    "spar10": "Veterano de mesa",
+    "tierAdvanced": "Nivel avanzado"
+  },
+  "workout": {
+    "title": "Entreno guiado",
+    "pickDay": "Elige la sesión de hoy",
+    "dayN": "Día {{n}}",
+    "start": "Empezar entreno",
+    "exerciseN": "Ejercicio {{cur}} de {{total}}",
+    "setsDone": "series hechas",
+    "repsOrSec": "Reps / seg",
+    "logSet": "Registrar serie",
+    "restTitle": "Descanso",
+    "skipRest": "Saltar descanso",
+    "nextExercise": "Siguiente ejercicio",
+    "finish": "Terminar y guardar",
+    "doneTitle": "¡Entreno completado!",
+    "doneSummary": "{{count}} series · ~{{volume}} {{unit}} movidos"
+  },
+  "match": {
+    "title": "Marcador",
+    "subtitle": "Pizarra en vivo del combate",
+    "format": "Formato",
+    "bestOf": "Al mejor de {{n}}",
+    "you": "Tú",
+    "them": "Rival",
+    "fouls": "Faltas",
+    "winnerYou": "¡Ganas {{a}}–{{b}}!",
+    "winnerThem": "{{name}} gana {{a}}–{{b}}",
+    "saveCta": "Guardar como sparring",
+    "newMatch": "Nuevo combate",
+    "needName": "Escribe un nombre de rival para guardar."
+  },
+  "sync": {
+    "title": "Copia en la nube",
+    "push": "Respaldar ahora",
+    "pull": "Restaurar copia",
+    "ok": "Listo",
+    "empty": "Aún no hay copia guardada.",
+    "fail": "Fallo de sincronización — reintenta.",
+    "lastSync": "Última copia: {{date}}",
+    "needAuth": "Inicia sesión una vez para activar la copia:",
+    "note": "Una instantánea por cuenta. Restaurar sobrescribe los datos de este dispositivo."
+  },
+  "rem": {
+    "title": "Recordatorios",
+    "tendon": "Control diario de tendón",
+    "workout": "Días de entreno",
+    "nativeOnly": "Las notificaciones funcionan en la app instalada (APK).",
+    "denied": "Permiso denegado — activa las notificaciones en el sistema.",
+    "scheduled": "Programado",
+    "bodyTendon": "Hora del control diario de codo y antebrazo.",
+    "bodyWorkout": "Día de brazos — a tirar."
+  },
+  "clip": {
+    "attach": "Adjuntar vídeo",
+    "tooLarge": "El vídeo debe pesar menos de 50 MB."
   },
   "rehab": {
     "status_none": "Los tendones se ven bien",

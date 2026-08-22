@@ -42,6 +42,8 @@
     "secTrack": "Takip",
     "secLearn": "Öğren",
     "secCommunity": "Topluluk",
+    "moreWorkout": "Rehberli antrenman",
+    "moreScorekeeper": "Skor tabelası",
     "tapStart": "Başlamak için dokun",
     "waitGreen": "Yeşili bekle…",
     "tapNow": "ŞİMDİ DOKUN!",
@@ -101,6 +103,9 @@
     "addSet": "Set ekle",
     "removeSetAria": "Seti kaldır",
     "setCount": "{{count}} set",
+    "lastTime": "Geçen sefer: {{weight}}{{unit}} {{detail}}",
+    "fillLast": "Doldur",
+    "secondsShort": "sn",
     "saveLift": "{{arm}} kol setini kaydet",
     "saveHold": "{{arm}} kol tutuşunu kaydet",
     "saveBoth": "İki kolu da kaydet",
@@ -556,6 +561,88 @@
       "step3": "Pozisyonları döndür: fincan, yan basınç, toprol bitirişi.",
       "cue": "Masa zamanı salonu yener — yükleri değil pozisyonları çalış."
     }
+  },
+  "presets": {
+    "title": "Hazır ayarlar",
+    "save": "Ayarı kaydet",
+    "saved": "Kaydedildi",
+    "empty": "En sevdiğin düzenleri tek dokunuşla erişmek için kaydet."
+  },
+  "heat": {
+    "title": "Süreklilik",
+    "streak_one": "{{count}} günlük seri",
+    "streak_other": "{{count}} günlük seri",
+    "goal": "Bu hafta: {{count}}/{{target}} seans",
+    "adherence": "8 haftalık ortalama: hedefin %{{pct}}'i",
+    "legendLess": "Az",
+    "legendMore": "Çok"
+  },
+  "badges": {
+    "title": "Başarımlar",
+    "firstLift": "İlk set",
+    "sets100": "100 set kaydı",
+    "prAll6": "Tam cephanelik",
+    "streak7": "7 günlük seri",
+    "streak30": "30 günlük seri",
+    "balance75": "Dengeli kollar",
+    "tendon30": "Tendon koruyucusu",
+    "spar10": "Masa gazisi",
+    "tierAdvanced": "İleri seviye"
+  },
+  "workout": {
+    "title": "Rehberli antrenman",
+    "pickDay": "Bugünün seansını seç",
+    "dayN": "Gün {{n}}",
+    "start": "Antrenmana başla",
+    "exerciseN": "Egzersiz {{cur}}/{{total}}",
+    "setsDone": "set tamam",
+    "repsOrSec": "Tekrar / sn",
+    "logSet": "Seti kaydet",
+    "restTitle": "Mola",
+    "skipRest": "Molayı atla",
+    "nextExercise": "Sonraki egzersiz",
+    "finish": "Bitir ve kaydet",
+    "doneTitle": "Antrenman tamam!",
+    "doneSummary": "{{count}} set · ~{{volume}} {{unit}} toplam hacim"
+  },
+  "match": {
+    "title": "Skor tabelası",
+    "subtitle": "Canlı maç skorboardı",
+    "format": "Format",
+    "bestOf": "En iyi {{n}}",
+    "you": "Sen",
+    "them": "Rakip",
+    "fouls": "Fauller",
+    "winnerYou": "Maçı sen aldın {{a}}–{{b}}!",
+    "winnerThem": "Maçı {{name}} aldı {{a}}–{{b}}",
+    "saveCta": "Sparring olarak kaydet",
+    "newMatch": "Yeni maç",
+    "needName": "Kaydetmek için bir rakip adı yaz."
+  },
+  "sync": {
+    "title": "Bulut yedeği",
+    "push": "Şimdi yedekle",
+    "pull": "Yedeği geri yükle",
+    "ok": "Tamam",
+    "empty": "Henüz yedek bulunamadı.",
+    "fail": "Eşitleme başarısız — tekrar dene.",
+    "lastSync": "Son eşitleme: {{date}}",
+    "needAuth": "Bulut yedeğini açmak için bir kez giriş yap:",
+    "note": "Hesap başına tek anlık görüntü. Geri yükleme bu cihazın verisini üzerine yazar."
+  },
+  "rem": {
+    "title": "Hatırlatıcılar",
+    "tendon": "Günlük tendon kontrolü",
+    "workout": "Antrenman günleri",
+    "nativeOnly": "Bildirimler kurulu uygulamada (APK) çalışır.",
+    "denied": "İzin verilmedi — bildirimleri sistem ayarlarından aç.",
+    "scheduled": "Zamanlandı",
+    "bodyTendon": "Günlük dirsek ve ön kol kontrolü zamanı.",
+    "bodyWorkout": "Kol günü — çekme zamanı."
+  },
+  "clip": {
+    "attach": "Video ekle",
+    "tooLarge": "Video 50 MB'dan küçük olmalı."
   },
   "rehab": {
     "status_none": "Tendonlar iyi görünüyor",

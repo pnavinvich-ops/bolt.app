@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Send, MessageCircle, LogIn, LogOut, AlertCircle, Flag, Ban } from 'lucide-react';
+import { Send, MessageCircle, LogIn, LogOut, AlertCircle, Flag, Ban, Video } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
@@ -8,6 +8,9 @@ import { CHAT_CHANNELS } from '@/types/constants';
 import i18n from '@/i18n';
 import ScreenHeader from '@/components/ScreenHeader';
 import ConfirmDialog from '@/components/ConfirmDialog';
+
+const CLIP_PREFIX = '[clip] ';
+const MAX_CLIP_BYTES = 50 * 1024 * 1024;
 
 interface Message {
   id: string;
@@ -43,6 +46,39 @@ export default function GlobalChatScreen() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const channelRef = useRef<RealtimeChannel | null>(null);
   const lastSendRef = useRef(0);
+  const clipInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+
+  const uploadClip = async (file: File) => {
+    if (!user || uploading) return;
+    if (file.size > MAX_CLIP_BYTES) {
+      setNotice(t('clip.tooLarge'));
+      setTimeout(() => setNotice(null), 3000);
+      return;
+    }
+    setUploading(true);
+    setError(null);
+    try {
+      const ext = (file.name.split('.').pop() ?? 'mp4').toLowerCase().replace(/[^a-z0-9]/g, '') || 'mp4';
+      const path = `${user.id}/${Date.now()}.${ext}`;
+      const { error: upErr } = await supabase.storage.from('clips').upload(path, file, {
+        cacheControl: '3600',
+        upsert: false,
+      });
+      if (upErr) throw new Error(upErr.message);
+      const { data } = supabase.storage.from('clips').getPublicUrl(path);
+      const { error: insErr } = await supabase.from('messages').insert({
+        room_id: channelId,
+        user_id: user.id,
+        user_name: user.name,
+        content: `${CLIP_PREFIX}${data.publicUrl}`,
+      });
+      if (insErr) throw new Error(insErr.message);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : t('sync.fail'));
+    }
+    setUploading(false);
+  };
 
   // Resolve current user
   useEffect(() => {
@@ -317,6 +353,26 @@ export default function GlobalChatScreen() {
         className="safe-b flex gap-2 border-t border-border bg-surface px-4 py-3"
       >
         <input
+          ref={clipInputRef}
+          type="file"
+          accept="video/*"
+          className="hidden"
+          onChange={(e) => {
+            const f = e.target.files?.[0];
+            if (f) void uploadClip(f);
+            e.target.value = '';
+          }}
+        />
+        <button
+          type="button"
+          onClick={() => clipInputRef.current?.click()}
+          disabled={uploading}
+          aria-label={t('clip.attach')}
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-surfaceAlt text-text-dim transition-all active:scale-90 hover:text-accent disabled:opacity-50"
+        >
+          <Video size={18} className={uploading ? 'animate-pulse' : ''} />
+        </button>
+        <input
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -367,6 +423,8 @@ function Bubble({
   onBlock: () => void;
 }) {
   const time = new Date(m.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const isClip = m.content.startsWith(CLIP_PREFIX);
+  const clipUrl = isClip ? m.content.slice(CLIP_PREFIX.length).trim() : null;
   return (
     <li className={`rounded-md border p-2.5 ${isMine ? 'border-accent/30 bg-accent-lo' : 'border-border bg-surfaceAlt'}`}>
       <div className="mb-0.5 flex items-baseline justify-between gap-2">
@@ -395,7 +453,11 @@ function Bubble({
           <span className="text-micro text-text-faint">{time}</span>
         </span>
       </div>
-      <p className="text-body text-text-dim break-words whitespace-pre-wrap">{m.content}</p>
+      {isClip && clipUrl ? (
+        <video src={clipUrl} controls preload="metadata" className="mt-1 max-h-72 w-full rounded-md bg-black" />
+      ) : (
+        <p className="text-body text-text-dim break-words whitespace-pre-wrap">{m.content}</p>
+      )}
     </li>
   );
 }

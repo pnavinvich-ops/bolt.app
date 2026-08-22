@@ -1,9 +1,17 @@
-import { useState, useRef } from 'react';
-import { Settings as SettingsIcon, Download, Upload, Trash2, RotateCcw } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Settings as SettingsIcon, Download, Upload, Trash2, RotateCcw, UploadCloud, DownloadCloud, Bell, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { Capacitor } from '@capacitor/core';
 import { useSettings } from '@/stores/settings';
 import { useOnboarding } from '@/stores/onboarding';
 import { clearAllAppKeys, listAppKeys, readJSON } from '@/storage/storage';
+import { currentUser, pushBackup, pullBackup, getLastSync } from '@/services/cloud';
+import {
+  applyReminders,
+  loadReminders,
+  type ReminderConfig,
+} from '@/services/reminders';
 import ScreenHeader from '@/components/ScreenHeader';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import LanguagePicker from '@/components/LanguagePicker';
@@ -134,7 +142,11 @@ export default function SettingsScreen() {
             <Upload size={18} /> {t('settings.import')}
           </button>
           <input ref={fileRef} type="file" accept="application/json" className="hidden" onChange={handleImport} />
+          <CloudBackupCard />
         </section>
+
+        {/* Reminders */}
+        <RemindersCard />
 
         {/* Onboarding */}
         <section className="card space-y-3">
@@ -176,6 +188,215 @@ export default function SettingsScreen() {
         onConfirm={handleResetAll}
         onCancel={() => setConfirmResetAll(false)}
       />
+    </div>
+  );
+}
+
+function CloudBackupCard() {
+  const { t } = useTranslation();
+  const [user, setUser] = useState<{ id: string } | null>(null);
+  const [checked, setChecked] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [status, setStatus] = useState<string | null>(null);
+  const lastSync = getLastSync();
+
+  useEffect(() => {
+    currentUser().then((u) => {
+      setUser(u);
+      setChecked(true);
+    });
+  }, []);
+
+  const run = async (fn: () => Promise<number>) => {
+    setBusy(true);
+    setStatus(null);
+    try {
+      await fn();
+      setStatus(t('sync.ok'));
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : 'error';
+      setStatus(msg === 'empty' ? t('sync.empty') : t('sync.fail'));
+    }
+    setBusy(false);
+  };
+
+  return (
+    <div className="space-y-2 rounded-md border border-border bg-surfaceAlt p-3">
+      <p className="label flex items-center gap-1.5">
+        <UploadCloud size={12} /> {t('sync.title')}
+      </p>
+      {!checked ? null : !user ? (
+        <p className="text-caption text-text-faint">
+          {t('sync.needAuth')}{' '}
+          <Link to="/chat" className="font-semibold text-accent">
+            {t('chat.title')}
+          </Link>
+        </p>
+      ) : (
+        <>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => run(pushBackup)}
+              disabled={busy}
+              className="btn-ghost flex-1 justify-start py-2 text-caption"
+            >
+              <UploadCloud size={15} /> {t('sync.push')}
+            </button>
+            <button
+              type="button"
+              onClick={() => run(() => pullBackup())}
+              disabled={busy}
+              className="btn-ghost flex-1 justify-start py-2 text-caption"
+            >
+              <DownloadCloud size={15} /> {t('sync.pull')}
+            </button>
+          </div>
+          {status && (
+            <p className={`text-caption font-semibold ${status === t('sync.ok') ? 'text-ok' : 'text-warn'}`}>{status}</p>
+          )}
+          {lastSync && <p className="text-micro text-text-faint">{t('sync.lastSync', { date: new Date(lastSync).toLocaleString() })}</p>}
+          <p className="text-micro text-text-faint">{t('sync.note')}</p>
+        </>
+      )}
+    </div>
+  );
+}
+
+const ISO_DAYS = [1, 2, 3, 4, 5, 6, 7];
+
+function RemindersCard() {
+  const { t, i18n } = useTranslation();
+  const [cfg, setCfg] = useState<ReminderConfig>(() => loadReminders());
+  const native = Capacitor.isNativePlatform();
+  const [status, setStatus] = useState<string | null>(null);
+
+  const update = async (patch: Partial<ReminderConfig>) => {
+    const next = { ...cfg, ...patch };
+    setCfg(next);
+    setStatus(null);
+    const res = await applyReminders(next, {
+      tendonTitle: t('rem.title'),
+      tendonBody: t('rem.bodyTendon'),
+      workoutTitle: t('rem.title'),
+      workoutBody: t('rem.bodyWorkout'),
+    });
+    if (res === 'denied') setStatus(t('rem.denied'));
+    else if (res === 'unsupported') setStatus(native ? null : t('rem.nativeOnly'));
+    else setStatus(t('rem.scheduled'));
+  };
+
+  const dayName = (iso: number) => {
+    // ISO weekday: 2023-01-02 was a Monday.
+    const d = new Date(2023, 0, 1 + iso - 1);
+    return d.toLocaleDateString(i18n.language, { weekday: 'narrow' });
+  };
+
+  return (
+    <section className="card space-y-3">
+      <h3 className="text-h3 flex items-center gap-2">
+        <Bell size={18} /> {t('rem.title')}
+      </h3>
+
+      {!native && <p className="text-caption text-warn">{t('rem.nativeOnly')}</p>}
+
+      {/* Tendon daily reminder */}
+      <div className="space-y-2 rounded-md border border-border bg-surfaceAlt p-3">
+        <ToggleRow
+          label={t('rem.tendon')}
+          checked={cfg.tendonOn}
+          onChange={(v) => update({ tendonOn: v })}
+          disabled={!native}
+        />
+        <input
+          type="time"
+          className="input py-1.5 text-caption"
+          value={cfg.tendonTime}
+          disabled={!native || !cfg.tendonOn}
+          onChange={(e) => update({ tendonTime: e.target.value })}
+        />
+      </div>
+
+      {/* Workout days */}
+      <div className="space-y-2 rounded-md border border-border bg-surfaceAlt p-3">
+        <ToggleRow
+          label={t('rem.workout')}
+          checked={cfg.workoutsOn}
+          onChange={(v) => update({ workoutsOn: v })}
+          disabled={!native}
+        />
+        <input
+          type="time"
+          className="input py-1.5 text-caption"
+          value={cfg.workoutTime}
+          disabled={!native || !cfg.workoutsOn}
+          onChange={(e) => update({ workoutTime: e.target.value })}
+        />
+        <div className="flex gap-1">
+          {ISO_DAYS.map((d) => {
+            const active = cfg.days.includes(d);
+            return (
+              <button
+                key={d}
+                type="button"
+                disabled={!native || !cfg.workoutsOn}
+                onClick={() =>
+                  update({
+                    days: active ? cfg.days.filter((x) => x !== d) : [...cfg.days, d].sort(),
+                  })
+                }
+                className={`h-8 flex-1 rounded-md border text-caption font-bold transition-all active:scale-90 ${
+                  active && cfg.workoutsOn
+                    ? 'border-accent bg-accent-lo text-accent-hi'
+                    : 'border-border bg-surface text-text-faint'
+                } ${!native || !cfg.workoutsOn ? 'opacity-40' : ''}`}
+              >
+                {dayName(d)}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {status && (
+        <p className={`flex items-center gap-1 text-caption font-semibold ${status === t('rem.scheduled') ? 'text-ok' : 'text-warn'}`}>
+          {status === t('rem.scheduled') && <Check size={13} />} {status}
+        </p>
+      )}
+    </section>
+  );
+}
+
+function ToggleRow({
+  label,
+  checked,
+  onChange,
+  disabled,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+  disabled?: boolean;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-2">
+      <span className="text-body text-text-dim">{label}</span>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={checked}
+        disabled={disabled}
+        onClick={() => onChange(!checked)}
+        className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${
+          checked ? 'bg-accent' : 'bg-border'
+        } ${disabled ? 'opacity-40' : ''}`}
+      >
+        <span
+          className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${
+            checked ? 'left-[22px]' : 'left-0.5'
+          }`}
+        />
+      </button>
     </div>
   );
 }
