@@ -10,13 +10,15 @@ export function recentChecks(checks: TendonCheck[], days = 7): TendonCheck[] {
     .sort((a, b) => a.createdAt - b.createdAt);
 }
 
+export type TendonLabelId = 'healthy' | 'good' | 'monitor' | 'strained' | 'critical';
+
 export interface TendonIndex {
   score: number;
   trend: 'improving' | 'stable' | 'declining' | 'unknown';
   elbowAvg: number;
   forearmAvg: number;
   daysLogged: number;
-  label: string;
+  label: TendonLabelId;
 }
 
 export function currentTendonIndex(checks: TendonCheck[], days = 7): TendonIndex {
@@ -28,7 +30,7 @@ export function currentTendonIndex(checks: TendonCheck[], days = 7): TendonIndex
       elbowAvg: 0,
       forearmAvg: 0,
       daysLogged: 0,
-      label: 'No data',
+      label: 'critical',
     };
   }
 
@@ -58,12 +60,12 @@ export function currentTendonIndex(checks: TendonCheck[], days = 7): TendonIndex
   };
 }
 
-function tendonLabel(score: number): string {
-  if (score >= 80) return 'Healthy';
-  if (score >= 60) return 'Good';
-  if (score >= 40) return 'Monitor';
-  if (score >= 20) return 'Strained';
-  return 'Critical';
+function tendonLabel(score: number): TendonLabelId {
+  if (score >= 80) return 'healthy';
+  if (score >= 60) return 'good';
+  if (score >= 40) return 'monitor';
+  if (score >= 20) return 'strained';
+  return 'critical';
 }
 
 function avg(nums: number[]): number {

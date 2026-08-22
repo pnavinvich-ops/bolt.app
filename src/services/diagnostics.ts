@@ -1,5 +1,5 @@
 import type { Lift, Vector, SparringSession } from '@/types/domain';
-import { VECTORS, VECTOR_LABEL, PULLEY_MULTIPLIER } from '@/types/constants';
+import { VECTORS, PULLEY_MULTIPLIER } from '@/types/constants';
 
 export interface VectorMax {
   vector: Vector;
@@ -11,6 +11,9 @@ export interface VectorVolume {
   volume: number;
 }
 
+export type BalanceLevel = 'excellent' | 'good' | 'fair' | 'imbalanced' | 'critical';
+export type WeakReason = 'both' | 'leftWeak' | 'rightWeak' | 'losses';
+
 export interface DiagnosticResult {
   leftMaxes: VectorMax[];
   rightMaxes: VectorMax[];
@@ -18,14 +21,15 @@ export interface DiagnosticResult {
   rightVolumes: VectorVolume[];
   weakVectors: WeakVector[];
   balanceScore: number;
-  balanceLabel: string;
+  balanceLabel: BalanceLevel;
 }
 
 export interface WeakVector {
   vector: Vector;
   arm: 'left' | 'right' | 'both';
   gap: number;
-  suggestion: string;
+  losses?: number;
+  reason: WeakReason;
 }
 
 export function effectiveWeight(lift: Lift): number {
@@ -84,12 +88,12 @@ export function balanceScore(
   return Math.round(ratio * 100);
 }
 
-export function balanceLabel(score: number): string {
-  if (score >= 90) return 'Excellent';
-  if (score >= 75) return 'Good';
-  if (score >= 60) return 'Fair';
-  if (score >= 40) return 'Imbalanced';
-  return 'Critical';
+export function balanceLabel(score: number): BalanceLevel {
+  if (score >= 90) return 'excellent';
+  if (score >= 75) return 'good';
+  if (score >= 60) return 'fair';
+  if (score >= 40) return 'imbalanced';
+  return 'critical';
 }
 
 export function diagnoseWeaknesses(
@@ -128,28 +132,29 @@ export function diagnoseWeaknesses(
         vector,
         arm: 'both',
         gap: Math.round((1 - Math.min(leftRatio, rightRatio)) * 100),
-        suggestion: `${VECTOR_LABEL[vector]} is lagging on both arms — add dedicated sets this week.`,
+        reason: 'both',
       });
     } else if (leftWeak) {
       weak.push({
         vector,
         arm: 'left',
         gap: Math.round((1 - leftRatio) * 100),
-        suggestion: `Left ${VECTOR_LABEL[vector].toLowerCase()} trails right by ${Math.round((1 - leftRatio) * 100)}% — add 2 extra sets left.`,
+        reason: 'leftWeak',
       });
     } else if (rightWeak) {
       weak.push({
         vector,
         arm: 'right',
         gap: Math.round((1 - rightRatio) * 100),
-        suggestion: `Right ${VECTOR_LABEL[vector].toLowerCase()} trails left by ${Math.round((1 - rightRatio) * 100)}% — add 2 extra sets right.`,
+        reason: 'rightWeak',
       });
     } else if (losses >= 2) {
       weak.push({
         vector,
         arm: 'both',
         gap: losses,
-        suggestion: `${losses} recent losses involving ${VECTOR_LABEL[vector]} — drill this vector against varied styles.`,
+        losses,
+        reason: 'losses',
       });
     }
   }

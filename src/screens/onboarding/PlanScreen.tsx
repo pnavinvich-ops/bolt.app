@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { Calendar, Dumbbell, ArrowRight, AlertCircle, Sparkles } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useOnboarding } from '@/stores/onboarding';
-import { VECTOR_LABEL, HANDLE_LABEL, PULLEY_LABEL, ARM_LABEL } from '@/types/constants';
-import { describeProfile } from '@/services/planGenerator';
+import { useProfileSummary } from '@/lib/profileText';
 import ScreenHeader from '@/components/ScreenHeader';
 
 export default function PlanScreen() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const describeProfile = useProfileSummary();
   const profile = useOnboarding((s) => s.profile);
   const plan = useOnboarding((s) => s.plan);
 
@@ -17,21 +19,33 @@ export default function PlanScreen() {
 
   return (
     <div className="min-h-screen pb-32">
-      <ScreenHeader title="Your Training Plan" subtitle={describeProfile(profile)} backTo="/" />
+      <ScreenHeader title={t('plan.title')} subtitle={describeProfile(profile)} backTo="/" />
 
       <div className="mx-auto max-w-md space-y-4 px-4 py-4">
         <section className="card flex items-center gap-3">
           <Sparkles size={20} className="text-accent" />
           <div className="flex-1">
-            <p className="text-body font-semibold">{plan.summary}</p>
-            <p className="text-caption text-text-faint">{plan.weeks} weeks · {plan.sessionsPerWeek} sessions/week</p>
+            <p className="text-body font-semibold">
+              {t('planGen.summary', {
+                sessions: plan.sessionsPerWeek,
+                sets: plan.days[0]?.exercises[0]?.sets ?? '',
+                reps: plan.days[0]?.exercises[0]?.reps ?? '',
+                focus:
+                  profile.focus.map((v) => t(`enum.vector.${v}`)).join(', ') ||
+                  t('planGen.balanced'),
+                weeks: plan.weeks,
+              })}
+            </p>
+            <p className="text-caption text-text-faint">
+              {t('plan.weeksSessions', { weeks: plan.weeks, sessions: plan.sessionsPerWeek })}
+            </p>
           </div>
         </section>
 
-        {plan.caveat && (
+        {plan.caveatKind && (
           <section className="card-alt flex items-start gap-3">
             <AlertCircle size={18} className="mt-0.5 shrink-0 text-warn" />
-            <p className="text-caption text-text-dim">{plan.caveat}</p>
+            <p className="text-caption text-text-dim">{t(`planGen.caveat${plan.caveatKind === 'managing' ? 'Managing' : 'Recovering'}`)}</p>
           </section>
         )}
 
@@ -43,8 +57,8 @@ export default function PlanScreen() {
                   {day.day}
                 </span>
                 <div className="flex-1">
-                  <h3 className="text-h3">{day.title}</h3>
-                  <p className="text-caption text-text-faint">{day.focus}</p>
+                  <h3 className="text-h3">{t(`planGen.day${day.slot}`)}</h3>
+                  <p className="text-caption text-text-faint">{t(`planGen.focus${day.slot}`)}</p>
                 </div>
               </div>
               <div className="space-y-2">
@@ -57,9 +71,9 @@ export default function PlanScreen() {
                   >
                     <Dumbbell size={16} className="shrink-0 text-accent" />
                     <div className="flex-1">
-                      <p className="text-body font-semibold">{VECTOR_LABEL[ex.vector]}</p>
+                      <p className="text-body font-semibold">{t(`enum.vector.${ex.vector}`)}</p>
                       <p className="text-caption text-text-dim">
-                        {ex.sets}×{ex.reps} · {HANDLE_LABEL[ex.handle]} · {PULLEY_LABEL[ex.pulley]}
+                        {ex.sets}×{ex.reps} · {t(`enum.handle.${ex.handle}`)} · {t(`enum.pulley.${ex.pulley}`)}
                       </p>
                     </div>
                     <ArrowRight size={16} className="shrink-0 text-text-faint" />
@@ -71,7 +85,7 @@ export default function PlanScreen() {
         </div>
 
         <button type="button" onClick={() => navigate('/log')} className="btn-primary w-full">
-          <Calendar size={18} /> Start training
+          <Calendar size={18} /> {t('plan.startTraining')}
         </button>
       </div>
     </div>

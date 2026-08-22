@@ -1,19 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Plus, Trash2, Check, Dumbbell, Timer } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import type { Arm, Vector, Handle, Pulley, Mode, SetEntry } from '@/types/domain';
 import {
   ARMS,
-  ARM_LABEL,
   VECTORS,
-  VECTOR_LABEL,
-  VECTOR_HINT,
   HANDLES,
-  HANDLE_LABEL,
   PULLEYS,
-  PULLEY_LABEL,
   MODES,
-  MODE_LABEL,
   uid,
 } from '@/types/constants';
 import { useLifts } from '@/stores/lifts';
@@ -24,6 +19,7 @@ import ScreenHeader from '@/components/ScreenHeader';
 export default function LogScreen() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const addLift = useLifts((s) => s.addLift);
   const unit = useSettings((s) => s.settings.unit);
 
@@ -100,14 +96,14 @@ export default function LogScreen() {
 
   return (
     <div className="min-h-screen pb-32">
-      <ScreenHeader title="Log Lift" subtitle="Record a training set" backTo="/history" />
+      <ScreenHeader title={t('log.title')} subtitle={t('log.subtitle')} backTo="/history" />
 
       <div className="mx-auto max-w-md space-y-5 px-4 py-4">
         {/* Arm selector */}
         <section>
-          <p className="label mb-2">Arm</p>
+          <p className="label mb-2">{t('log.arm')}</p>
           <SegmentedControl
-            options={ARMS.map((a) => ({ value: a, label: ARM_LABEL[a] }))}
+            options={ARMS.map((a) => ({ value: a, label: t(`enum.arm.${a}`) }))}
             value={arm}
             onChange={setArm}
           />
@@ -115,7 +111,7 @@ export default function LogScreen() {
 
         {/* Vector */}
         <section>
-          <p className="label mb-2">Vector</p>
+          <p className="label mb-2">{t('log.vector')}</p>
           <div className="grid grid-cols-3 gap-2">
             {VECTORS.map((v) => (
               <button
@@ -128,18 +124,18 @@ export default function LogScreen() {
                     : 'border-border bg-surfaceAlt text-text-dim hover:text-text'
                 }`}
               >
-                {VECTOR_LABEL[v]}
+                {t(`enum.vector.${v}`)}
               </button>
             ))}
           </div>
-          <p className="mt-2 text-caption text-text-faint">{VECTOR_HINT[vector]}</p>
+          <p className="mt-2 text-caption text-text-faint">{t(`enum.vectorHint.${vector}`)}</p>
         </section>
 
         {/* Mode */}
         <section>
-          <p className="label mb-2">Mode</p>
+          <p className="label mb-2">{t('log.mode')}</p>
           <SegmentedControl
-            options={MODES.map((m) => ({ value: m, label: MODE_LABEL[m] }))}
+            options={MODES.map((m) => ({ value: m, label: t(`enum.mode.${m}`) }))}
             value={mode}
             onChange={switchMode}
           />
@@ -148,7 +144,7 @@ export default function LogScreen() {
         {/* Handle + Pulley */}
         <section className="grid grid-cols-2 gap-3">
           <div>
-            <p className="label mb-2">Handle</p>
+            <p className="label mb-2">{t('log.handle')}</p>
             <select
               className="input"
               value={handle}
@@ -156,13 +152,13 @@ export default function LogScreen() {
             >
               {HANDLES.map((h) => (
                 <option key={h} value={h}>
-                  {HANDLE_LABEL[h]}
+                  {t(`enum.handle.${h}`)}
                 </option>
               ))}
             </select>
           </div>
           <div>
-            <p className="label mb-2">Pulley</p>
+            <p className="label mb-2">{t('log.pulley')}</p>
             <select
               className="input"
               value={pulley}
@@ -170,7 +166,7 @@ export default function LogScreen() {
             >
               {PULLEYS.map((p) => (
                 <option key={p} value={p}>
-                  {PULLEY_LABEL[p]}
+                  {t(`enum.pulley.${p}`)}
                 </option>
               ))}
             </select>
@@ -180,8 +176,8 @@ export default function LogScreen() {
         {/* Sets */}
         <section>
           <div className="mb-2 flex items-center justify-between">
-            <p className="label">Sets</p>
-            <span className="text-caption text-text-faint">{sets.length} set{sets.length > 1 ? 's' : ''}</span>
+            <p className="label">{t('log.sets')}</p>
+            <span className="text-caption text-text-faint">{t('log.setCount', { count: sets.length })}</span>
           </div>
           <div className="space-y-2">
             {sets.map((set, idx) => (
@@ -194,7 +190,7 @@ export default function LogScreen() {
                 </span>
                 <div className="flex flex-1 items-center gap-2">
                   <div className="flex-1">
-                    <label className="mb-0.5 block text-micro text-text-faint">Weight ({unit})</label>
+                    <label className="mb-0.5 block text-micro text-text-faint">{t('log.weight', { unit })}</label>
                     <input
                       type="number"
                       inputMode="decimal"
@@ -208,7 +204,7 @@ export default function LogScreen() {
                   </div>
                   {mode === 'dynamic' ? (
                     <div className="flex-1">
-                      <label className="mb-0.5 block text-micro text-text-faint">Reps</label>
+                      <label className="mb-0.5 block text-micro text-text-faint">{t('log.reps')}</label>
                       <input
                         type="number"
                         inputMode="numeric"
@@ -221,7 +217,7 @@ export default function LogScreen() {
                     </div>
                   ) : (
                     <div className="flex-1">
-                      <label className="mb-0.5 block text-micro text-text-faint">Hold (sec)</label>
+                      <label className="mb-0.5 block text-micro text-text-faint">{t('log.holdSec')}</label>
                       <input
                         type="number"
                         inputMode="numeric"
@@ -239,7 +235,7 @@ export default function LogScreen() {
                   onClick={() => removeSet(set.id)}
                   disabled={sets.length === 1}
                   className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-text-faint transition-colors hover:bg-bad-tint hover:text-bad disabled:opacity-30"
-                  aria-label="Remove set"
+                  aria-label={t('log.removeSetAria')}
                 >
                   <Trash2 size={16} />
                 </button>
@@ -251,17 +247,17 @@ export default function LogScreen() {
             onClick={addSet}
             className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-md border border-dashed border-borderStrong py-2.5 text-caption text-text-dim transition-colors hover:border-accent hover:text-accent"
           >
-            <Plus size={16} /> Add set
+            <Plus size={16} /> {t('log.addSet')}
           </button>
         </section>
 
         {/* Notes */}
         <section>
-          <p className="label mb-2">Notes</p>
+          <p className="label mb-2">{t('log.notes')}</p>
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            placeholder="How did it feel? Any pain or PRs?"
+            placeholder={t('log.notesPh')}
             rows={3}
             className="input resize-none"
           />
@@ -277,15 +273,15 @@ export default function LogScreen() {
           >
             {saved ? (
               <>
-                <Check size={18} /> Saved
+                <Check size={18} /> {t('log.saved')}
               </>
             ) : mode === 'dynamic' ? (
               <>
-                <Dumbbell size={18} /> Save {ARM_LABEL[arm]} lift
+                <Dumbbell size={18} /> {t('log.saveLift', { arm: t(`enum.arm.${arm}`) })}
               </>
             ) : (
               <>
-                <Timer size={18} /> Save {ARM_LABEL[arm]} hold
+                <Timer size={18} /> {t('log.saveHold', { arm: t(`enum.arm.${arm}`) })}
               </>
             )}
           </button>
@@ -295,7 +291,7 @@ export default function LogScreen() {
             disabled={!canSave || saved}
             className="btn-ghost w-full"
           >
-            Save both arms
+            {t('log.saveBoth')}
           </button>
         </section>
       </div>

@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swords, Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import type { Vector, Outcome } from '@/types/domain';
-import { VECTORS, VECTOR_LABEL, OUTCOMES, OUTCOME_LABEL } from '@/types/constants';
+import { VECTORS, OUTCOMES } from '@/types/constants';
 import { useSparring } from '@/stores/sparring';
 import ScreenHeader from '@/components/ScreenHeader';
 
 export default function SparringScreen() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const addSession = useSparring((s) => s.addSession);
 
   const [opponent, setOpponent] = useState('');
@@ -40,31 +42,31 @@ export default function SparringScreen() {
 
   return (
     <div className="min-h-screen pb-32">
-      <ScreenHeader title="Log Sparring" subtitle="Record a match" backTo="/history" />
+      <ScreenHeader title={t('spar.title')} subtitle={t('spar.subtitle')} backTo="/history" />
 
       <div className="mx-auto max-w-md space-y-5 px-4 py-4">
         <section>
-          <p className="label mb-2">Opponent</p>
+          <p className="label mb-2">{t('spar.opponent')}</p>
           <input
             className="input"
             value={opponent}
             onChange={(e) => setOpponent(e.target.value)}
-            placeholder="Name or nickname"
+            placeholder={t('spar.opponentPh')}
           />
         </section>
 
         <section>
-          <p className="label mb-2">Opponent's style</p>
+          <p className="label mb-2">{t('spar.oppStyle')}</p>
           <input
             className="input"
             value={opponentStyle}
             onChange={(e) => setOpponentStyle(e.target.value)}
-            placeholder="e.g. Top roll, hook, press"
+            placeholder={t('spar.oppStylePh')}
           />
         </section>
 
         <section>
-          <p className="label mb-2">Your techniques (multi-select)</p>
+          <p className="label mb-2">{t('spar.yourTech')}</p>
           <div className="grid grid-cols-3 gap-2">
             {VECTORS.map((v) => (
               <button
@@ -77,14 +79,14 @@ export default function SparringScreen() {
                     : 'border-border bg-surfaceAlt text-text-dim hover:text-text'
                 }`}
               >
-                {VECTOR_LABEL[v]}
+                {t(`enum.vector.${v}`)}
               </button>
             ))}
           </div>
         </section>
 
         <section>
-          <p className="label mb-2">Outcome</p>
+          <p className="label mb-2">{t('spar.outcome')}</p>
           <div className="grid grid-cols-3 gap-2">
             {OUTCOMES.map((o) => {
               const color =
@@ -102,7 +104,7 @@ export default function SparringScreen() {
                     outcome === o ? color : 'border-border bg-surfaceAlt text-text-dim hover:text-text'
                   }`}
                 >
-                  {OUTCOME_LABEL[o]}
+                  {t(`enum.outcome.${o}`)}
                 </button>
               );
             })}
@@ -110,13 +112,13 @@ export default function SparringScreen() {
         </section>
 
         <section>
-          <p className="label mb-2">Notes</p>
+          <p className="label mb-2">{t('spar.notes')}</p>
           <textarea
             className="input resize-none"
             rows={3}
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            placeholder="What worked? What to drill next?"
+            placeholder={t('spar.notesPh')}
           />
         </section>
 
@@ -128,11 +130,11 @@ export default function SparringScreen() {
         >
           {saved ? (
             <>
-              <Check size={18} /> Saved
+              <Check size={18} /> {t('log.saved')}
             </>
           ) : (
             <>
-              <Swords size={18} /> Save sparring
+              <Swords size={18} /> {t('spar.save')}
             </>
           )}
         </button>

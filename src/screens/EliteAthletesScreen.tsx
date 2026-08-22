@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Trophy, ChevronRight, MapPin, Weight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { ATHLETES, type AthleteKey, type AthleteProfile } from '@/data/athletes';
 import ScreenHeader from '@/components/ScreenHeader';
 
 export default function EliteAthletesScreen() {
+  const { t } = useTranslation();
   const [open, setOpen] = useState<AthleteKey | null>(null);
   return (
     <div className="min-h-screen pb-24">
-      <ScreenHeader title="Elite Athletes" subtitle="Study the game at the top" backTo="/tools" />
+      <ScreenHeader title={t('ath.title')} subtitle={t('ath.subtitle')} backTo="/tools" />
       <div className="mx-auto max-w-md space-y-3 px-4 py-4">
         {ATHLETES.map((a) => (
           <AthleteCard
@@ -31,6 +33,7 @@ function AthleteCard({
   expanded: boolean;
   onToggle: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <section className="card overflow-hidden">
       <button type="button" onClick={onToggle} className="flex w-full items-center gap-3 text-left">
@@ -54,11 +57,11 @@ function AthleteCard({
 
       {expanded && (
         <div className="mt-4 space-y-4 animate-slide-up">
-          <Section title="Pulling style">
+          <Section title={t('ath.style')}>
             <p className="text-body text-text-dim">{a.pullingStyle}</p>
           </Section>
 
-          <Section title="Signature lifts">
+          <Section title={t('ath.lifts')}>
             <ul className="space-y-1.5">
               {a.signatureLifts.map((l) => (
                 <li key={l} className="flex items-start gap-2 text-body text-text-dim">
@@ -68,7 +71,7 @@ function AthleteCard({
             </ul>
           </Section>
 
-          <Section title="Weekly routine">
+          <Section title={t('ath.routine')}>
             <div className="space-y-3">
               {a.weeklySplit.map((d) => (
                 <div key={d.day} className="rounded-md border border-border bg-surfaceAlt p-3">
@@ -92,7 +95,7 @@ function AthleteCard({
             </div>
           </Section>
 
-          <Section title="Table cues">
+          <Section title={t('ath.cues')}>
             <ul className="space-y-1.5">
               {a.cues.map((c) => (
                 <li key={c} className="flex items-start gap-2 text-body text-text-dim">

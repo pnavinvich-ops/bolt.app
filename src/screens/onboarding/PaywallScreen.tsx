@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Check, Lock, Sparkles, ChevronRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useOnboarding } from '@/stores/onboarding';
-import { describeProfile } from '@/services/planGenerator';
+import { useProfileSummary } from '@/lib/profileText';
 
 export default function PaywallScreen() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const describeProfile = useProfileSummary();
   const profile = useOnboarding((s) => s.profile);
   const unlock = useOnboarding((s) => s.unlock);
   const [unlocking, setUnlocking] = useState(false);
@@ -32,22 +35,22 @@ export default function PaywallScreen() {
           </div>
         </div>
 
-        <h1 className="mb-2 text-h1">Your custom plan is ready</h1>
+        <h1 className="mb-2 text-h1">{t('onboarding.paywallTitle')}</h1>
         <p className="mb-6 text-body text-text-dim">
-          Based on your profile, we've generated a personalized arm-wrestling training program.
+          {t('onboarding.paywallBody')}
         </p>
 
         <div className="mb-6 rounded-lg border border-border bg-surfaceAlt p-4 text-left">
-          <p className="label mb-2">Your profile</p>
+          <p className="label mb-2">{t('onboarding.yourProfile')}</p>
           <p className="text-body text-text">{describeProfile(profile)}</p>
         </div>
 
         <div className="mb-8 space-y-2 text-left">
           {[
-            `${profile.sessionsPerWeek} structured workouts per week`,
-            'Vector-specific exercise selection',
-            'Auto-adjusted volume for your experience',
-            profile.tendonStatus !== 'healthy' ? 'Tendon-safe intensity caveats' : 'Progressive overload schedule',
+            t('onboarding.featWorkouts', { count: profile.sessionsPerWeek }),
+            t('onboarding.featVectors'),
+            t('onboarding.featVolume'),
+            profile.tendonStatus !== 'healthy' ? t('onboarding.featCaveat') : t('onboarding.featOverload'),
           ].map((feat) => (
             <div key={feat} className="flex items-center gap-2">
               <Check size={16} className="text-ok" />
@@ -58,9 +61,9 @@ export default function PaywallScreen() {
 
         <button type="button" onClick={handleUnlock} disabled={unlocking} className="btn-primary w-full">
           {unlocking ? (
-            <><Lock size={18} className="animate-pulse" /> Unlocking...</>
+            <><Lock size={18} className="animate-pulse" /> {t('onboarding.unlocking')}</>
           ) : (
-            <><Sparkles size={18} /> Unlock my plan <ChevronRight size={18} /></>
+            <><Sparkles size={18} /> {t('onboarding.unlock')} <ChevronRight size={18} /></>
           )}
         </button>
 
@@ -69,7 +72,7 @@ export default function PaywallScreen() {
           onClick={() => navigate('/log')}
           className="mt-4 text-caption text-text-faint transition-colors hover:text-text-dim"
         >
-          Maybe later
+          {t('onboarding.maybeLater')}
         </button>
       </div>
     </div>

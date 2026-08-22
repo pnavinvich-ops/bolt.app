@@ -1,5 +1,6 @@
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface ScreenHeaderProps {
   title: string;
@@ -9,14 +10,15 @@ interface ScreenHeaderProps {
 }
 
 export default function ScreenHeader({ title, subtitle, backTo, right }: ScreenHeaderProps) {
+  const { t } = useTranslation();
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-bg/90 backdrop-blur-md safe-t">
       <div className="mx-auto flex max-w-md items-center gap-3 px-4 py-3">
         {backTo && (
           <Link
             to={backTo}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-text-dim transition-colors hover:bg-surfaceAlt hover:text-text"
-            aria-label="Back"
+            className="flex h-9 w-9 items-center justify-center rounded-md text-text-dim transition-colors hover:bg-surfaceAlt hover:text-text"
+            aria-label={t('common.back')}
           >
             <ArrowLeft size={20} />
           </Link>

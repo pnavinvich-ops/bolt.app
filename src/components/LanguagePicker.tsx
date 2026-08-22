@@ -9,6 +9,7 @@ const META: Record<Locale, { native: string; flag: string }> = {
   tr: { native: 'Türkçe', flag: '🇹🇷' },
   ka: { native: 'ქართული', flag: '🇬🇪' },
   fr: { native: 'Français', flag: '🇫🇷' },
+  hi: { native: 'हिन्दी', flag: '🇮🇳' },
 };
 
 export default function LanguagePicker() {

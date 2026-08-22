@@ -1,5 +1,5 @@
+import { useTranslation } from 'react-i18next';
 import type { Vector } from '@/types/domain';
-import { VECTOR_SHORT } from '@/types/constants';
 
 export interface SpiderSeries {
   label: string;
@@ -14,6 +14,7 @@ interface SpiderChartProps {
 }
 
 export default function SpiderChart({ series, max, size = 260 }: SpiderChartProps) {
+  const { t } = useTranslation();
   const vectors: Vector[] = ['pronation', 'cup', 'rise', 'side', 'back', 'supination'];
   const cx = size / 2;
   const cy = size / 2;
@@ -94,7 +95,7 @@ export default function SpiderChart({ series, max, size = 260 }: SpiderChartProp
               className="fill-text-faint"
               style={{ fontSize: 10, fontWeight: 600 }}
             >
-              {VECTOR_SHORT[v]}
+              {t(`enum.short.${v}`)}
             </text>
           );
         })}

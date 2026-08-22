@@ -6,9 +6,8 @@ import type {
   Vector,
   Goal,
   Experience,
-  TendonStatus,
 } from '@/types/domain';
-import { VECTORS, VECTOR_LABEL, VECTOR_TO_GOAL } from '@/types/constants';
+import { VECTORS } from '@/types/constants';
 
 const GOAL_PRIMARY_VECTORS: Record<Goal, Vector[]> = {
   power: ['pronation', 'cup', 'rise'],
@@ -22,10 +21,10 @@ const EXPERIENCE_VOLUME: Record<Experience, { sets: number; reps: string; weeks:
   advanced: { sets: 5, reps: '5–8', weeks: 8 },
 };
 
-const TENDON_CAVEAT: Record<TendonStatus, string | null> = {
+export const TENDON_CAVEAT_KIND: Record<string, 'managing' | 'recovering' | null> = {
   healthy: null,
-  managing: 'Tendon sensitivity noted — keep intensity moderate, add 2 min rest between sets.',
-  recovering: 'Active recovery mode — reduce volume 40%, no max-effort sets this week.',
+  managing: 'managing',
+  recovering: 'recovering',
 };
 
 const SESSION_DISTRIBUTION: Record<number, number[]> = {
@@ -34,15 +33,6 @@ const SESSION_DISTRIBUTION: Record<number, number[]> = {
   4: [0, 1, 2, 3],
   5: [0, 1, 2, 3, 4],
 };
-
-const DAY_TITLES = ['Chest & Back Day', 'Arms & Grip Day', 'Shoulders & Core Day', 'Pull & Hold Day', 'Mix & Peak Day'];
-const DAY_FOCI = [
-  'Heavy pulls and back pressure',
-  'Grip, cup, and pronation focus',
-  'Side pressure and rise control',
-  'Isometric holds and endurance',
-  'Full vector integration',
-];
 
 function buildExercises(
   focus: Vector[],
@@ -89,22 +79,15 @@ export function generatePlan(profile: OnboardingProfile): TrainingPlan {
 
   const days: WorkoutDay[] = distribution.map((slot, idx) => ({
     day: idx + 1,
-    title: DAY_TITLES[idx % DAY_TITLES.length],
-    focus: DAY_FOCI[idx % DAY_FOCI.length],
+    slot,
     exercises: rotateExercises(baseExercises, idx),
   }));
-
-  const caveat = TENDON_CAVEAT[profile.tendonStatus];
-
-  const focusNames = profile.focus.map((v) => VECTOR_LABEL[v]).join(', ');
-  const summary = `${sessionCount} sessions/week · ${vol.sets}×${vol.reps} · ${focusNames || 'balanced vectors'} · ${vol.weeks} weeks`;
 
   return {
     weeks: vol.weeks,
     sessionsPerWeek: sessionCount,
     days,
-    caveat,
-    summary,
+    caveatKind: TENDON_CAVEAT_KIND[profile.tendonStatus] ?? null,
   };
 }
 
@@ -112,24 +95,4 @@ function rotateExercises(exercises: WorkoutExercise[], offset: number): WorkoutE
   if (exercises.length === 0) return [];
   const n = exercises.length;
   return exercises.map((_, i) => exercises[(i + offset) % n]);
-}
-
-export function describeProfile(p: OnboardingProfile): string {
-  const goalMap: Record<Goal, string> = {
-    power: 'Power',
-    technique: 'Technique',
-    endurance: 'Endurance',
-  };
-  const expMap: Record<Experience, string> = {
-    beginner: 'Beginner',
-    intermediate: 'Intermediate',
-    advanced: 'Advanced',
-  };
-  const tendonMap: Record<TendonStatus, string> = {
-    healthy: 'healthy tendons',
-    managing: 'managing mild pain',
-    recovering: 'recovering from injury',
-  };
-  const focus = p.focus.map((v) => VECTOR_LABEL[v]).join(', ') || 'all vectors';
-  return `${goalMap[p.goal]} · ${expMap[p.experience]} · ${p.sessionsPerWeek}/week · ${focus} · ${tendonMap[p.tendonStatus]}`;
 }

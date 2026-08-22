@@ -36,21 +36,23 @@ export function bestOneRepMaxForVector(
   return best;
 }
 
-export function benchmarkTier(ormKg: number): { tier: string; color: string; next: number | null } {
-  const tiers = [
-    { name: 'Novice', min: 0, color: '#7A7A85', next: 30 },
-    { name: 'Beginner', min: 30, color: '#FFD166', next: 45 },
-    { name: 'Intermediate', min: 45, color: '#3DDC97', next: 60 },
-    { name: 'Advanced', min: 60, color: '#FF7A4A', next: 80 },
-    { name: 'Elite', min: 80, color: '#FF5A1F', next: 100 },
-    { name: 'Pro', min: 100, color: '#EF476F', next: null },
+export type TierId = 'novice' | 'beginner' | 'intermediate' | 'advanced' | 'elite' | 'pro';
+
+export function benchmarkTier(ormKg: number): { tier: TierId; color: string; next: number | null } {
+  const tiers: { name: TierId; min: number; color: string; next: number | null }[] = [
+    { name: 'novice', min: 0, color: '#7A7A85', next: 30 },
+    { name: 'beginner', min: 30, color: '#FFD166', next: 45 },
+    { name: 'intermediate', min: 45, color: '#3DDC97', next: 60 },
+    { name: 'advanced', min: 60, color: '#FF7A4A', next: 80 },
+    { name: 'elite', min: 80, color: '#FF5A1F', next: 100 },
+    { name: 'pro', min: 100, color: '#EF476F', next: null },
   ];
   for (let i = tiers.length - 1; i >= 0; i--) {
     if (ormKg >= tiers[i].min) {
       return { tier: tiers[i].name, color: tiers[i].color, next: tiers[i].next };
     }
   }
-  return { tier: 'Novice', color: '#7A7A85', next: 30 };
+  return { tier: 'novice', color: '#7A7A85', next: 30 };
 }
 
 export function ormForLift(lift: Lift): number {

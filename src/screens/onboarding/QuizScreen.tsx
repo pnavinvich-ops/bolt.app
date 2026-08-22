@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import type { OnboardingProfile, Goal, Experience, Vector, TendonStatus } from '@/types/domain';
 import {
-  GOALS, GOAL_LABEL, GOAL_DESC,
-  EXPERIENCES, EXPERIENCE_LABEL, EXPERIENCE_DESC,
-  VECTORS, VECTOR_LABEL, VECTOR_HINT,
-  TENDON_STATUSES, TENDON_LABEL, TENDON_DESC,
+  GOALS,
+  EXPERIENCES,
+  VECTORS,
+  TENDON_STATUSES,
 } from '@/types/constants';
 import { useOnboarding } from '@/stores/onboarding';
 import Stepper from '@/components/Stepper';
@@ -15,6 +16,7 @@ const TOTAL_STEPS = 5;
 
 export default function QuizScreen() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const setProfile = useOnboarding((s) => s.setProfile);
 
   const [step, setStep] = useState(0);
@@ -70,8 +72,8 @@ export default function QuizScreen() {
         <div className="flex-1">
           {step === 0 && (
             <div className="animate-slide-up">
-              <h2 className="mb-2 text-h1">What's your main goal?</h2>
-              <p className="mb-6 text-body text-text-dim">This shapes your primary vectors and rep ranges.</p>
+              <h2 className="mb-2 text-h1">{t('onboarding.goalTitle')}</h2>
+              <p className="mb-6 text-body text-text-dim">{t('onboarding.goalSub')}</p>
               <div className="space-y-2.5">
                 {GOALS.map((g) => (
                   <button
@@ -83,8 +85,8 @@ export default function QuizScreen() {
                     }`}
                   >
                     <div className="flex-1">
-                      <p className={`text-h3 ${goal === g ? 'text-accent-hi' : ''}`}>{GOAL_LABEL[g]}</p>
-                      <p className="text-caption text-text-dim">{GOAL_DESC[g]}</p>
+                      <p className={`text-h3 ${goal === g ? 'text-accent-hi' : ''}`}>{t(`enum.goal.${g}`)}</p>
+                      <p className="text-caption text-text-dim">{t(`enum.goalDesc.${g}`)}</p>
                     </div>
                     {goal === g && <Check size={20} className="text-accent" />}
                   </button>
@@ -95,8 +97,8 @@ export default function QuizScreen() {
 
           {step === 1 && (
             <div className="animate-slide-up">
-              <h2 className="mb-2 text-h1">Your experience?</h2>
-              <p className="mb-6 text-body text-text-dim">We use this to set volume and intensity.</p>
+              <h2 className="mb-2 text-h1">{t('onboarding.expTitle')}</h2>
+              <p className="mb-6 text-body text-text-dim">{t('onboarding.expSub')}</p>
               <div className="space-y-2.5">
                 {EXPERIENCES.map((e) => (
                   <button
@@ -108,8 +110,8 @@ export default function QuizScreen() {
                     }`}
                   >
                     <div className="flex-1">
-                      <p className={`text-h3 ${experience === e ? 'text-accent-hi' : ''}`}>{EXPERIENCE_LABEL[e]}</p>
-                      <p className="text-caption text-text-dim">{EXPERIENCE_DESC[e]}</p>
+                      <p className={`text-h3 ${experience === e ? 'text-accent-hi' : ''}`}>{t(`enum.exp.${e}`)}</p>
+                      <p className="text-caption text-text-dim">{t(`enum.expDesc.${e}`)}</p>
                     </div>
                     {experience === e && <Check size={20} className="text-accent" />}
                   </button>
@@ -120,9 +122,9 @@ export default function QuizScreen() {
 
           {step === 2 && (
             <div className="animate-slide-up">
-              <h2 className="mb-2 text-h1">Focus vectors?</h2>
-              <p className="mb-1 text-body text-text-dim">Pick 1–4 vectors to emphasize in your plan.</p>
-              <p className="mb-6 text-caption text-text-faint">{focus.length}/4 selected</p>
+              <h2 className="mb-2 text-h1">{t('onboarding.focusTitle')}</h2>
+              <p className="mb-1 text-body text-text-dim">{t('onboarding.focusSub')}</p>
+              <p className="mb-6 text-caption text-text-faint">{t('onboarding.selected', { count: focus.length })}</p>
               <div className="grid grid-cols-2 gap-2.5">
                 {VECTORS.map((v) => {
                   const active = focus.includes(v);
@@ -135,8 +137,8 @@ export default function QuizScreen() {
                         active ? 'border-accent bg-accent-lo' : 'border-border bg-surface hover:bg-surfaceAlt'
                       }`}
                     >
-                      <p className={`text-body font-semibold ${active ? 'text-accent-hi' : ''}`}>{VECTOR_LABEL[v]}</p>
-                      <p className="mt-0.5 text-micro text-text-faint">{VECTOR_HINT[v]}</p>
+                      <p className={`text-body font-semibold ${active ? 'text-accent-hi' : ''}`}>{t(`enum.vector.${v}`)}</p>
+                      <p className="mt-0.5 text-micro text-text-faint">{t(`enum.vectorHint.${v}`)}</p>
                     </button>
                   );
                 })}
@@ -146,8 +148,8 @@ export default function QuizScreen() {
 
           {step === 3 && (
             <div className="animate-slide-up">
-              <h2 className="mb-2 text-h1">Sessions per week?</h2>
-              <p className="mb-6 text-body text-text-dim">How many arm-wrestling workouts can you commit to?</p>
+              <h2 className="mb-2 text-h1">{t('onboarding.sessionsTitle')}</h2>
+              <p className="mb-6 text-body text-text-dim">{t('onboarding.sessionsSub')}</p>
               <div className="grid grid-cols-2 gap-2.5">
                 {[2, 3, 4, 5].map((n) => (
                   <button
@@ -159,7 +161,7 @@ export default function QuizScreen() {
                     }`}
                   >
                     <span className={`text-display ${sessions === n ? 'text-accent-hi' : ''}`}>{n}</span>
-                    <span className="text-caption text-text-dim">{n === 2 ? 'Minimum' : n === 5 ? 'Max' : 'Good'}</span>
+                    <span className="text-caption text-text-dim">{n === 2 ? t('onboarding.minLabel') : n === 5 ? t('onboarding.maxLabel') : t('onboarding.goodLabel')}</span>
                   </button>
                 ))}
               </div>
@@ -168,23 +170,23 @@ export default function QuizScreen() {
 
           {step === 4 && (
             <div className="animate-slide-up">
-              <h2 className="mb-2 text-h1">Tendon status?</h2>
-              <p className="mb-6 text-body text-text-dim">Be honest — this adjusts your volume and adds caveats.</p>
+              <h2 className="mb-2 text-h1">{t('onboarding.tendonTitle')}</h2>
+              <p className="mb-6 text-body text-text-dim">{t('onboarding.tendonSub')}</p>
               <div className="space-y-2.5">
-                {TENDON_STATUSES.map((t) => (
+                {TENDON_STATUSES.map((s) => (
                   <button
-                    key={t}
+                    key={s}
                     type="button"
-                    onClick={() => setTendon(t)}
+                    onClick={() => setTendon(s)}
                     className={`flex w-full items-center gap-3 rounded-lg border p-4 text-left transition-all active:scale-[0.98] ${
-                      tendon === t ? 'border-accent bg-accent-lo' : 'border-border bg-surface hover:bg-surfaceAlt'
+                      tendon === s ? 'border-accent bg-accent-lo' : 'border-border bg-surface hover:bg-surfaceAlt'
                     }`}
                   >
                     <div className="flex-1">
-                      <p className={`text-h3 ${tendon === t ? 'text-accent-hi' : ''}`}>{TENDON_LABEL[t]}</p>
-                      <p className="text-caption text-text-dim">{TENDON_DESC[t]}</p>
+                      <p className={`text-h3 ${tendon === s ? 'text-accent-hi' : ''}`}>{t(`enum.status.${s}`)}</p>
+                      <p className="text-caption text-text-dim">{t(`enum.statusDesc.${s}`)}</p>
                     </div>
-                    {tendon === t && <Check size={20} className="text-accent" />}
+                    {tendon === s && <Check size={20} className="text-accent" />}
                   </button>
                 ))}
               </div>
@@ -199,7 +201,7 @@ export default function QuizScreen() {
             disabled={!canAdvance()}
             className="btn-primary w-full"
           >
-            {step === TOTAL_STEPS - 1 ? 'Generate plan' : 'Continue'} <ChevronRight size={18} />
+            {step === TOTAL_STEPS - 1 ? t('onboarding.generate') : t('common.continue')} <ChevronRight size={18} />
           </button>
         </div>
       </div>

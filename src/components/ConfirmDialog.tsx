@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 interface ConfirmDialogProps {
   open: boolean;
   title: string;
@@ -13,12 +15,13 @@ export default function ConfirmDialog({
   open,
   title,
   message,
-  confirmLabel = 'Confirm',
-  cancelLabel = 'Cancel',
+  confirmLabel,
+  cancelLabel,
   danger,
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) {
+  const { t } = useTranslation();
   if (!open) return null;
   return (
     <div
@@ -33,14 +36,14 @@ export default function ConfirmDialog({
         <p className="mb-5 text-body text-text-dim">{message}</p>
         <div className="flex gap-3">
           <button type="button" className="btn-ghost flex-1" onClick={onCancel}>
-            {cancelLabel}
+            {cancelLabel ?? t('common.cancel')}
           </button>
           <button
             type="button"
             className={`${danger ? 'btn-danger' : 'btn-primary'} flex-1`}
             onClick={onConfirm}
           >
-            {confirmLabel}
+            {confirmLabel ?? t('common.confirm')}
           </button>
         </div>
       </div>

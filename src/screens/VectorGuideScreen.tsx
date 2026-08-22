@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { ChevronDown, Lightbulb, Info } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { VECTOR_GUIDE } from '@/data/vectors';
-import { VECTOR_LABEL } from '@/types/constants';
 import ScreenHeader from '@/components/ScreenHeader';
 
 export default function VectorGuideScreen() {
@@ -24,8 +23,8 @@ export default function VectorGuideScreen() {
                 aria-expanded={expanded}
               >
                 <div>
-                  <p className="text-h3">{VECTOR_LABEL[v.key]}</p>
-                  <p className="text-caption text-text-faint">{v.cue}</p>
+                  <p className="text-h3">{t(`enum.vector.${v.key}`)}</p>
+                  <p className="text-caption text-text-faint">{t(`guide.${v.key}.cue`)}</p>
                 </div>
                 <ChevronDown
                   size={20}
@@ -35,10 +34,10 @@ export default function VectorGuideScreen() {
 
               {expanded && (
                 <div className="mt-4 space-y-3 animate-slide-up">
-                  <Block title={t('vectorGuide.what')} body={v.what} />
-                  <Block title={t('vectorGuide.why')} body={v.why} />
-                  <Block title={t('vectorGuide.how')} body={v.how} accent />
-                  <Block title={t('vectorGuide.mistakes')} body={v.mistakes} warn />
+                  <Block title={t('vectorGuide.what')} body={t(`guide.${v.key}.what`)} />
+                  <Block title={t('vectorGuide.why')} body={t(`guide.${v.key}.why`)} />
+                  <Block title={t('vectorGuide.how')} body={t(`guide.${v.key}.how`)} accent />
+                  <Block title={t('vectorGuide.mistakes')} body={t(`guide.${v.key}.mistakes`)} warn />
                 </div>
               )}
             </section>

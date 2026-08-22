@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Filter, Trophy, RefreshCw, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import i18n from '@/i18n';
 import ScreenHeader from '@/components/ScreenHeader';
 
 interface Ranking {
@@ -27,7 +28,7 @@ export default function WorldRankingsScreen() {
 
   const load = async () => {
     if (!isSupabaseConfigured) {
-      setError('Supabase not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to .env.');
+      setError(t('chat.notConfigured'));
       setLoading(false);
       return;
     }
@@ -57,7 +58,9 @@ export default function WorldRankingsScreen() {
     [rows, arm, weight]
   );
 
-  const subtitle = rows[0] ? `Updated ${new Date(rows[0].updated_at).toLocaleDateString()}` : ' ';
+  const subtitle = rows[0]
+    ? t('rankings.updatedOn', { date: new Date(rows[0].updated_at).toLocaleDateString(i18n.language) })
+    : ' ';
 
   return (
     <div className="min-h-screen pb-24">
@@ -80,7 +83,7 @@ export default function WorldRankingsScreen() {
       <div className="mx-auto max-w-md space-y-3 px-4 py-4">
         <section className="card space-y-3">
           <p className="label flex items-center gap-1.5">
-            <Filter size={12} /> Filter
+            <Filter size={12} /> {t('rankings.filter')}
           </p>
           <div>
             <p className="mb-1.5 text-caption text-text-faint">{t('rankings.filterArm')}</p>
@@ -118,7 +121,7 @@ export default function WorldRankingsScreen() {
           </div>
         </section>
 
-        {loading && <p className="py-8 text-center text-caption text-text-faint">Loading…</p>}
+        {loading && <p className="py-8 text-center text-caption text-text-faint">{t('common.loading')}</p>}
 
         {error && (
           <div className="card flex items-start gap-3 border-warn/30">
@@ -126,8 +129,7 @@ export default function WorldRankingsScreen() {
             <div>
               <p className="text-body text-text">{error}</p>
               <p className="mt-1 text-caption text-text-faint">
-                Make sure the <code className="rounded bg-surfaceAlt px-1">rankings</code> table exists and the
-                SQL migration has been run.
+                {t('rankings.migrationHint')}
               </p>
             </div>
           </div>

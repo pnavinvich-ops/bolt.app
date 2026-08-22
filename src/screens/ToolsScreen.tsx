@@ -4,15 +4,16 @@ import { useTranslation } from 'react-i18next';
 import { useLifts } from '@/stores/lifts';
 import { useTendon } from '@/stores/tendon';
 import { useSettings } from '@/stores/settings';
-import { oneRepMax, benchmarkTier, topStrengthForVector, ormForLift } from '@/services/strength';
+import { benchmarkTier, topStrengthForVector, ormForLift } from '@/services/strength';
 import { currentTendonIndex } from '@/services/tendonHealth';
-import { VECTORS, VECTOR_LABEL, kgToUnit } from '@/types/constants';
+import { VECTORS, kgToUnit } from '@/types/constants';
 import ScreenHeader from '@/components/ScreenHeader';
 import { Link } from 'react-router-dom';
 
 type ReactionState = 'idle' | 'waiting' | 'ready' | 'result' | 'tooSoon';
 
 function ReactionTrainer({ title }: { title: string }) {
+  const { t } = useTranslation();
   const [state, setState] = useState<ReactionState>('idle');
   const [resultMs, setResultMs] = useState(0);
   const [best, setBest] = useState<number | null>(null);
@@ -66,14 +67,14 @@ function ReactionTrainer({ title }: { title: string }) {
 
   const label =
     state === 'idle'
-      ? 'Tap to start'
+      ? t('tools.tapStart')
       : state === 'waiting'
-        ? 'Wait for green...'
+        ? t('tools.waitGreen')
         : state === 'ready'
-          ? 'TAP NOW!'
+          ? t('tools.tapNow')
           : state === 'tooSoon'
-            ? 'Too soon! Tap to retry'
-            : `${resultMs} ms — tap to retry`;
+            ? t('tools.tooSoon')
+            : t('tools.resultRetry', { ms: resultMs });
 
   return (
     <section className="card">
@@ -90,7 +91,7 @@ function ReactionTrainer({ title }: { title: string }) {
           {label}
         </span>
         {best !== null && state !== 'ready' && state !== 'waiting' && (
-          <span className="mt-1 text-caption text-text-faint">Best: {best} ms</span>
+          <span className="mt-1 text-caption text-text-faint">{t('tools.bestMs', { ms: best })}</span>
         )}
       </button>
       {history.length > 0 && (
@@ -112,6 +113,7 @@ function ReactionTrainer({ title }: { title: string }) {
 }
 
 function TendonHealthCard({ title, checkIn }: { title: string; checkIn: string }) {
+  const { t } = useTranslation();
   const checks = useTendon((s) => s.checks);
   const index = currentTendonIndex(checks);
 
@@ -119,6 +121,12 @@ function TendonHealthCard({ title, checkIn }: { title: string; checkIn: string }
     index.score >= 60 ? 'text-ok' : index.score >= 40 ? 'text-warn' : 'text-bad';
   const ringColor =
     index.score >= 60 ? 'border-ok' : index.score >= 40 ? 'border-warn' : 'border-bad';
+  const trendKey =
+    index.trend === 'improving'
+      ? 'tendon.trendImproving'
+      : index.trend === 'declining'
+        ? 'tendon.trendDeclining'
+        : 'tendon.trendStable';
 
   return (
     <section className="card">
@@ -130,7 +138,7 @@ function TendonHealthCard({ title, checkIn }: { title: string; checkIn: string }
         <div className="flex flex-col items-center gap-3 py-4">
           <AlertCircle size={24} className="text-text-faint" />
           <p className="text-center text-caption text-text-dim">
-            No check-ins this week. Log daily to track your tendon health.
+            {t('tools.noCheckins')}
           </p>
           <Link to="/tendon" className="btn-ghost">
             <Timer size={16} /> {checkIn}
@@ -142,13 +150,24 @@ function TendonHealthCard({ title, checkIn }: { title: string; checkIn: string }
             <span className={`text-h2 font-extrabold ${color}`}>{index.score}</span>
           </div>
           <div className="flex-1">
-            <p className={`text-h3 ${color}`}>{index.label}</p>
+            <p className={`text-h3 ${color}`}>
+              {t(
+                index.label === 'healthy'
+                  ? 'tendon.lHealthy'
+                  : index.label === 'good'
+                    ? 'tendon.lGood'
+                    : index.label === 'monitor'
+                      ? 'tendon.lMonitor'
+                      : index.label === 'strained'
+                        ? 'tendon.lStrained'
+                        : 'tendon.lCritical',
+              )}
+            </p>
             <p className="text-caption text-text-dim">
-              Elbow {index.elbowAvg}/10 · Forearm {index.forearmAvg}/10
+              {t('tools.elbowAvgLine', { e: index.elbowAvg, f: index.forearmAvg })}
             </p>
             <p className="text-caption text-text-faint">
-              {index.daysLogged} day{index.daysLogged > 1 ? 's' : ''} · trend:{' '}
-              {index.trend === 'improving' ? 'improving' : index.trend === 'declining' ? 'declining' : index.trend}
+              {t('common.days', { count: index.daysLogged })} · {t('common.trend')}: {t(trendKey)}
             </p>
           </div>
           <Link to="/tendon" className="btn-ghost shrink-0 px-3 py-2">
@@ -161,6 +180,7 @@ function TendonHealthCard({ title, checkIn }: { title: string; checkIn: string }
 }
 
 function BenchmarksCard({ title }: { title: string }) {
+  const { t } = useTranslation();
   const lifts = useLifts((s) => s.lifts);
   const unit = useSettings((s) => s.settings.unit);
 
@@ -184,7 +204,7 @@ function BenchmarksCard({ title }: { title: string }) {
       </div>
       {overallBest === 0 ? (
         <p className="py-4 text-center text-caption text-text-faint">
-          Log dynamic lifts to see your strength tier.
+          {t('tools.logDynamicFirst')}
         </p>
       ) : (
         <>
@@ -193,23 +213,24 @@ function BenchmarksCard({ title }: { title: string }) {
               <Award size={22} style={{ color: tier.color }} />
             </div>
             <div>
-              <p className="text-h3" style={{ color: tier.color }}>{tier.tier}</p>
+              <p className="text-h3" style={{ color: tier.color }}>{t(`bench.${tier.tier}`)}</p>
               <p className="text-caption text-text-dim">
-                Top 1RM equiv: {kgToUnit(overallBest, unit)} {unit}
-                {tier.next && ` · next tier at ${kgToUnit(tier.next, unit)} ${unit}`}
+                {t('tools.topEquiv', { weight: kgToUnit(overallBest, unit), unit })}
+                {tier.next != null &&
+                  ` · ${t('tools.nextTierAt', { weight: kgToUnit(tier.next, unit), unit })}`}
               </p>
             </div>
           </div>
           <div className="space-y-2">
             {topByVector.map(({ vector, orm }) => {
-              const t = benchmarkTier(orm);
+              const vt = benchmarkTier(orm);
               return (
                 <div key={vector} className="flex items-center gap-2">
-                  <span className="w-20 text-caption text-text-dim">{VECTOR_LABEL[vector]}</span>
+                  <span className="w-20 text-caption text-text-dim">{t(`enum.vector.${vector}`)}</span>
                   <div className="h-2 flex-1 overflow-hidden rounded-full bg-surfaceAlt">
                     <div
                       className="h-full rounded-full transition-all duration-500"
-                      style={{ width: `${Math.min((orm / 100) * 100, 100)}%`, backgroundColor: t.color }}
+                      style={{ width: `${Math.min((orm / 100) * 100, 100)}%`, backgroundColor: vt.color }}
                     />
                   </div>
                   <span className="w-14 text-right text-caption font-semibold text-text-dim">

@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { Dumbbell, ChevronRight, RotateCcw } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useOnboarding } from '@/stores/onboarding';
 
 export default function IntroScreen() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const completed = useOnboarding((s) => s.onboardingCompleted);
   const unlocked = useOnboarding((s) => s.planUnlocked);
   const reset = useOnboarding((s) => s.reset);
@@ -21,14 +23,14 @@ export default function IntroScreen() {
       </div>
       <h1 className="mb-3 text-display">ArmLog</h1>
       <p className="mb-1 max-w-xs text-body text-text-dim">
-        Your arm-wrestling training companion. Log lifts, track tendon health, and get a custom AI training plan.
+        {t('onboarding.tagline')}
       </p>
       <p className="mb-10 max-w-xs text-caption text-text-faint">
-        Built for solo athletes who train hard and track everything.
+        {t('onboarding.caption')}
       </p>
 
       <button type="button" onClick={start} className="btn-primary w-full max-w-xs">
-        {completed ? 'View your plan' : 'Build my plan'} <ChevronRight size={18} />
+        {completed ? t('onboarding.viewPlan') : t('onboarding.buildPlan')} <ChevronRight size={18} />
       </button>
 
       {completed && (
@@ -37,7 +39,7 @@ export default function IntroScreen() {
           onClick={() => { reset(); navigate('/onboarding/quiz'); }}
           className="mt-4 flex items-center gap-1.5 text-caption text-text-faint transition-colors hover:text-text-dim"
         >
-          <RotateCcw size={14} /> Reset onboarding
+          <RotateCcw size={14} /> {t('onboarding.resetCta')}
         </button>
       )}
     </div>

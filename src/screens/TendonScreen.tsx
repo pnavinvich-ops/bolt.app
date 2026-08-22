@@ -1,10 +1,26 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Heart, Check, Calendar } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useTendon } from '@/stores/tendon';
 import { currentTendonIndex } from '@/services/tendonHealth';
-import { todayKey } from '@/types/constants';
+import i18n from '@/i18n';
 import ScreenHeader from '@/components/ScreenHeader';
+
+const TREND_KEY: Record<string, string> = {
+  improving: 'tendon.trendImproving',
+  stable: 'tendon.trendStable',
+  declining: 'tendon.trendDeclining',
+  unknown: 'tendon.trendUnknown',
+};
+
+const LABEL_KEY: Record<string, string> = {
+  healthy: 'tendon.lHealthy',
+  good: 'tendon.lGood',
+  monitor: 'tendon.lMonitor',
+  strained: 'tendon.lStrained',
+  critical: 'tendon.lCritical',
+};
 
 function Slider({ label, value, onChange }: { label: string; value: number; onChange: (v: number) => void }) {
   const color = value <= 3 ? 'text-bad' : value <= 6 ? 'text-warn' : 'text-ok';
@@ -33,6 +49,7 @@ function Slider({ label, value, onChange }: { label: string; value: number; onCh
 
 export default function TendonScreen() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const addCheck = useTendon((s) => s.addCheck);
   const checks = useTendon((s) => s.checks);
   const index = currentTendonIndex(checks);
@@ -51,7 +68,7 @@ export default function TendonScreen() {
 
   return (
     <div className="min-h-screen pb-32">
-      <ScreenHeader title="Tendon Check" subtitle="Daily elbow & forearm health" backTo="/tools" />
+      <ScreenHeader title={t('tendon.title')} subtitle={t('tendon.subtitle')} backTo="/tools" />
 
       <div className="mx-auto max-w-md space-y-5 px-4 py-4">
         {index.daysLogged > 0 && (
@@ -60,9 +77,11 @@ export default function TendonScreen() {
               <span className={`text-h3 font-extrabold ${index.score >= 60 ? 'text-ok' : index.score >= 40 ? 'text-warn' : 'text-bad'}`}>{index.score}</span>
             </div>
             <div className="flex-1">
-              <p className="label">7-day index</p>
-              <p className="text-body font-semibold">{index.label} · {index.trend}</p>
-              <p className="text-caption text-text-faint">{index.daysLogged} day{index.daysLogged > 1 ? 's' : ''} logged</p>
+              <p className="label">{t('tendon.sevenDayIndex')}</p>
+              <p className="text-body font-semibold">
+                {t(LABEL_KEY[index.label])} · {t(TREND_KEY[index.trend])}
+              </p>
+              <p className="text-caption text-text-faint">{t('tendon.daysLogged', { count: index.daysLogged })}</p>
             </div>
           </section>
         )}
@@ -70,35 +89,35 @@ export default function TendonScreen() {
         {alreadyToday && (
           <div className="card-alt flex items-center gap-2">
             <Calendar size={16} className="text-ok" />
-            <p className="text-caption text-text-dim">You already checked in today. Logging again will update today's entry.</p>
+            <p className="text-caption text-text-dim">{t('tendon.alreadyToday')}</p>
           </div>
         )}
 
         <section className="card space-y-5">
           <div className="flex items-center gap-2">
             <Heart size={18} className="text-accent" />
-            <h3 className="text-h3">Today's check-in</h3>
+            <h3 className="text-h3">{t('tendon.todayCheckin')}</h3>
           </div>
-          <Slider label="Elbow health" value={elbow} onChange={setElbow} />
-          <Slider label="Forearm health" value={forearm} onChange={setForearm} />
+          <Slider label={t('tendon.elbowHealth')} value={elbow} onChange={setElbow} />
+          <Slider label={t('tendon.forearmHealth')} value={forearm} onChange={setForearm} />
           <div>
-            <p className="label mb-2">Notes</p>
+            <p className="label mb-2">{t('tendon.notes')}</p>
             <textarea
               className="input resize-none"
               rows={2}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Any pain location or trigger?"
+              placeholder={t('tendon.notesPh')}
             />
           </div>
           <button type="button" onClick={handleSave} disabled={saved} className="btn-primary w-full">
-            {saved ? <><Check size={18} /> Saved</> : <><Heart size={18} /> Save check-in</>}
+            {saved ? <><Check size={18} /> {t('log.saved')}</> : <><Heart size={18} /> {t('tendon.saveCheckin')}</>}
           </button>
         </section>
 
         {checks.length > 0 && (
           <section>
-            <p className="label mb-2">Recent check-ins</p>
+            <p className="label mb-2">{t('tendon.recent')}</p>
             <div className="space-y-2">
               {checks.slice(0, 7).map((c) => {
                 const avg = (c.elbow + c.forearm) / 2;
@@ -109,9 +128,11 @@ export default function TendonScreen() {
                     </span>
                     <div className="flex-1">
                       <p className="text-caption text-text-dim">
-                        {new Date(c.createdAt).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                        {new Date(c.createdAt).toLocaleDateString(i18n.language, { weekday: 'short', month: 'short', day: 'numeric' })}
                       </p>
-                      <p className="text-micro text-text-faint">Elbow {c.elbow} · Forearm {c.forearm}</p>
+                      <p className="text-micro text-text-faint">
+                        {t('tendon.elbow')} {c.elbow} · {t('tendon.forearm')} {c.forearm}
+                      </p>
                     </div>
                     {c.notes && <span className="line-clamp-1 max-w-[40%] text-micro text-text-faint">{c.notes}</span>}
                   </div>

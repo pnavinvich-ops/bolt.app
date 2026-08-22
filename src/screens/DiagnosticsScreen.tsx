@@ -1,15 +1,35 @@
 import { useMemo } from 'react';
 import { Activity, TrendingUp, AlertTriangle, Scale, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useLifts } from '@/stores/lifts';
 import { useSparring } from '@/stores/sparring';
-import { runDiagnostics } from '@/services/diagnostics';
-import { VECTOR_LABEL, ARM_LABEL } from '@/types/constants';
+import { runDiagnostics, type WeakVector } from '@/services/diagnostics';
 import SpiderChart from '@/components/SpiderChart';
 import ScreenHeader from '@/components/ScreenHeader';
 import EmptyState from '@/components/EmptyState';
 
+const BALANCE_KEY: Record<string, string> = {
+  excellent: 'diag.bExcellent',
+  good: 'diag.bGood',
+  fair: 'diag.bFair',
+  imbalanced: 'diag.bImbalanced',
+  critical: 'diag.bCritical',
+};
+
+function WeakSuggestion({ w }: { w: WeakVector }) {
+  const { t } = useTranslation();
+  const vectorName = t(`enum.vector.${w.vector}`);
+  let msg: string;
+  if (w.reason === 'both') msg = t('diag.sugBoth', { vector: vectorName });
+  else if (w.reason === 'leftWeak') msg = t('diag.sugLeft', { vector: vectorName, gap: w.gap });
+  else if (w.reason === 'rightWeak') msg = t('diag.sugRight', { vector: vectorName, gap: w.gap });
+  else msg = t('diag.sugLosses', { count: w.losses ?? w.gap, vector: vectorName });
+  return <p className="mt-0.5 text-caption text-text-dim">{msg}</p>;
+}
+
 export default function DiagnosticsScreen() {
+  const { t } = useTranslation();
   const lifts = useLifts((s) => s.lifts);
   const sparring = useSparring((s) => s.sessions);
 
@@ -27,17 +47,17 @@ export default function DiagnosticsScreen() {
 
   return (
     <div className="min-h-screen pb-32">
-      <ScreenHeader title="Diagnostics" subtitle="Strength profile & balance" />
+      <ScreenHeader title={t('diag.title')} subtitle={t('diag.subtitle')} />
 
       <div className="mx-auto max-w-md space-y-5 px-4 py-4">
         {!hasData ? (
           <EmptyState
             icon={Activity}
-            title="No data yet"
-            message="Log some lifts and the spider chart, balance score, and weak-vector suggestions will appear here."
+            title={t('diag.noData')}
+            message={t('diag.noDataMsg')}
             action={
               <Link to="/log" className="btn-primary">
-                Log a lift
+                {t('history.logLiftCta')}
               </Link>
             }
           />
@@ -51,9 +71,9 @@ export default function DiagnosticsScreen() {
               <div className="flex-1">
                 <div className="flex items-center gap-1.5">
                   <Scale size={15} className="text-text-faint" />
-                  <p className="label">Arm Balance</p>
+                  <p className="label">{t('diag.balance')}</p>
                 </div>
-                <p className={`text-h3 ${balanceColor}`}>{diag.balanceLabel}</p>
+                <p className={`text-h3 ${balanceColor}`}>{t(BALANCE_KEY[diag.balanceLabel])}</p>
                 <p className="text-caption text-text-faint">
                   L:{Math.round(diag.leftMaxes.reduce((a, b) => a + b.max, 0))} · R:
                   {Math.round(diag.rightMaxes.reduce((a, b) => a + b.max, 0))} kg
@@ -63,16 +83,16 @@ export default function DiagnosticsScreen() {
 
             {/* Spider chart */}
             <section className="card">
-              <p className="label mb-3">Strength by vector</p>
+              <p className="label mb-3">{t('diag.byVector')}</p>
               <SpiderChart
                 series={[
                   {
-                    label: 'Left',
+                    label: t('enum.arm.left'),
                     color: '#FF5A1F',
                     values: Object.fromEntries(diag.leftMaxes.map((v) => [v.vector, v.max])) as never,
                   },
                   {
-                    label: 'Right',
+                    label: t('enum.arm.right'),
                     color: '#3DDC97',
                     values: Object.fromEntries(diag.rightMaxes.map((v) => [v.vector, v.max])) as never,
                   },
@@ -81,24 +101,24 @@ export default function DiagnosticsScreen() {
               />
               <div className="mt-2 flex justify-center gap-4">
                 <span className="flex items-center gap-1.5 text-caption text-text-dim">
-                  <span className="h-2.5 w-2.5 rounded-full bg-accent" /> Left
+                  <span className="h-2.5 w-2.5 rounded-full bg-accent" /> {t('enum.arm.left')}
                 </span>
                 <span className="flex items-center gap-1.5 text-caption text-text-dim">
-                  <span className="h-2.5 w-2.5 rounded-full bg-ok" /> Right
+                  <span className="h-2.5 w-2.5 rounded-full bg-ok" /> {t('enum.arm.right')}
                 </span>
               </div>
             </section>
 
             {/* Volume bars */}
             <section className="card">
-              <p className="label mb-3">Training volume (last 30 days)</p>
+              <p className="label mb-3">{t('diag.volume30')}</p>
               <div className="space-y-2.5">
                 {diag.leftVolumes.map((lv, i) => {
                   const rv = diag.rightVolumes[i];
                   const maxVol = Math.max(...diag.leftVolumes.map((x) => x.volume), ...diag.rightVolumes.map((x) => x.volume), 1);
                   return (
                     <div key={lv.vector}>
-                      <p className="mb-1 text-caption text-text-dim">{VECTOR_LABEL[lv.vector]}</p>
+                      <p className="mb-1 text-caption text-text-dim">{t(`enum.vector.${lv.vector}`)}</p>
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <span className="w-8 text-micro text-text-faint">L</span>
@@ -127,11 +147,11 @@ export default function DiagnosticsScreen() {
 
             {/* Weak vectors */}
             <section>
-              <p className="label mb-2">Weak vector suggestions</p>
+              <p className="label mb-2">{t('diag.weakTitle')}</p>
               {diag.weakVectors.length === 0 ? (
                 <div className="card flex items-center gap-2">
                   <TrendingUp size={18} className="text-ok" />
-                  <p className="text-body text-text-dim">No major weaknesses detected. Keep training balanced.</p>
+                  <p className="text-body text-text-dim">{t('diag.noWeak')}</p>
                 </div>
               ) : (
                 <div className="space-y-2">
@@ -140,17 +160,17 @@ export default function DiagnosticsScreen() {
                       <AlertTriangle size={18} className="mt-0.5 shrink-0 text-warn" />
                       <div className="flex-1">
                         <p className="text-body font-semibold">
-                          {VECTOR_LABEL[w.vector]}{' '}
+                          {t(`enum.vector.${w.vector}`)}{' '}
                           <span className="text-caption font-normal text-text-faint">
-                            · {w.arm === 'both' ? 'both arms' : ARM_LABEL[w.arm]}
+                            · {w.arm === 'both' ? t('diag.bothArms') : t(`enum.arm.${w.arm}`)}
                           </span>
                         </p>
-                        <p className="mt-0.5 text-caption text-text-dim">{w.suggestion}</p>
+                        <WeakSuggestion w={w} />
                         <Link
                           to={`/log?arm=${w.arm === 'right' ? 'right' : 'left'}&vector=${w.vector}`}
                           className="mt-2 inline-flex items-center gap-1 text-caption font-semibold text-accent"
                         >
-                          Drill it <ArrowRight size={12} />
+                          {t('diag.drillIt')} <ArrowRight size={12} />
                         </Link>
                       </div>
                     </div>

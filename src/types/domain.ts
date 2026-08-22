@@ -69,8 +69,7 @@ export interface OnboardingProfile {
 
 export interface WorkoutDay {
   day: number;
-  title: string;
-  focus: string;
+  slot: number;
   exercises: WorkoutExercise[];
 }
 
@@ -87,6 +86,5 @@ export interface TrainingPlan {
   weeks: number;
   sessionsPerWeek: number;
   days: WorkoutDay[];
-  caveat: string | null;
-  summary: string;
+  caveatKind: 'managing' | 'recovering' | null;
 }

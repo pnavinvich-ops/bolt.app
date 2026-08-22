@@ -7,9 +7,10 @@ import es from './locales/es.json';
 import tr from './locales/tr.json';
 import ka from './locales/ka.json';
 import fr from './locales/fr.json';
+import hi from './locales/hi.json';
 
 const LOCALE_KEY = 'locale';
-const SUPPORTED = ['en', 'ru', 'es', 'tr', 'ka', 'fr'] as const;
+const SUPPORTED = ['en', 'ru', 'es', 'tr', 'ka', 'fr', 'hi'] as const;
 export type Locale = (typeof SUPPORTED)[number];
 
 const stored = readJSON<{ code: Locale }>(LOCALE_KEY)?.code;
@@ -22,6 +23,7 @@ const resources = {
   tr: { translation: tr },
   ka: { translation: ka },
   fr: { translation: fr },
+  hi: { translation: hi },
 } as const;
 
 i18n.use(initReactI18next).init({

@@ -1,10 +1,7 @@
 import { useState, useRef } from 'react';
-import { Settings as SettingsIcon, Download, Upload, Trash2, RotateCcw, Check } from 'lucide-react';
+import { Settings as SettingsIcon, Download, Upload, Trash2, RotateCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useSettings } from '@/stores/settings';
-import { useLifts } from '@/stores/lifts';
-import { useSparring } from '@/stores/sparring';
-import { useTendon } from '@/stores/tendon';
 import { useOnboarding } from '@/stores/onboarding';
 import { clearAllAppKeys, listAppKeys, readJSON } from '@/storage/storage';
 import ScreenHeader from '@/components/ScreenHeader';
@@ -17,14 +14,10 @@ export default function SettingsScreen() {
   const settings = useSettings((s) => s.settings);
   const update = useSettings((s) => s.update);
   const resetSettings = useSettings((s) => s.reset);
-  const clearLifts = useLifts((s) => s.clearAll);
-  const clearSparring = useSparring((s) => s.clearAll);
-  const clearTendon = useTendon((s) => s.clearAll);
   const resetOnboarding = useOnboarding((s) => s.reset);
 
   const [confirmResetSettings, setConfirmResetSettings] = useState(false);
   const [confirmResetAll, setConfirmResetAll] = useState(false);
-  const [imported, setImported] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const handleExport = () => {
@@ -95,7 +88,7 @@ export default function SettingsScreen() {
                 className="input"
                 value={settings.weightClass ?? ''}
                 onChange={(e) => update({ weightClass: e.target.value || undefined })}
-                placeholder="e.g. -75kg"
+                placeholder={t('settings.weightClassPh')}
               />
             </div>
           </div>
@@ -131,7 +124,6 @@ export default function SettingsScreen() {
             <Upload size={18} /> {t('settings.import')}
           </button>
           <input ref={fileRef} type="file" accept="application/json" className="hidden" onChange={handleImport} />
-          {imported && <p className="flex items-center gap-1 text-caption text-ok"><Check size={14} /> Imported successfully</p>}
         </section>
 
         {/* Onboarding */}
@@ -153,23 +145,23 @@ export default function SettingsScreen() {
           </button>
         </section>
 
-        <p className="pt-2 text-center text-micro text-text-faint">ArmLog · local-first training log</p>
+        <p className="pt-2 text-center text-micro text-text-faint">{t('settings.footer')}</p>
       </div>
 
       <ConfirmDialog
         open={confirmResetSettings}
-        title="Reset settings?"
-        message="Your body weight, weight class, and unit preference will be cleared. Lifts and sparring logs are kept."
-        confirmLabel="Reset"
+        title={t('settings.resetSettingsTitle')}
+        message={t('settings.resetSettingsMsg')}
+        confirmLabel={t('common.reset')}
         danger
         onConfirm={() => { resetSettings(); setConfirmResetSettings(false); }}
         onCancel={() => setConfirmResetSettings(false)}
       />
       <ConfirmDialog
         open={confirmResetAll}
-        title="Reset all data?"
-        message="This permanently deletes every lift, sparring session, tendon check, setting, and onboarding profile. This cannot be undone."
-        confirmLabel="Delete everything"
+        title={t('settings.resetAllTitle')}
+        message={t('settings.resetAllMsg')}
+        confirmLabel={t('settings.deleteEverything')}
         danger
         onConfirm={handleResetAll}
         onCancel={() => setConfirmResetAll(false)}

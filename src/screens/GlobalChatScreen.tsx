@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Send, MessageCircle, LogIn, LogOut, AlertCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import i18n from '@/i18n';
 import ScreenHeader from '@/components/ScreenHeader';
 
 interface Message {
@@ -17,6 +19,7 @@ const ROOM = 'global';
 const PAGE = 50;
 
 export default function GlobalChatScreen() {
+  const { t } = useTranslation();
   const [msgs, setMsgs] = useState<Message[]>([]);
   const [text, setText] = useState('');
   const [sending, setSending] = useState(false);
@@ -31,7 +34,7 @@ export default function GlobalChatScreen() {
   // Resolve current user
   useEffect(() => {
     if (!isSupabaseConfigured) {
-      setError('Supabase not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to .env.');
+      setError(i18n.t('chat.notConfigured'));
       return;
     }
     (async () => {
@@ -97,7 +100,7 @@ export default function GlobalChatScreen() {
       },
     });
     if (error) setError(error.message);
-    else setAuthInfo('Check your email for a sign-in link.');
+    else setAuthInfo(t('chat.linkSent'));
     setAuthLoading(false);
   };
 
@@ -126,15 +129,15 @@ export default function GlobalChatScreen() {
   if (!user) {
     return (
       <div className="min-h-screen pb-24">
-        <ScreenHeader title="Global Chat" subtitle={`#${ROOM}`} backTo="/tools" />
+        <ScreenHeader title={t('chat.title')} subtitle={`#${ROOM}`} backTo="/tools" />
         <div className="mx-auto max-w-md px-4 py-4">
           <section className="card space-y-4">
             <div className="flex items-center gap-2">
               <MessageCircle size={18} className="text-accent" />
-              <h3 className="text-h3">Sign in to chat</h3>
+              <h3 className="text-h3">{t('chat.signIn')}</h3>
             </div>
             <p className="text-body text-text-dim">
-              Enter your email — we'll send you a one-tap sign-in link. No password.
+              {t('chat.signInBody')}
             </p>
             <form onSubmit={signIn} className="space-y-2">
               <input
@@ -146,7 +149,7 @@ export default function GlobalChatScreen() {
                 className="input"
               />
               <button type="submit" disabled={authLoading} className="btn-primary w-full">
-                <LogIn size={18} /> {authLoading ? 'Sending link…' : 'Send sign-in link'}
+                <LogIn size={18} /> {authLoading ? t('chat.sendingLink') : t('chat.sendLink')}
               </button>
             </form>
             {authInfo && <p className="text-caption text-ok">{authInfo}</p>}
@@ -164,7 +167,7 @@ export default function GlobalChatScreen() {
   return (
     <div className="flex h-screen flex-col bg-bg">
       <ScreenHeader
-        title="Global Chat"
+        title={t('chat.title')}
         subtitle={`#${ROOM} · ${user.name}`}
         backTo="/tools"
         right={
@@ -172,7 +175,7 @@ export default function GlobalChatScreen() {
             type="button"
             onClick={signOut}
             className="flex h-9 w-9 items-center justify-center rounded-md text-text-dim hover:bg-surfaceAlt hover:text-text"
-            aria-label="Sign out"
+            aria-label={t('chat.signOutAria')}
           >
             <LogOut size={18} />
           </button>
@@ -182,7 +185,7 @@ export default function GlobalChatScreen() {
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3">
         {msgs.length === 0 && (
           <div className="flex h-full items-center justify-center text-caption text-text-faint">
-            <MessageCircle size={14} className="mr-1" /> No messages yet. Break the ice.
+            <MessageCircle size={14} className="mr-1" /> {t('chat.noMessages')}
           </div>
         )}
         <ul className="space-y-2">
@@ -202,7 +205,7 @@ export default function GlobalChatScreen() {
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Say something to the table…"
+          placeholder={t('chat.msgPh')}
           maxLength={1000}
           className="flex-1 rounded-md border border-border bg-surfaceAlt px-3 py-2 text-body text-text placeholder:text-text-faint focus:border-accent focus:outline-none"
         />
@@ -211,7 +214,7 @@ export default function GlobalChatScreen() {
           disabled={sending || text.trim().length === 0}
           className="btn-primary flex items-center gap-1.5 disabled:opacity-50"
         >
-          <Send size={16} /> {sending ? 'Sending' : 'Send'}
+          <Send size={16} /> {sending ? t('chat.sending') : t('common.send')}
         </button>
       </form>
     </div>
