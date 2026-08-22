@@ -28,6 +28,7 @@ export const useTendon = create<TendonState>((set, get) => ({
       createdAt: input.createdAt ?? Date.now(),
       elbow: input.elbow,
       forearm: input.forearm,
+      painAreas: input.painAreas,
       notes: input.notes,
     };
     set((s) => {

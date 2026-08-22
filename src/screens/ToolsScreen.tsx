@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Zap, RefreshCw, Award, Activity, Timer, AlertCircle, BookOpen, Trophy, Globe2, MessageCircle } from 'lucide-react';
+import { Zap, RefreshCw, Award, Activity, Timer, AlertCircle, BookOpen, Trophy, Globe2, MessageCircle, TrendingUp, Users, CalendarDays, Scale, Dumbbell, Share2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useLifts } from '@/stores/lifts';
 import { useTendon } from '@/stores/tendon';
 import { useSettings } from '@/stores/settings';
 import { benchmarkTier, topStrengthForVector, ormForLift } from '@/services/strength';
 import { currentTendonIndex } from '@/services/tendonHealth';
+import { deloadStatus } from '@/services/deload';
 import { VECTORS, kgToUnit } from '@/types/constants';
 import ScreenHeader from '@/components/ScreenHeader';
 import { Link } from 'react-router-dom';
@@ -116,6 +117,7 @@ function TendonHealthCard({ title, checkIn }: { title: string; checkIn: string }
   const { t } = useTranslation();
   const checks = useTendon((s) => s.checks);
   const index = currentTendonIndex(checks);
+  const deload = deloadStatus(checks);
 
   const color =
     index.score >= 60 ? 'text-ok' : index.score >= 40 ? 'text-warn' : 'text-bad';
@@ -134,6 +136,21 @@ function TendonHealthCard({ title, checkIn }: { title: string; checkIn: string }
         <Activity size={18} className="text-accent" />
         <h3 className="text-h3">{title}</h3>
       </div>
+      {deload.level !== 'none' && (
+        <div
+          className={`mb-3 flex items-center gap-2 rounded-md border p-2.5 ${
+            deload.level === 'deload' ? 'border-bad/40 bg-bad/5' : 'border-warn/30 bg-warn/5'
+          }`}
+        >
+          <AlertCircle size={16} className={`shrink-0 ${deload.level === 'deload' ? 'text-bad' : 'text-warn'}`} />
+          <p className={`text-caption font-semibold ${deload.level === 'deload' ? 'text-bad' : 'text-warn'}`}>
+            {t(`rehab.status_${deload.level}`)}
+          </p>
+          <Link to="/tendon" className="ml-auto shrink-0 text-caption font-bold text-accent">
+            {t('rehab.details')}
+          </Link>
+        </div>
+      )}
       {index.daysLogged === 0 ? (
         <div className="flex flex-col items-center gap-3 py-4">
           <AlertCircle size={24} className="text-text-faint" />
@@ -266,6 +283,21 @@ function MoreTools() {
   return (
     <section className="card space-y-2">
       <p className="label">{t('tools.moreTitle')}</p>
+      <Link to="/progress" className="btn-ghost w-full justify-start">
+        <TrendingUp size={18} /> {t('tools.moreProgress')}
+      </Link>
+      <Link to="/scout" className="btn-ghost w-full justify-start">
+        <Users size={18} /> {t('tools.moreScout')}
+      </Link>
+      <Link to="/tournament" className="btn-ghost w-full justify-start">
+        <CalendarDays size={18} /> {t('tools.moreTournament')}
+      </Link>
+      <Link to="/exercises" className="btn-ghost w-full justify-start">
+        <Dumbbell size={18} /> {t('tools.moreExercises')}
+      </Link>
+      <Link to="/partners" className="btn-ghost w-full justify-start">
+        <Globe2 size={18} /> {t('tools.morePartners')}
+      </Link>
       <Link to="/guide" className="btn-ghost w-full justify-start">
         <BookOpen size={18} /> {t('tools.moreGuide')}
       </Link>
@@ -275,7 +307,13 @@ function MoreTools() {
       <Link to="/rankings" className="btn-ghost w-full justify-start">
         <Globe2 size={18} /> {t('tools.moreRankings')}
       </Link>
-      <Link to="/chat" className="btn-ghost w-full justify-start hidden">
+      <Link to="/rules" className="btn-ghost w-full justify-start">
+        <Scale size={18} /> {t('tools.moreRules')}
+      </Link>
+      <Link to="/card" className="btn-ghost w-full justify-start">
+        <Share2 size={18} /> {t('tools.moreCard')}
+      </Link>
+      <Link to="/chat" className="btn-ghost w-full justify-start">
         <MessageCircle size={18} /> {t('tools.moreChat')}
       </Link>
     </section>

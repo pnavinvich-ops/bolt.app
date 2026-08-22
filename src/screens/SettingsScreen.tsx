@@ -71,6 +71,16 @@ export default function SettingsScreen() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
+              <label className="label mb-1.5 block">{t('settings.displayName')}</label>
+              <input
+                type="text"
+                className="input"
+                value={settings.displayName ?? ''}
+                onChange={(e) => update({ displayName: e.target.value || undefined })}
+                placeholder={t('settings.displayNamePh')}
+              />
+            </div>
+            <div>
               <label className="label mb-1.5 block">{t('settings.bodyWeight')}</label>
               <input
                 type="number"

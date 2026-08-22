@@ -42,6 +42,8 @@ export interface SparringSession {
   opponentStyle: string;
   myStyles: Vector[];
   outcome: Outcome;
+  /** Optional per-vector result tags for match analysis */
+  vectorOutcomes?: Partial<Record<Vector, Outcome>>;
   notes?: string;
 }
 
@@ -50,10 +52,40 @@ export interface TendonCheck {
   createdAt: number;
   elbow: number;
   forearm: number;
+  /** Optional pain-location tags, e.g. 'medial_elbow' */
+  painAreas?: PainArea[];
   notes?: string;
 }
 
+export type PainArea =
+  | 'medial_elbow'
+  | 'lateral_elbow'
+  | 'forearm_flexor'
+  | 'forearm_extensor'
+  | 'wrist'
+  | 'bicep';
+
+export interface Opponent {
+  id: string;
+  name: string;
+  style: string;
+  weightClass?: string;
+  handedness?: 'right' | 'left' | 'unknown';
+  notes?: string;
+}
+
+export interface Tournament {
+  id: string;
+  name: string;
+  /** ISO date key yyyy-mm-dd of the competition day */
+  dateKey: string;
+  weightClass?: string;
+  targetWeightKg?: number;
+  createdAt: number;
+}
+
 export interface Settings {
+  displayName?: string;
   bodyWeight?: number;
   weightClass?: string;
   unit: 'kg' | 'lb';

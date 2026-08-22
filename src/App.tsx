@@ -5,6 +5,8 @@ import { useSparring } from '@/stores/sparring';
 import { useTendon } from '@/stores/tendon';
 import { useSettings } from '@/stores/settings';
 import { useOnboarding } from '@/stores/onboarding';
+import { useOpponents } from '@/stores/opponents';
+import { useTournaments } from '@/stores/tournaments';
 import TabBar from '@/components/TabBar';
 import LogScreen from '@/screens/LogScreen';
 import HistoryScreen from '@/screens/HistoryScreen';
@@ -17,6 +19,13 @@ import VectorGuideScreen from '@/screens/VectorGuideScreen';
 import EliteAthletesScreen from '@/screens/EliteAthletesScreen';
 import WorldRankingsScreen from '@/screens/WorldRankingsScreen';
 import GlobalChatScreen from '@/screens/GlobalChatScreen';
+import ProgressScreen from '@/screens/ProgressScreen';
+import ScoutBookScreen from '@/screens/ScoutBookScreen';
+import PartnersScreen from '@/screens/PartnersScreen';
+import TournamentPrepScreen from '@/screens/TournamentPrepScreen';
+import RulesScreen from '@/screens/RulesScreen';
+import ExercisesScreen from '@/screens/ExercisesScreen';
+import StatCardScreen from '@/screens/StatCardScreen';
 import IntroScreen from '@/screens/onboarding/IntroScreen';
 import QuizScreen from '@/screens/onboarding/QuizScreen';
 import PaywallScreen from '@/screens/onboarding/PaywallScreen';
@@ -30,6 +39,8 @@ function Hydrator({ children }: { children: React.ReactNode }) {
     useTendon.getState().hydrate();
     useSettings.getState().hydrate();
     useOnboarding.getState().hydrate();
+    useOpponents.getState().hydrate();
+    useTournaments.getState().hydrate();
     setReady(true);
   }, []);
   if (!ready) {
@@ -80,6 +91,13 @@ export default function App() {
             <Route path="/athletes" element={<EliteAthletesScreen />} />
             <Route path="/rankings" element={<WorldRankingsScreen />} />
             <Route path="/chat" element={<GlobalChatScreen />} />
+            <Route path="/progress" element={<ProgressScreen />} />
+            <Route path="/scout" element={<ScoutBookScreen />} />
+            <Route path="/partners" element={<PartnersScreen />} />
+            <Route path="/tournament" element={<TournamentPrepScreen />} />
+            <Route path="/rules" element={<RulesScreen />} />
+            <Route path="/exercises" element={<ExercisesScreen />} />
+            <Route path="/card" element={<StatCardScreen />} />
             <Route path="*" element={<Navigate to="/log" replace />} />
           </Routes>
         </Layout>

@@ -1,10 +1,12 @@
 import { useMemo } from 'react';
-import { Activity, TrendingUp, AlertTriangle, Scale, ArrowRight } from 'lucide-react';
+import { Activity, TrendingUp, AlertTriangle, Scale, ArrowRight, Swords } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLifts } from '@/stores/lifts';
 import { useSparring } from '@/stores/sparring';
 import { runDiagnostics, type WeakVector } from '@/services/diagnostics';
+import { vectorOutcomeTallies } from '@/services/matchAnalysis';
+import { VECTORS } from '@/types/constants';
 import SpiderChart from '@/components/SpiderChart';
 import ScreenHeader from '@/components/ScreenHeader';
 import EmptyState from '@/components/EmptyState';
@@ -16,6 +18,43 @@ const BALANCE_KEY: Record<string, string> = {
   imbalanced: 'diag.bImbalanced',
   critical: 'diag.bCritical',
 };
+
+function MatchOutcomes() {
+  const { t } = useTranslation();
+  const sparring = useSparring((s) => s.sessions);
+  const tallies = useMemo(() => vectorOutcomeTallies(sparring), [sparring]);
+  const any = VECTORS.some((v) => tallies[v].total > 0);
+
+  if (!any) {
+    return (
+      <p className="text-caption text-text-faint">
+        {t('diag.matchEmpty')}{' '}
+        <Link to="/sparring" className="font-semibold text-accent">
+          {t('history.logSparCta')}
+        </Link>
+      </p>
+    );
+  }
+  return (
+    <div className="space-y-2">
+      {VECTORS.filter((v) => tallies[v].total > 0).map((v) => {
+        const tally = tallies[v];
+        return (
+          <div key={v} className="flex items-center gap-2">
+            <span className="w-20 shrink-0 truncate text-caption text-text-dim">{t(`enum.vector.${v}`)}</span>
+            <div className="flex h-2 flex-1 overflow-hidden rounded-full bg-surfaceAlt">
+              <div className="h-full bg-ok" style={{ width: `${(tally.win / tally.total) * 100}%` }} />
+              <div className="h-full bg-bad" style={{ width: `${(tally.loss / tally.total) * 100}%` }} />
+            </div>
+            <span className="w-16 shrink-0 text-right text-micro font-semibold">
+              <span className="text-ok">{tally.win}W</span> · <span className="text-bad">{tally.loss}L</span>
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 function WeakSuggestion({ w }: { w: WeakVector }) {
   const { t } = useTranslation();
@@ -143,6 +182,14 @@ export default function DiagnosticsScreen() {
                   );
                 })}
               </div>
+            </section>
+
+            {/* Match outcomes */}
+            <section className="card">
+              <p className="label mb-3 flex items-center gap-1.5">
+                <Swords size={12} /> {t('diag.matchTitle')}
+              </p>
+              <MatchOutcomes />
             </section>
 
             {/* Weak vectors */}

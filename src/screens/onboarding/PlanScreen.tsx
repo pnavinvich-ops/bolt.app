@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { Calendar, Dumbbell, ArrowRight, AlertCircle, Sparkles } from 'lucide-react';
+import { Calendar, Dumbbell, ArrowRight, AlertCircle, Sparkles, TrendingDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useOnboarding } from '@/stores/onboarding';
+import { useTendon } from '@/stores/tendon';
+import { deloadStatus, deloadVolumeFactor } from '@/services/deload';
 import { useProfileSummary } from '@/lib/profileText';
 import ScreenHeader from '@/components/ScreenHeader';
 
@@ -11,11 +13,16 @@ export default function PlanScreen() {
   const describeProfile = useProfileSummary();
   const profile = useOnboarding((s) => s.profile);
   const plan = useOnboarding((s) => s.plan);
+  const checks = useTendon((s) => s.checks);
+  const deload = deloadStatus(checks);
+  const volumeFactor = deloadVolumeFactor(deload.level);
 
   if (!profile || !plan) {
     navigate('/onboarding/quiz');
     return null;
   }
+
+  const reducedSets = (sets: number) => Math.max(1, Math.round(sets * volumeFactor));
 
   return (
     <div className="min-h-screen pb-32">
@@ -49,6 +56,18 @@ export default function PlanScreen() {
           </section>
         )}
 
+        {deload.level !== 'none' && (
+          <section className={`flex items-start gap-3 rounded-lg border p-3 ${deload.level === 'deload' ? 'border-bad/40 bg-bad/5' : 'border-warn/30 bg-warn/5'}`}>
+            <TrendingDown size={18} className={`mt-0.5 shrink-0 ${deload.level === 'deload' ? 'text-bad' : 'text-warn'}`} />
+            <div>
+              <p className={`text-body font-bold ${deload.level === 'deload' ? 'text-bad' : 'text-warn'}`}>
+                {t(`rehab.status_${deload.level}`)}
+              </p>
+              <p className="text-caption text-text-dim">{t('rehab.planAdjusted', { pct: Math.round((1 - volumeFactor) * 100) })}</p>
+            </div>
+          </section>
+        )}
+
         <div className="space-y-3">
           {plan.days.map((day) => (
             <section key={day.day} className="card">
@@ -73,7 +92,12 @@ export default function PlanScreen() {
                     <div className="flex-1">
                       <p className="text-body font-semibold">{t(`enum.vector.${ex.vector}`)}</p>
                       <p className="text-caption text-text-dim">
-                        {ex.sets}×{ex.reps} · {t(`enum.handle.${ex.handle}`)} · {t(`enum.pulley.${ex.pulley}`)}
+                        {reducedSets(ex.sets)}×{ex.reps}
+                        {volumeFactor < 1 && (
+                          <span className="ml-1 text-micro text-text-faint line-through">{ex.sets}</span>
+                        )}
+                        {' · '}
+                        {t(`enum.handle.${ex.handle}`)} · {t(`enum.pulley.${ex.pulley}`)}
                       </p>
                     </div>
                     <ArrowRight size={16} className="shrink-0 text-text-faint" />

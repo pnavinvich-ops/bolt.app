@@ -8,6 +8,7 @@ import type {
   Outcome,
   Arm,
   Mode,
+  PainArea,
 } from '@/types/domain';
 
 export const VECTORS: Vector[] = [
@@ -40,6 +41,43 @@ export const EXPERIENCES: Experience[] = ['beginner', 'intermediate', 'advanced'
 export const TENDON_STATUSES: TendonStatus[] = ['healthy', 'managing', 'recovering'];
 
 export const OUTCOMES: Outcome[] = ['win', 'loss', 'draw'];
+
+export const PAIN_AREAS: PainArea[] = [
+  'medial_elbow',
+  'lateral_elbow',
+  'forearm_flexor',
+  'forearm_extensor',
+  'wrist',
+  'bicep',
+];
+
+export const CHAT_CHANNELS: { id: string; key: string }[] = [
+  { id: 'global', key: 'chat.chGlobal' },
+  { id: 'technique', key: 'chat.chTechnique' },
+  { id: 'tournaments', key: 'chat.chTournaments' },
+  { id: 'gear', key: 'chat.chGear' },
+  { id: 'offtopic', key: 'chat.chOfftopic' },
+];
+
+/** Official men's weight-class limits in kg (WAF-style). SHW has no limit. */
+export const WEIGHT_CLASS_LIMITS: Record<string, number | null> = {
+  LW55: 55,
+  LW60: 60,
+  LW65: 65,
+  LW70: 70,
+  LW75: 75,
+  LW80: 80,
+  LW85: 85,
+  LW90: 90,
+  HW100: 100,
+  HW110: 110,
+  SHW: null,
+};
+
+export function classLimitKg(weightClass?: string): number | null {
+  if (!weightClass) return null;
+  return WEIGHT_CLASS_LIMITS[weightClass] ?? null;
+}
 
 export const VECTOR_TO_GOAL: Record<Vector, Goal[]> = {
   pronation: ['power', 'technique'],

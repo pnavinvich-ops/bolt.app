@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Heart, Check, Calendar } from 'lucide-react';
+import { Heart, Check, Calendar, AlertTriangle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTendon } from '@/stores/tendon';
 import { currentTendonIndex } from '@/services/tendonHealth';
+import { deloadStatus } from '@/services/deload';
+import { PAIN_AREAS } from '@/types/constants';
+import type { PainArea } from '@/types/domain';
 import i18n from '@/i18n';
 import ScreenHeader from '@/components/ScreenHeader';
 
@@ -21,6 +24,82 @@ const LABEL_KEY: Record<string, string> = {
   strained: 'tendon.lStrained',
   critical: 'tendon.lCritical',
 };
+
+function RehabCard() {
+  const { t } = useTranslation();
+  const checks = useTendon((s) => s.checks);
+  const index = currentTendonIndex(checks);
+  const deload = deloadStatus(checks);
+
+  const recent = checks.slice(0, 7);
+  const areaCounts = new Map<PainArea, number>();
+  for (const c of recent) {
+    for (const a of c.painAreas ?? []) {
+      areaCounts.set(a, (areaCounts.get(a) ?? 0) + 1);
+    }
+  }
+  const topAreas = Array.from(areaCounts.entries()).sort((a, b) => b[1] - a[1]).slice(0, 3);
+
+  const severeDay = recent.some((c) => (c.elbow + c.forearm) / 2 <= 4);
+  const criteria = [
+    { ok: index.score >= 60, key: 'critScore' },
+    { ok: index.trend !== 'declining', key: 'critTrend' },
+    { ok: !severeDay, key: 'critSevere' },
+    { ok: topAreas.length === 0, key: 'critPainFree' },
+  ];
+  const allClear = criteria.every((c) => c.ok);
+
+  return (
+    <section className="card space-y-3">
+      <p className="label flex items-center gap-1.5">
+        <AlertTriangle size={12} /> {t('tendon.rehabTitle')}
+      </p>
+
+      <div
+        className={`rounded-md border p-3 ${
+          deload.level === 'deload'
+            ? 'border-bad/40 bg-bad/5'
+            : deload.level === 'warn'
+              ? 'border-warn/30 bg-warn/5'
+              : 'border-ok/30 bg-ok/5'
+        }`}
+      >
+        <p className={`text-body font-bold ${deload.level === 'deload' ? 'text-bad' : deload.level === 'warn' ? 'text-warn' : 'text-ok'}`}>
+          {t(`rehab.status_${deload.level}`)}
+        </p>
+        <p className="mt-0.5 text-caption text-text-dim">{t(`rehab.advice_${deload.level}`)}</p>
+      </div>
+
+      <div>
+        <p className="label mb-2">{t('rehab.criteriaTitle')}</p>
+        <ul className="space-y-1.5">
+          {criteria.map((c) => (
+            <li key={c.key} className="flex items-start gap-2 text-caption">
+              <Check size={15} className={`mt-0.5 shrink-0 ${c.ok ? 'text-ok' : 'text-text-faint opacity-40'}`} />
+              <span className={c.ok ? 'text-text-dim' : 'text-text-faint'}>{t(`rehab.${c.key}`)}</span>
+            </li>
+          ))}
+        </ul>
+        <p className={`mt-2 text-caption font-bold ${allClear ? 'text-ok' : 'text-warn'}`}>
+          {allClear ? t('rehab.allClear') : t('rehab.notYet')}
+        </p>
+      </div>
+
+      {topAreas.length > 0 && (
+        <div>
+          <p className="label mb-1.5">{t('rehab.hotSpots')}</p>
+          <div className="flex flex-wrap gap-1.5">
+            {topAreas.map(([area, n]) => (
+              <span key={area} className="rounded-xs bg-bad-tint px-2 py-1 text-micro font-semibold text-bad">
+                {t(`tendon.area_${area}`)} ×{n}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
 
 function Slider({ label, value, onChange }: { label: string; value: number; onChange: (v: number) => void }) {
   const color = value <= 3 ? 'text-bad' : value <= 6 ? 'text-warn' : 'text-ok';
@@ -57,11 +136,16 @@ export default function TendonScreen() {
 
   const [elbow, setElbow] = useState(7);
   const [forearm, setForearm] = useState(7);
+  const [painAreas, setPainAreas] = useState<PainArea[]>([]);
   const [notes, setNotes] = useState('');
   const [saved, setSaved] = useState(false);
 
+  const toggleArea = (a: PainArea) => {
+    setPainAreas((prev) => (prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]));
+  };
+
   const handleSave = () => {
-    addCheck({ elbow, forearm, notes: notes.trim() || undefined });
+    addCheck({ elbow, forearm, painAreas: painAreas.length > 0 ? painAreas : undefined, notes: notes.trim() || undefined });
     setSaved(true);
     setTimeout(() => navigate('/tools'), 500);
   };
@@ -93,6 +177,10 @@ export default function TendonScreen() {
           </div>
         )}
 
+        {index.daysLogged > 0 && (
+          <RehabCard />
+        )}
+
         <section className="card space-y-5">
           <div className="flex items-center gap-2">
             <Heart size={18} className="text-accent" />
@@ -100,6 +188,25 @@ export default function TendonScreen() {
           </div>
           <Slider label={t('tendon.elbowHealth')} value={elbow} onChange={setElbow} />
           <Slider label={t('tendon.forearmHealth')} value={forearm} onChange={setForearm} />
+          <div>
+            <p className="label mb-2">{t('tendon.painAreas')}</p>
+            <div className="flex flex-wrap gap-1.5">
+              {PAIN_AREAS.map((a) => (
+                <button
+                  key={a}
+                  type="button"
+                  onClick={() => toggleArea(a)}
+                  className={`rounded-md border px-2.5 py-1.5 text-caption font-semibold transition-all active:scale-95 ${
+                    painAreas.includes(a)
+                      ? 'border-bad bg-bad-tint text-bad'
+                      : 'border-border bg-surfaceAlt text-text-dim hover:text-text'
+                  }`}
+                >
+                  {t(`tendon.area_${a}`)}
+                </button>
+              ))}
+            </div>
+          </div>
           <div>
             <p className="label mb-2">{t('tendon.notes')}</p>
             <textarea
