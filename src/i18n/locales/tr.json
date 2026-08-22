@@ -375,6 +375,7 @@
   "card": {
     "title": "İstatistik kartı",
     "subtitle": "Rakamlarını paylaş",
+    "topLifts": "En iyi kaldırışlar",
     "footer": "ArmLog ile çekini izle",
     "download": "PNG indir",
     "share": "Paylaş",

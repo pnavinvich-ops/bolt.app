@@ -376,6 +376,7 @@
   "card": {
     "title": "Carte de stats",
     "subtitle": "Partagez vos chiffres",
+    "topLifts": "Meilleurs levés",
     "footer": "Suivez votre traction avec ArmLog",
     "download": "Télécharger PNG",
     "share": "Partager",

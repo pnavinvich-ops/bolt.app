@@ -375,6 +375,7 @@
   "card": {
     "title": "Stat card",
     "subtitle": "Share your numbers",
+    "topLifts": "Top lifts",
     "footer": "Track your pull at armlog.app",
     "download": "Download PNG",
     "share": "Share",
