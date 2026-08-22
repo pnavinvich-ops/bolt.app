@@ -2,11 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Play, Check, ChevronRight, Timer as TimerIcon, SkipForward, Flag } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import type { SetEntry } from '@/types/domain';
+import type { Arm, SetEntry } from '@/types/domain';
+import { ARMS, uid, kgToUnit } from '@/types/constants';
 import { useOnboarding } from '@/stores/onboarding';
 import { useLifts } from '@/stores/lifts';
 import { useSettings } from '@/stores/settings';
-import { uid, kgToUnit } from '@/types/constants';
+import SegmentedControl from '@/components/SegmentedControl';
 import ScreenHeader from '@/components/ScreenHeader';
 
 interface LoggedSet extends SetEntry {
@@ -21,6 +22,7 @@ export default function WorkoutSessionScreen() {
   const addLift = useLifts((s) => s.addLift);
   const unit = useSettings((s) => s.settings.unit);
 
+  const [arm, setArm] = useState<Arm>('right');
   const [dayIdx, setDayIdx] = useState(0);
   const [started, setStarted] = useState(false);
   const [exIdx, setExIdx] = useState(0);
@@ -87,6 +89,16 @@ export default function WorkoutSessionScreen() {
       <div className="min-h-screen pb-32">
         <ScreenHeader title={t('workout.title')} subtitle={t('workout.pickDay')} backTo="/plan" />
         <div className="mx-auto max-w-md space-y-4 px-4 py-4">
+          {/* Arm selector */}
+          <section className="card space-y-2.5">
+            <p className="label">{t('log.arm')}</p>
+            <SegmentedControl
+              options={ARMS.map((a) => ({ value: a, label: t(`enum.arm.${a}`) }))}
+              value={arm}
+              onChange={setArm}
+            />
+          </section>
+
           <div className="grid grid-cols-2 gap-2">
             {plan.days.map((d) => (
               <button
@@ -152,7 +164,7 @@ export default function WorkoutSessionScreen() {
       for (const [vector, setsOfVec] of groups) {
         const firstEx = day.exercises.find((e) => e.vector === vector)!;
         addLift({
-          arm: 'right',
+          arm,
           vector: vector as never,
           handle: firstEx.handle,
           pulley: firstEx.pulley,
@@ -175,7 +187,7 @@ export default function WorkoutSessionScreen() {
     <div className="min-h-screen pb-40">
       <ScreenHeader
         title={t(`planGen.day${day.slot}`)}
-        subtitle={`${t('workout.exerciseN', { cur: exIdx + 1, total: day.exercises.length })} · ${totalLogged} ${t('log.sets').toLowerCase()}`}
+        subtitle={`${t(`enum.arm.${arm}`)} · ${t('workout.exerciseN', { cur: exIdx + 1, total: day.exercises.length })} · ${totalLogged} ${t('log.sets').toLowerCase()}`}
         backTo="/plan"
       />
 
