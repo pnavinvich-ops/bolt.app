@@ -89,11 +89,7 @@ export default function GlobalChatScreen() {
     (async () => {
       const { data } = await supabase.auth.getUser();
       if (data.user) {
-        const name =
-          (data.user.user_metadata?.user_name as string | undefined) ||
-          data.user.email?.split('@')[0] ||
-          'Anonymous';
-        setUser({ id: data.user.id, name });
+        setUser({ id: data.user.id, name: resolveDisplayName(data.user) });
       }
     })();
   }, []);
@@ -168,6 +164,25 @@ export default function GlobalChatScreen() {
     if (error) setError(error.message);
     else setAuthInfo(t('chat.linkSent'));
     setAuthLoading(false);
+  };
+
+  const signInGoogle = async () => {
+    setError(null);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: `${window.location.origin}/#/chat` },
+    });
+    if (error) setError(error.message);
+  };
+
+  const signInGuest = async () => {
+    setError(null);
+    const { data, error } = await supabase.auth.signInAnonymously();
+    if (error || !data.user) {
+      setError(error?.message ?? t('sync.fail'));
+      return;
+    }
+    setUser({ id: data.user.id, name: resolveDisplayName(data.user) });
   };
 
   const signOut = async () => {
@@ -267,6 +282,25 @@ export default function GlobalChatScreen() {
                 <LogIn size={18} /> {authLoading ? t('chat.sendingLink') : t('chat.sendLink')}
               </button>
             </form>
+
+            <div className="flex items-center gap-3 py-1">
+              <span className="h-px flex-1 bg-border" />
+              <span className="text-micro text-text-faint">{t('chat.orDivider')}</span>
+              <span className="h-px flex-1 bg-border" />
+            </div>
+
+            <button type="button" onClick={signInGoogle} className="btn-ghost w-full">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden>
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.57c2.08-1.92 3.27-4.74 3.27-8.09z" />
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.76c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z" />
+                <path fill="#FBBC05" d="M5.84 14.11a6.6 6.6 0 0 1 0-4.22V7.05H2.18a11 11 0 0 0 0 9.9l3.66-2.84z" />
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15A11 11 0 0 0 2.18 7.05l3.66 2.84c.87-2.6 3.3-4.51 6.16-4.51z" />
+              </svg>
+              {t('chat.googleSignIn')}
+            </button>
+            <button type="button" onClick={signInGuest} className="btn-primary w-full">
+              <MessageCircle size={18} /> {t('chat.guestSignIn')}
+            </button>
             {authInfo && <p className="text-caption text-ok">{authInfo}</p>}
             {error && (
               <p className="flex items-start gap-1.5 text-caption text-warn">
@@ -464,4 +498,26 @@ function Bubble({
 
 function channelKeyFor(id: string): string {
   return CHAT_CHANNELS.find((c) => c.id === id)?.key ?? 'chat.chGlobal';
+}
+
+/** Friendly display name for Google users, email users and anonymous guests. */
+function resolveDisplayName(user: {
+  user_metadata?: Record<string, unknown>;
+  email?: string;
+  is_anonymous?: boolean;
+}): string {
+  const meta = (user.user_metadata ?? {}) as Record<string, string | undefined>;
+  if (user.is_anonymous) {
+    const stored = readJSON<string>('guestName');
+    const name = stored ?? `Guest-${Math.random().toString(36).slice(2, 6)}`;
+    writeJSON('guestName', name);
+    return name;
+  }
+  return (
+    meta.full_name?.trim() ||
+    meta.user_name?.trim() ||
+    meta.name?.trim() ||
+    user.email?.split('@')[0] ||
+    'Anonymous'
+  );
 }
