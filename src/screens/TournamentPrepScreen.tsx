@@ -5,6 +5,7 @@ import { useTournaments } from '@/stores/tournaments';
 import { useSettings } from '@/stores/settings';
 import { WEIGHT_CLASS_LIMITS, classLimitKg } from '@/types/constants';
 import ScreenHeader from '@/components/ScreenHeader';
+import ThemeSelect from '@/components/ThemeSelect';
 
 type Phase = 'base' | 'build' | 'peak' | 'taper' | 'past';
 
@@ -109,19 +110,18 @@ export default function TournamentPrepScreen() {
             </label>
             <label className="block">
               <span className="label mb-1.5 block">{t('tour.classLabel')}</span>
-              <select
-                className="input"
+              <ThemeSelect
                 value={form.weightClass}
-                onChange={(e) => pickClass(e.target.value)}
-              >
-                <option value="">{t('tour.classAny')}</option>
-                {Object.keys(WEIGHT_CLASS_LIMITS).map((wc) => (
-                  <option key={wc} value={wc}>
-                    {wc}
-                    {WEIGHT_CLASS_LIMITS[wc] != null ? ` (≤${WEIGHT_CLASS_LIMITS[wc]} kg)` : ''}
-                  </option>
-                ))}
-              </select>
+                onChange={(v) => pickClass(v)}
+                options={[
+                  { value: '', label: t('tour.classAny') },
+                  ...Object.keys(WEIGHT_CLASS_LIMITS).map((wc) => ({
+                    value: wc,
+                    label:
+                      wc + (WEIGHT_CLASS_LIMITS[wc] != null ? ` (≤${WEIGHT_CLASS_LIMITS[wc]} kg)` : ''),
+                  })),
+                ]}
+              />
             </label>
             <label className="block">
               <span className="label mb-1.5 block">{t('tour.targetLabel')}</span>

@@ -18,6 +18,7 @@ import { usePresets } from '@/stores/presets';
 import { oneRepMax } from '@/services/strength';
 import SegmentedControl from '@/components/SegmentedControl';
 import ScreenHeader from '@/components/ScreenHeader';
+import ThemeSelect from '@/components/ThemeSelect';
 
 export default function LogScreen() {
   const [params] = useSearchParams();
@@ -252,31 +253,19 @@ export default function LogScreen() {
         <section className="grid grid-cols-2 gap-3">
           <div>
             <p className="label mb-2">{t('log.handle')}</p>
-            <select
-              className="input"
+            <ThemeSelect
               value={handle}
-              onChange={(e) => setHandle(e.target.value as Handle)}
-            >
-              {HANDLES.map((h) => (
-                <option key={h} value={h}>
-                  {t(`enum.handle.${h}`)}
-                </option>
-              ))}
-            </select>
+              onChange={setHandle}
+              options={HANDLES.map((h) => ({ value: h, label: t(`enum.handle.${h}`) }))}
+            />
           </div>
           <div>
             <p className="label mb-2">{t('log.pulley')}</p>
-            <select
-              className="input"
+            <ThemeSelect
               value={pulley}
-              onChange={(e) => setPulley(e.target.value as Pulley)}
-            >
-              {PULLEYS.map((p) => (
-                <option key={p} value={p}>
-                  {t(`enum.pulley.${p}`)}
-                </option>
-              ))}
-            </select>
+              onChange={setPulley}
+              options={PULLEYS.map((p) => ({ value: p, label: t(`enum.pulley.${p}`) }))}
+            />
           </div>
         </section>
 
