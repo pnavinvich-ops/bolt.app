@@ -19,7 +19,7 @@
     "days": "{{count}} jours"
   },
   "nav": { "log": "Journal", "history": "Historique", "diagnostics": "Diagnostic", "tools": "Outils", "tendon": "Tendons", "sparring": "Sparring", "settings": "Paramètres", "plan": "Plan", "chat": "Chat", "rankings": "Classement", "guide": "Guide" },
-  "tabs": { "log": "Journal", "history": "Hist.", "diagnostics": "Diag", "tools": "Outils" },
+  "tabs": { "log": "Journal", "history": "Hist.", "progress": "Progrès", "diagnostics": "Diag", "tools": "Outils" },
   "tools": {
     "title": "Outils",
     "subtitle": "Réaction, tendons, références",
@@ -39,6 +39,9 @@
     "morePartners": "Trouver des partenaires",
     "moreRules": "Référence des règles",
     "moreCard": "Carte de stats",
+    "secTrack": "Suivi",
+    "secLearn": "Apprendre",
+    "secCommunity": "Communauté",
     "tapStart": "Touchez pour commencer",
     "waitGreen": "Attendez le vert…",
     "tapNow": "TAPEZ MAINTENANT !",

@@ -19,7 +19,7 @@
     "days": "{{count}} दिन"
   },
   "nav": { "log": "डायरी", "history": "इतिहास", "diagnostics": "निदान", "tools": "टूल्स", "tendon": "कंडरा", "sparring": "स्पैरिंग", "settings": "सेटिंग्स", "plan": "योजना", "chat": "चैट", "rankings": "रैंकिंग", "guide": "गाइड" },
-  "tabs": { "log": "डायरी", "history": "इतिहास", "diagnostics": "निदान", "tools": "टूल्स" },
+  "tabs": { "log": "डायरी", "history": "इतिहास", "progress": "प्रोग्रेस", "diagnostics": "निदान", "tools": "टूल्स" },
   "tools": {
     "title": "टूल्स",
     "subtitle": "रिएक्शन, कंडरा, मानक",
@@ -39,6 +39,9 @@
     "morePartners": "साथी खोजें",
     "moreRules": "नियम संदर्भ",
     "moreCard": "स्टैट कार्ड साझा करें",
+    "secTrack": "ट्रैकिंग",
+    "secLearn": "सीखें",
+    "secCommunity": "कम्युनिटी",
     "tapStart": "शुरू करने के लिए टैप करें",
     "waitGreen": "हरे की प्रतीक्षा करें…",
     "tapNow": "अभी टैप करें!",

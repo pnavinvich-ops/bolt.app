@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import i18n from '@/i18n';
 import ScreenHeader from '@/components/ScreenHeader';
+import PullToRefresh from '@/components/PullToRefresh';
 
 interface Ranking {
   id: number;
@@ -80,7 +81,8 @@ export default function WorldRankingsScreen() {
         }
       />
 
-      <div className="mx-auto max-w-md space-y-3 px-4 py-4">
+      <PullToRefresh onRefresh={load}>
+        <div className="mx-auto max-w-md space-y-3 px-4 py-4">
         <section className="card space-y-3">
           <p className="label flex items-center gap-1.5">
             <Filter size={12} /> {t('rankings.filter')}
@@ -155,7 +157,8 @@ export default function WorldRankingsScreen() {
             </li>
           ))}
         </ol>
-      </div>
+        </div>
+      </PullToRefresh>
     </div>
   );
 }

@@ -19,7 +19,7 @@
     "days": "{{count}} días"
   },
   "nav": { "log": "Registro", "history": "Historial", "diagnostics": "Diagnóstico", "tools": "Herramientas", "tendon": "Tendón", "sparring": "Sparring", "settings": "Ajustes", "plan": "Plan", "chat": "Chat", "rankings": "Ranking", "guide": "Guía" },
-  "tabs": { "log": "Reg.", "history": "Hist.", "diagnostics": "Diag", "tools": "Herr." },
+  "tabs": { "log": "Reg.", "history": "Hist.", "progress": "Progreso", "diagnostics": "Diag", "tools": "Herr." },
   "tools": {
     "title": "Herramientas",
     "subtitle": "Reacción, tendón, marcas",
@@ -39,6 +39,9 @@
     "morePartners": "Buscar compañeros",
     "moreRules": "Referencia de reglas",
     "moreCard": "Tarjeta de estadísticas",
+    "secTrack": "Seguimiento",
+    "secLearn": "Aprender",
+    "secCommunity": "Comunidad",
     "tapStart": "Toca para empezar",
     "waitGreen": "Espera el verde…",
     "tapNow": "¡TOCA AHORA!",

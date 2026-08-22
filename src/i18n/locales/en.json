@@ -19,7 +19,7 @@
     "days": "{{count}} days"
   },
   "nav": { "log": "Log", "history": "History", "diagnostics": "Diagnostics", "tools": "Tools", "tendon": "Tendon", "sparring": "Sparring", "settings": "Settings", "plan": "Plan", "chat": "Chat", "rankings": "Rankings", "guide": "Guide" },
-  "tabs": { "log": "Log", "history": "History", "diagnostics": "Diag", "tools": "Tools" },
+  "tabs": { "log": "Log", "history": "History", "progress": "Progress", "diagnostics": "Diag", "tools": "Tools" },
   "tools": {
     "title": "Tools",
     "subtitle": "Reaction, tendon, benchmarks",
@@ -39,6 +39,9 @@
     "morePartners": "Find partners",
     "moreRules": "Rules reference",
     "moreCard": "Share stat card",
+    "secTrack": "Track your training",
+    "secLearn": "Learn",
+    "secCommunity": "Community",
     "tapStart": "Tap to start",
     "waitGreen": "Wait for green…",
     "tapNow": "TAP NOW!",

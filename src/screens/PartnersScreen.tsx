@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import ScreenHeader from '@/components/ScreenHeader';
+import PullToRefresh from '@/components/PullToRefresh';
 
 interface Club {
   id: string;
@@ -90,7 +91,8 @@ export default function PartnersScreen() {
     <div className="min-h-screen pb-32">
       <ScreenHeader title={t('partners.title')} subtitle={t('partners.subtitle')} backTo="/tools" />
 
-      <div className="mx-auto max-w-md space-y-4 px-4 py-4">
+      <PullToRefresh onRefresh={load}>
+        <div className="mx-auto max-w-md space-y-4 px-4 py-4">
         {!isSupabaseConfigured ? (
           <section className="card space-y-3">
             <p className="flex items-start gap-2 text-caption text-warn">
@@ -226,7 +228,8 @@ export default function PartnersScreen() {
             </div>
           </>
         )}
-      </div>
+        </div>
+      </PullToRefresh>
     </div>
   );
 }

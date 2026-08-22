@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Zap, RefreshCw, Award, Activity, Timer, AlertCircle, BookOpen, Trophy, Globe2, MessageCircle, TrendingUp, Users, CalendarDays, Scale, Dumbbell, Share2 } from 'lucide-react';
+import { Zap, RefreshCw, Award, Activity, Timer, AlertCircle, BookOpen, Trophy, Globe2, MessageCircle, TrendingUp, Users, CalendarDays, Scale, Dumbbell, Share2, Settings as SettingsIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useLifts } from '@/stores/lifts';
 import { useTendon } from '@/stores/tendon';
@@ -267,7 +268,19 @@ export default function ToolsScreen() {
   const { t } = useTranslation();
   return (
     <div className="min-h-screen pb-32">
-      <ScreenHeader title={t('tools.title')} subtitle={t('tools.subtitle')} />
+      <ScreenHeader
+        title={t('tools.title')}
+        subtitle={t('tools.subtitle')}
+        right={
+          <Link
+            to="/settings"
+            aria-label={t('nav.settings')}
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-surfaceAlt text-text-dim transition-all active:scale-90 hover:text-text"
+          >
+            <SettingsIcon size={18} />
+          </Link>
+        }
+      />
       <div className="mx-auto max-w-md space-y-4 px-4 py-4">
         <ReactionTrainer title={t('tools.reactionTitle')} />
         <TendonHealthCard title={t('tools.tendonTitle')} checkIn={t('tools.tendonCheckIn')} />
@@ -278,44 +291,55 @@ export default function ToolsScreen() {
   );
 }
 
+function ToolTile({ to, icon: Icon, label }: { to: string; icon: LucideIcon; label: string }) {
+  return (
+    <Link
+      to={to}
+      className="flex flex-col items-center gap-1.5 rounded-lg border border-border bg-surfaceAlt p-3 text-center transition-all active:scale-95 hover:border-borderStrong"
+    >
+      <Icon size={20} className="shrink-0 text-accent" />
+      <span className="text-micro font-semibold leading-tight text-text-dim">{label}</span>
+    </Link>
+  );
+}
+
+function TileSection({ titleKey, children }: { titleKey: string; children: React.ReactNode }) {
+  const { t } = useTranslation();
+  return (
+    <section>
+      <p className="label mb-2">{t(titleKey)}</p>
+      <div className="grid grid-cols-2 gap-2">{children}</div>
+    </section>
+  );
+}
+
 function MoreTools() {
   const { t } = useTranslation();
   return (
-    <section className="card space-y-2">
-      <p className="label">{t('tools.moreTitle')}</p>
-      <Link to="/progress" className="btn-ghost w-full justify-start">
-        <TrendingUp size={18} /> {t('tools.moreProgress')}
+    <div className="space-y-5">
+      <TileSection titleKey="tools.secTrack">
+        <ToolTile to="/progress" icon={TrendingUp} label={t('tools.moreProgress')} />
+        <ToolTile to="/scout" icon={Users} label={t('tools.moreScout')} />
+        <ToolTile to="/tournament" icon={CalendarDays} label={t('tools.moreTournament')} />
+        <ToolTile to="/card" icon={Share2} label={t('tools.moreCard')} />
+      </TileSection>
+
+      <TileSection titleKey="tools.secLearn">
+        <ToolTile to="/exercises" icon={Dumbbell} label={t('tools.moreExercises')} />
+        <ToolTile to="/guide" icon={BookOpen} label={t('tools.moreGuide')} />
+        <ToolTile to="/athletes" icon={Trophy} label={t('tools.moreAthletes')} />
+        <ToolTile to="/rules" icon={Scale} label={t('tools.moreRules')} />
+      </TileSection>
+
+      <TileSection titleKey="tools.secCommunity">
+        <ToolTile to="/partners" icon={Globe2} label={t('tools.morePartners')} />
+        <ToolTile to="/rankings" icon={Trophy} label={t('tools.moreRankings')} />
+        <ToolTile to="/chat" icon={MessageCircle} label={t('tools.moreChat')} />
+      </TileSection>
+
+      <Link to="/settings" className="btn-ghost w-full justify-start">
+        <SettingsIcon size={18} /> {t('nav.settings')}
       </Link>
-      <Link to="/scout" className="btn-ghost w-full justify-start">
-        <Users size={18} /> {t('tools.moreScout')}
-      </Link>
-      <Link to="/tournament" className="btn-ghost w-full justify-start">
-        <CalendarDays size={18} /> {t('tools.moreTournament')}
-      </Link>
-      <Link to="/exercises" className="btn-ghost w-full justify-start">
-        <Dumbbell size={18} /> {t('tools.moreExercises')}
-      </Link>
-      <Link to="/partners" className="btn-ghost w-full justify-start">
-        <Globe2 size={18} /> {t('tools.morePartners')}
-      </Link>
-      <Link to="/guide" className="btn-ghost w-full justify-start">
-        <BookOpen size={18} /> {t('tools.moreGuide')}
-      </Link>
-      <Link to="/athletes" className="btn-ghost w-full justify-start">
-        <Trophy size={18} /> {t('tools.moreAthletes')}
-      </Link>
-      <Link to="/rankings" className="btn-ghost w-full justify-start">
-        <Globe2 size={18} /> {t('tools.moreRankings')}
-      </Link>
-      <Link to="/rules" className="btn-ghost w-full justify-start">
-        <Scale size={18} /> {t('tools.moreRules')}
-      </Link>
-      <Link to="/card" className="btn-ghost w-full justify-start">
-        <Share2 size={18} /> {t('tools.moreCard')}
-      </Link>
-      <Link to="/chat" className="btn-ghost w-full justify-start">
-        <MessageCircle size={18} /> {t('tools.moreChat')}
-      </Link>
-    </section>
+    </div>
   );
 }

@@ -19,7 +19,7 @@
     "days": "{{count}} дн."
   },
   "nav": { "log": "Журнал", "history": "История", "diagnostics": "Диагностика", "tools": "Инструменты", "tendon": "Сухожилия", "sparring": "Спарринг", "settings": "Настройки", "plan": "План", "chat": "Чат", "rankings": "Рейтинг", "guide": "Гайд" },
-  "tabs": { "log": "Журнал", "history": "История", "diagnostics": "Диаг", "tools": "Инструменты" },
+  "tabs": { "log": "Журнал", "history": "История", "progress": "Прогресс", "diagnostics": "Диаг", "tools": "Инструменты" },
   "tools": {
     "title": "Инструменты",
     "subtitle": "Реакция, сухожилия, нормативы",
@@ -39,6 +39,9 @@
     "morePartners": "Найти партнёров",
     "moreRules": "Справочник правил",
     "moreCard": "Карточка статистики",
+    "secTrack": "Трекинг тренировок",
+    "secLearn": "Обучение",
+    "secCommunity": "Сообщество",
     "tapStart": "Нажмите, чтобы начать",
     "waitGreen": "Ждите зелёный…",
     "tapNow": "ЖМИТЕ СЕЙЧАС!",

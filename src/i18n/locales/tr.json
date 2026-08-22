@@ -19,7 +19,7 @@
     "days": "{{count}} gün"
   },
   "nav": { "log": "Günlük", "history": "Geçmiş", "diagnostics": "Teşhis", "tools": "Araçlar", "tendon": "Tendon", "sparring": "Sparring", "settings": "Ayarlar", "plan": "Plan", "chat": "Sohbet", "rankings": "Sıralama", "guide": "Rehber" },
-  "tabs": { "log": "Günl.", "history": "Geç.", "diagnostics": "Teşh.", "tools": "Araç." },
+  "tabs": { "log": "Günl.", "history": "Geç.", "progress": "İlerleme", "diagnostics": "Teşh.", "tools": "Araç." },
   "tools": {
     "title": "Araçlar",
     "subtitle": "Reaksiyon, tendon, dereceler",
@@ -39,6 +39,9 @@
     "morePartners": "Partner bul",
     "moreRules": "Kurallar başvurusu",
     "moreCard": "İstatistik kartı paylaş",
+    "secTrack": "Takip",
+    "secLearn": "Öğren",
+    "secCommunity": "Topluluk",
     "tapStart": "Başlamak için dokun",
     "waitGreen": "Yeşili bekle…",
     "tapNow": "ŞİMDİ DOKUN!",

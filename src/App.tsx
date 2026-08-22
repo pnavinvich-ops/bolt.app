@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useLifts } from '@/stores/lifts';
 import { useSparring } from '@/stores/sparring';
@@ -8,28 +8,39 @@ import { useOnboarding } from '@/stores/onboarding';
 import { useOpponents } from '@/stores/opponents';
 import { useTournaments } from '@/stores/tournaments';
 import TabBar from '@/components/TabBar';
-import LogScreen from '@/screens/LogScreen';
-import HistoryScreen from '@/screens/HistoryScreen';
-import DiagnosticsScreen from '@/screens/DiagnosticsScreen';
-import ToolsScreen from '@/screens/ToolsScreen';
-import SettingsScreen from '@/screens/SettingsScreen';
-import TendonScreen from '@/screens/TendonScreen';
-import SparringScreen from '@/screens/SparringScreen';
-import VectorGuideScreen from '@/screens/VectorGuideScreen';
-import EliteAthletesScreen from '@/screens/EliteAthletesScreen';
-import WorldRankingsScreen from '@/screens/WorldRankingsScreen';
-import GlobalChatScreen from '@/screens/GlobalChatScreen';
-import ProgressScreen from '@/screens/ProgressScreen';
-import ScoutBookScreen from '@/screens/ScoutBookScreen';
-import PartnersScreen from '@/screens/PartnersScreen';
-import TournamentPrepScreen from '@/screens/TournamentPrepScreen';
-import RulesScreen from '@/screens/RulesScreen';
-import ExercisesScreen from '@/screens/ExercisesScreen';
-import StatCardScreen from '@/screens/StatCardScreen';
-import IntroScreen from '@/screens/onboarding/IntroScreen';
-import QuizScreen from '@/screens/onboarding/QuizScreen';
-import PaywallScreen from '@/screens/onboarding/PaywallScreen';
-import PlanScreen from '@/screens/onboarding/PlanScreen';
+
+// Route-level code splitting: each screen ships as its own chunk and loads
+// on first visit, keeping the initial bundle small.
+const LogScreen = lazy(() => import('@/screens/LogScreen'));
+const HistoryScreen = lazy(() => import('@/screens/HistoryScreen'));
+const DiagnosticsScreen = lazy(() => import('@/screens/DiagnosticsScreen'));
+const ToolsScreen = lazy(() => import('@/screens/ToolsScreen'));
+const SettingsScreen = lazy(() => import('@/screens/SettingsScreen'));
+const TendonScreen = lazy(() => import('@/screens/TendonScreen'));
+const SparringScreen = lazy(() => import('@/screens/SparringScreen'));
+const VectorGuideScreen = lazy(() => import('@/screens/VectorGuideScreen'));
+const EliteAthletesScreen = lazy(() => import('@/screens/EliteAthletesScreen'));
+const WorldRankingsScreen = lazy(() => import('@/screens/WorldRankingsScreen'));
+const GlobalChatScreen = lazy(() => import('@/screens/GlobalChatScreen'));
+const ProgressScreen = lazy(() => import('@/screens/ProgressScreen'));
+const ScoutBookScreen = lazy(() => import('@/screens/ScoutBookScreen'));
+const PartnersScreen = lazy(() => import('@/screens/PartnersScreen'));
+const TournamentPrepScreen = lazy(() => import('@/screens/TournamentPrepScreen'));
+const RulesScreen = lazy(() => import('@/screens/RulesScreen'));
+const ExercisesScreen = lazy(() => import('@/screens/ExercisesScreen'));
+const StatCardScreen = lazy(() => import('@/screens/StatCardScreen'));
+const IntroScreen = lazy(() => import('@/screens/onboarding/IntroScreen'));
+const QuizScreen = lazy(() => import('@/screens/onboarding/QuizScreen'));
+const PaywallScreen = lazy(() => import('@/screens/onboarding/PaywallScreen'));
+const PlanScreen = lazy(() => import('@/screens/onboarding/PlanScreen'));
+
+function RouteFallback() {
+  return (
+    <div className="flex min-h-[60vh] items-center justify-center">
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-accent" />
+    </div>
+  );
+}
 
 function Hydrator({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
@@ -74,7 +85,8 @@ export default function App() {
     <HashRouter>
       <Hydrator>
         <Layout>
-          <Routes>
+          <Suspense fallback={<RouteFallback />}>
+            <Routes>
             <Route path="/" element={<RootRedirect />} />
             <Route path="/onboarding" element={<IntroScreen />} />
             <Route path="/log" element={<LogScreen />} />
@@ -99,7 +111,8 @@ export default function App() {
             <Route path="/exercises" element={<ExercisesScreen />} />
             <Route path="/card" element={<StatCardScreen />} />
             <Route path="*" element={<Navigate to="/log" replace />} />
-          </Routes>
+            </Routes>
+          </Suspense>
         </Layout>
       </Hydrator>
     </HashRouter>

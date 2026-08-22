@@ -19,7 +19,7 @@
     "days": "{{count}} დღე"
   },
   "nav": { "log": "ჟურნალი", "history": "ისტორია", "diagnostics": "დიაგნოსტიკა", "tools": "ხელსაწყოები", "tendon": "მყესი", "sparring": "სპარინგი", "settings": "პარამეტრები", "plan": "გეგმა", "chat": "ჩატი", "rankings": "რეიტინგი", "guide": "გაიდლაინი" },
-  "tabs": { "log": "ჟურ.", "history": "ისტ.", "diagnostics": "დიაგ.", "tools": "ხელ." },
+  "tabs": { "log": "ჟურ.", "history": "ისტ.", "progress": "პროგრესი", "diagnostics": "დიაგ.", "tools": "ხელ." },
   "tools": {
     "title": "ხელსაწყოები",
     "subtitle": "რეაქცია, მყესი, ნორმები",
@@ -39,6 +39,9 @@
     "morePartners": "პარტნიორის ძებნა",
     "moreRules": "წესების ცნობარი",
     "moreCard": "სტატისტიკის ბარათი",
+    "secTrack": "თრეკინგი",
+    "secLearn": "სწავლა",
+    "secCommunity": "საზოგადოება",
     "tapStart": "დასაწყებად შეეხე",
     "waitGreen": "დაელოდე მწვანეს…",
     "tapNow": "შეეხე ახლავე!",

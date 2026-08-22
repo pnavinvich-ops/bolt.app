@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
-import { Dumbbell, History, Activity, Wrench, Settings as SettingsIcon } from 'lucide-react';
+import { Dumbbell, History, Activity, Wrench, TrendingUp } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const tabs = [
   { to: '/log', icon: Dumbbell, key: 'tabs.log' },
   { to: '/history', icon: History, key: 'tabs.history' },
+  { to: '/progress', icon: TrendingUp, key: 'tabs.progress' },
   { to: '/diagnostics', icon: Activity, key: 'tabs.diagnostics' },
   { to: '/tools', icon: Wrench, key: 'tabs.tools' },
-  { to: '/settings', icon: SettingsIcon, key: 'nav.settings' },
 ];
 
 export default function TabBar() {
