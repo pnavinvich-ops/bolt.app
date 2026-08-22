@@ -99,20 +99,6 @@ export default function SpiderChart({ series, max, size = 260 }: SpiderChartProp
             </text>
           );
         })}
-
-        {/* legend */}
-        {series.length > 1 && (
-          <g>
-            {series.map((s, i) => (
-              <g key={i} transform={`translate(${size / 2 - 60}, ${size - 6 + i * 0})`}>
-                <rect x={0} y={0} width={10} height={10} rx={2} fill={s.color} />
-                <text x={14} y={9} className="fill-text-dim" style={{ fontSize: 10, fontWeight: 600 }}>
-                  {s.label}
-                </text>
-              </g>
-            ))}
-          </g>
-        )}
       </svg>
     </div>
   );
