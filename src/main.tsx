@@ -18,10 +18,31 @@ async function setupNative() {
   }
 }
 
-setupNative();
+/**
+ * Consume magic-link / OAuth tokens from the URL BEFORE the router mounts.
+ * The link callback lands on `site#access_token=…` (no route), which
+ * HashRouter would otherwise bounce away from before the session is read.
+ * After consuming, we send the user straight into the chat, signed in.
+ * Supabase is imported lazily here so normal visits stay lightweight.
+ */
+async function bootstrap() {
+  const url = window.location.href;
+  if (!url.includes('access_token=') && !/[?&]code=/.test(url)) return;
+  try {
+    const { supabase } = await import('./lib/supabase');
+    await supabase.auth.getSession();
+    const target = `${window.location.origin}/#/chat`;
+    window.history.replaceState({}, '', target);
+  } catch {
+    /* no pending session */
+  }
+}
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+(async () => {
+  await Promise.allSettled([setupNative(), bootstrap()]);
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <App />
+    </StrictMode>
+  );
+})();
